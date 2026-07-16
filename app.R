@@ -86,6 +86,19 @@ family_specs <- list(
 
 forecast <- read_optional("nascar_stage18_current_forecast_with_safe_overlays_latest.csv")
 if (!nrow(forecast)) forecast <- read_optional("nascar_stage15_upcoming_race_predictions_latest.csv")
+qualifying_chatter <- qualifying
+if (nrow(forecast) && all(c("predicted_qualifying_position","predicted_qualifying_position_adjusted") %in% names(forecast))) {
+  qualifying_chatter_shift <- forecast %>%
+    transmute(season=num(season),round=num(round),driver_id=as.character(driver_id),
+              chatter_qualifying_shift=num(predicted_qualifying_position_adjusted)-num(predicted_qualifying_position)) %>%
+    distinct(season,round,driver_id,.keep_all=TRUE)
+  qualifying_chatter <- qualifying %>%
+    left_join(qualifying_chatter_shift,by=c("season","round","driver_id")) %>%
+    mutate(predicted_position_score=.data$predicted_position_score+coalesce(.data$chatter_qualifying_shift,0)) %>%
+    group_by(.data$season,.data$round,.data$model) %>%
+    mutate(predicted_qualifying_rank=rank(.data$predicted_position_score,ties.method="first")) %>%
+    ungroup() %>% select(-chatter_qualifying_shift)
+}
 tracks <- read_optional("nascar_stage4_track_profile_inventory_2018_2026.csv")
 current_track_features <- read_optional("nascar_stage14_upcoming_race_features_latest.csv")
 if (nrow(current_track_features)) current_track_features <- current_track_features %>%
@@ -108,6 +121,9 @@ overlay_metrics <- read_optional("nascar_stage18_2025_backtest_safe_overlay_metr
 dk <- read_optional("nascar_stage19_draftkings_driver_projections_latest.csv")
 dk_lineups <- read_optional("nascar_stage19_draftkings_top_lineups_latest.csv")
 dk_members <- read_optional("nascar_stage19_draftkings_top_lineup_members_latest.csv")
+dk_initial_lineups <- if ("projection_variant" %in% names(dk_lineups)) {
+  dk_lineups %>% filter(.data$projection_variant == "base")
+} else dk_lineups
 dk_backtest <- read_optional("nascar_stage20_2025_draftkings_points_backtest.csv")
 dk_backtest_metrics <- read_optional("nascar_stage20_2025_draftkings_points_backtest_metrics.csv")
 external_audit <- read_optional("nascar_stage17_external_inputs_audit.csv")
@@ -491,7 +507,7 @@ app_shell <- navbarPage(
   ),
   navbarMenu("Qualifying",
     family_tab("qual","Qualifying","Compare pole predictions, full grids, specialists, and any selected-model ensemble.",qualifying_summary=TRUE),
-    family_tab("qchat","Qualifying With Chatter","Same model controls as qualifying, with the chatter layer kept explicit.","NASCAR qualifying chatter is neutral today (additive 0, multiplicative 1), so these equal the base qualifying forecasts until that overlay is activated.",qualifying_summary=TRUE)
+    family_tab("qchat","Qualifying With Chatter","Same model controls as qualifying, with the timestamp-gated chatter adjustment applied to the upcoming race.","Historical proxy rows remain neutral to protect the backtest. Current pre-race rows can adjust the projected qualifying order when Step 5 marks them production-eligible.",qualifying_summary=TRUE)
   ),
   navbarMenu("Race Models",
     family_tab("finish","Finish Model","Compare projected finishing order for every XGBoost variant, specialist route, baseline, and ensemble.",betting=TRUE),
@@ -535,7 +551,7 @@ app_shell <- navbarPage(
     div(class="page-shell",
       div(class="page-hero",div(class="eyebrow","DRAFTKINGS LAB"),h1("Fantasy Lineup"),p("Current projections, optimized lineups, salary use, place differential, laps led, and fastest laps.")),
       div(class="app-grid",
-        aside(class="control-rail",h3("Lineup"),selectInput("dk_lineup","Optimized lineup",choices=if(nrow(dk_lineups)) setNames(dk_lineups$lineup_rank,paste0("#",dk_lineups$lineup_rank," — ",fmt_num(dk_lineups$projected_points,1)," pts")) else character()),div(class="rail-note","DraftKings NASCAR Classic uses six equal driver slots and a $50,000 salary cap—there is no captain multiplier.")),
+        aside(class="control-rail",h3("Lineup"),checkboxInput("dk_use_chatter","Include chatter overlay",value=FALSE),selectInput("dk_lineup","Optimized lineup",choices=if(nrow(dk_initial_lineups)) setNames(dk_initial_lineups$lineup_rank,paste0("#",dk_initial_lineups$lineup_rank," — ",fmt_num(dk_initial_lineups$projected_points,1)," pts")) else character()),div(class="rail-note","DraftKings NASCAR Classic uses six equal driver slots and a $50,000 salary cap—there is no captain multiplier. Chatter affects lineups only when a row passes the verified pre-race safety gate.")),
         main(class="content-stack",uiOutput("dk_cards"),div(class="two-col",div(class="panel",h2("Selected lineup"),tableOutput("dk_selected")),div(class="panel",h2("2025 fantasy validation"),tableOutput("dk_metrics"))),div(class="panel",h2("Full driver board"),div(class="table-scroll",tableOutput("dk_board"))),div(class="panel",h2("Top optimized lineups"),tableOutput("dk_top")))
       )
     )
@@ -633,7 +649,7 @@ server <- function(input, output, session) {
       result%>%mutate(across(all_of(other_numeric),~round(.x,3)),across(all_of(pct_columns),~fmt_pct(.x,1)))
     },striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   }
-  register_family("qual",qualifying,"qualifying"); register_family("qchat",qualifying,"qualifying")
+  register_family("qual",qualifying,"qualifying"); register_family("qchat",qualifying_chatter,"qualifying")
   register_family("finish",finish,"finish"); register_family("prob",probability,"probability"); register_family("points",points,"points")
 
   if(FALSE) {
@@ -898,10 +914,24 @@ server <- function(input, output, session) {
   output$chatter_cards<-renderUI({x<-if(input$chatter_view=="current")forecast else overlay_backtest;applied<-if("chatter_overlay_applied"%in%names(x))sum(x$chatter_overlay_applied%in%TRUE,na.rm=TRUE)else 0;div(class="metric-row",metric_card("Rows",nrow(x),if(input$chatter_view=="current")first(x$race_name)else"2025 fixed-season validation","gold"),metric_card("Adjustments applied",applied,"Neutral rows remain unchanged","blue"),metric_card("Signal status",if(applied>0)"Active"else"Neutral","Safety-gated overlay","green"))})
   output$chatter_table<-renderTable({x<-if(input$chatter_view=="current")forecast else overlay_backtest;keep<-intersect(c("season","round","race_name","driver_name","chatter_additive","chatter_multiplicative","chatter_overlay_applied","predicted_finish_position","adjusted_predicted_finish_position","win_probability","adjusted_win_probability","predicted_points","adjusted_predicted_points"),names(x));x%>%select(all_of(keep))%>%slice_head(n=100)},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$chatter_metrics<-renderTable(overlay_metrics,striped=TRUE,rownames=FALSE)
-  output$dk_cards<-renderUI({r<-dk_lineups%>%filter(lineup_rank==as.integer(input$dk_lineup))%>%slice(1);div(class="metric-row",metric_card("Projected points",fmt_num(r$projected_points,1),paste0("Lineup #",r$lineup_rank),"gold"),metric_card("Salary",paste0("$",fmt_int(r$total_salary)),paste0("$",fmt_int(r$salary_remaining)," remaining"),"blue"),metric_card("Drivers",6,if(nrow(forecast))first(forecast$race_name)else"Current slate","green"))})
-  output$dk_selected<-renderTable({dk_members%>%filter(lineup_rank==as.integer(input$dk_lineup))%>%arrange(driver_slot)%>%transmute(Slot=fmt_int(driver_slot),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank))},striped=TRUE,rownames=FALSE)
-  output$dk_board<-renderTable({dk%>%arrange(desc(dk_projection))%>%transmute(Rank=row_number(),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank),`Laps led`=fmt_num(projected_laps_led,1),`Fastest laps`=fmt_num(projected_fastest_laps,1))},striped=TRUE,hover=TRUE,rownames=FALSE)
-  output$dk_top<-renderTable({dk_lineups%>%slice_head(n=10)%>%transmute(Rank=fmt_int(lineup_rank),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),Projection=fmt_num(projected_points,1),Drivers=drivers)},striped=TRUE,rownames=FALSE)
+  dk_variant<-reactive(if(isTRUE(input$dk_use_chatter))"chatter"else"base")
+  dk_lineups_view<-reactive({if("projection_variant"%in%names(dk_lineups))dk_lineups%>%filter(projection_variant==dk_variant())else dk_lineups})
+  dk_members_view<-reactive({if("projection_variant"%in%names(dk_members))dk_members%>%filter(projection_variant==dk_variant())else dk_members})
+  dk_driver_view<-reactive({
+    x<-dk
+    suffix<-if(dk_variant()=="chatter")"chatter"else"base"
+    projection_col<-paste0("dk_projection_",suffix);value_col<-paste0("dk_value_per_1000_",suffix);finish_col<-paste0("dk_projected_finish_rank_",suffix)
+    if(all(c(projection_col,value_col,finish_col)%in%names(x)))x<-x%>%mutate(dk_projection=.data[[projection_col]],dk_value_per_1000=.data[[value_col]],dk_projected_finish_rank=.data[[finish_col]])
+    x
+  })
+  observeEvent(dk_variant(),{
+    x<-dk_lineups_view();choices<-if(nrow(x))setNames(x$lineup_rank,paste0("#",x$lineup_rank," — ",fmt_num(x$projected_points,1)," pts"))else character()
+    updateSelectInput(session,"dk_lineup",choices=choices,selected=if(length(choices))unname(choices[[1]])else character())
+  },ignoreInit=TRUE)
+  output$dk_cards<-renderUI({r<-dk_lineups_view()%>%filter(lineup_rank==as.integer(input$dk_lineup))%>%slice(1);applied<-if("chatter_overlay_applied"%in%names(dk))sum(dk$chatter_overlay_applied%in%TRUE,na.rm=TRUE)else 0;overlay_note<-if(dk_variant()=="chatter")paste0("Included; ",applied," verified adjustments applied")else"Excluded";div(class="metric-row",metric_card("Projected points",fmt_num(r$projected_points,1),paste0("Lineup #",r$lineup_rank),"gold"),metric_card("Salary",paste0("$",fmt_int(r$total_salary)),paste0("$",fmt_int(r$salary_remaining)," remaining"),"blue"),metric_card("Chatter overlay",if(dk_variant()=="chatter")"Included"else"Excluded",overlay_note,"green"))})
+  output$dk_selected<-renderTable({dk_members_view()%>%filter(lineup_rank==as.integer(input$dk_lineup))%>%arrange(driver_slot)%>%transmute(Slot=fmt_int(driver_slot),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank))},striped=TRUE,rownames=FALSE)
+  output$dk_board<-renderTable({dk_driver_view()%>%arrange(desc(dk_projection))%>%transmute(Rank=row_number(),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank),`Laps led`=fmt_num(projected_laps_led,1),`Fastest laps`=fmt_num(projected_fastest_laps,1))},striped=TRUE,hover=TRUE,rownames=FALSE)
+  output$dk_top<-renderTable({dk_lineups_view()%>%slice_head(n=10)%>%transmute(Rank=fmt_int(lineup_rank),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),Projection=fmt_num(projected_points,1),Drivers=drivers)},striped=TRUE,rownames=FALSE)
   output$dk_metrics<-renderTable(dk_backtest_metrics,striped=TRUE,rownames=FALSE)
   output$bt_cards<-renderUI({x<-backtest%>%filter(round==as.integer(input$bt_round));pick<-x%>%slice_min(predicted_finish_rank,n=1);div(class="metric-row",metric_card("Predicted winner",pick$driver_name,pick$owner_name,"gold"),metric_card("Actual winner",(x%>%filter(target_finish_position==1)%>%pull(driver_name)%>%first())%||%"—",first(x$race_name),"blue"),metric_card("Field",nrow(x),"2018–2024 training only","green"))})
   output$bt_metrics<-renderTable(backtest_metrics,striped=TRUE,rownames=FALSE)

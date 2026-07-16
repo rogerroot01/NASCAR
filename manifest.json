@@ -1812,7 +1812,7 @@
   },
   "files": {
     "app.R": {
-      "checksum": "3601f6415e2ab259e8edafbe22ab1f1e"
+      "checksum": "ccf9db8f123424a32ea7f72a3153c8e6"
     },
     "data/keep these files/f1_current_driver_weekend_signals_2018_2026.csv": {
       "checksum": "ba7c7df8dcd861e634868cdcabde8a3c"
@@ -1911,7 +1911,7 @@
       "checksum": "7e7b9edea79661512e2441d6b87c5d8d"
     },
     "data/nascar_stage17_chatter_normalized_2025_2026.csv": {
-      "checksum": "32750d2474cea434cc58aa8a84d33d12"
+      "checksum": "793a3624302ba9a350e9c4267da74b42"
     },
     "data/nascar_stage17_draftkings_current.csv": {
       "checksum": "61140b14a0b1d71133871e3c596d61c3"
@@ -1920,7 +1920,7 @@
       "checksum": "9ae0cbc5987567d5ed48b603f2c6846e"
     },
     "data/nascar_stage17_external_inputs_audit.csv": {
-      "checksum": "674c85b1e4c5a2ce563e3db3af78d98e"
+      "checksum": "b623f85c5abb8023b13557b72a751ad3"
     },
     "data/nascar_stage17_market_qualifying_partial_2025_2026.csv": {
       "checksum": "09ed167bb0614fcafe4ac917c79a9402"
@@ -1944,16 +1944,16 @@
       "checksum": "8e2ef49e40b0b2686d45ddd241ba83eb"
     },
     "data/nascar_stage18_current_forecast_with_safe_overlays_latest.csv": {
-      "checksum": "14f812e063b1a1db7c3c91d6f97bff42"
+      "checksum": "e4508ef98e33ac2e3455f77dec3cb4f8"
     },
     "data/nascar_stage19_draftkings_driver_projections_latest.csv": {
-      "checksum": "7b488592d71727cb814e875bd8a6af8f"
+      "checksum": "d074a6a12ecde61b4692f88c9e9620c9"
     },
     "data/nascar_stage19_draftkings_top_lineup_members_latest.csv": {
-      "checksum": "5c48da59e7f3d54cc2694846759b04a3"
+      "checksum": "55559c14460684f7764b48871bc223ea"
     },
     "data/nascar_stage19_draftkings_top_lineups_latest.csv": {
-      "checksum": "9af92796a4f576057c6d208926dc53ab"
+      "checksum": "9e04996f183b5cb25dda5f60715b1ae4"
     },
     "data/nascar_stage2_driver_race_detailed_2018_2026.csv": {
       "checksum": "f982fc271b2ab4dc67276bc48af2a7df"
