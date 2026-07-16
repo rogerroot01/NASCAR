@@ -109,11 +109,14 @@ winner_odds <- read_optional("nascar_stage17_market_winner_full_boards_2025_2026
 if(!nrow(winner_odds))winner_odds <- read_optional("nascar_stage17_market_winner_evaluation_2025_2026.csv")
 top3_odds <- read_optional("nascar_stage17_market_top3_verified_partial_2025_2026.csv")
 
-winner_odds_lookup <- winner_odds %>%
-  transmute(season=num(season),round=num(round),driver_id=as.character(driver_id),
-            win_odds_american=num(odds_american),win_odds_decimal=num(odds_decimal),
-            win_market_probability=num(if("market_no_vig_probability"%in%names(winner_odds))market_no_vig_probability else implied_probability),win_sportsbook=sportsbook) %>%
-  distinct(season,round,driver_id,.keep_all=TRUE)
+winner_odds_lookup <- if (!nrow(winner_odds)) {
+  tibble(season=double(),round=double(),driver_id=character(),win_odds_american=double(),
+         win_odds_decimal=double(),win_market_probability=double(),win_sportsbook=character())
+} else winner_odds %>%
+    transmute(season=num(season),round=num(round),driver_id=as.character(driver_id),
+              win_odds_american=num(odds_american),win_odds_decimal=num(odds_decimal),
+              win_market_probability=num(if("market_no_vig_probability"%in%names(winner_odds))market_no_vig_probability else implied_probability),win_sportsbook=sportsbook) %>%
+    distinct(season,round,driver_id,.keep_all=TRUE)
 plackett_luce_top3 <- function(probability) {
   p <- num(probability); p[!is.finite(p) | p < 0] <- 0
   if (sum(p) <= 0) return(rep(NA_real_, length(p)))
@@ -129,13 +132,19 @@ plackett_luce_top3 <- function(probability) {
   pmin(pmax(out, 0), 1)
 }
 decimal_to_american <- function(decimal) ifelse(decimal >= 2, 100 * (decimal - 1), -100 / (decimal - 1))
-derived_top3_odds <- winner_odds %>%
-  transmute(season=num(season),round=num(round),driver_id=as.character(driver_id),market_probability=num(if("market_no_vig_probability"%in%names(winner_odds))market_no_vig_probability else implied_probability)) %>%
-  group_by(season,round) %>%
-  mutate(top3_market_probability=plackett_luce_top3(market_probability),top3_odds_decimal=1/top3_market_probability,top3_odds_american=decimal_to_american(top3_odds_decimal),top3_sportsbook="Implied fair from winner board") %>%
-  ungroup() %>% select(-market_probability)
-verified_top3_odds <- top3_odds %>%
-  transmute(season=num(season),round=num(round),driver_id=as.character(driver_id),top3_odds_american=num(odds_american),top3_odds_decimal=num(odds_decimal),top3_market_probability=num(implied_probability),top3_sportsbook=sportsbook)
+derived_top3_odds <- if (!nrow(winner_odds)) {
+  tibble(season=double(),round=double(),driver_id=character(),top3_market_probability=double(),
+         top3_odds_decimal=double(),top3_odds_american=double(),top3_sportsbook=character())
+} else winner_odds %>%
+    transmute(season=num(season),round=num(round),driver_id=as.character(driver_id),market_probability=num(if("market_no_vig_probability"%in%names(winner_odds))market_no_vig_probability else implied_probability)) %>%
+    group_by(season,round) %>%
+    mutate(top3_market_probability=plackett_luce_top3(market_probability),top3_odds_decimal=1/top3_market_probability,top3_odds_american=decimal_to_american(top3_odds_decimal),top3_sportsbook="Implied fair from winner board") %>%
+    ungroup() %>% select(-market_probability)
+verified_top3_odds <- if (!nrow(top3_odds)) {
+  tibble(season=double(),round=double(),driver_id=character(),top3_odds_american=double(),
+         top3_odds_decimal=double(),top3_market_probability=double(),top3_sportsbook=character())
+} else top3_odds %>%
+    transmute(season=num(season),round=num(round),driver_id=as.character(driver_id),top3_odds_american=num(odds_american),top3_odds_decimal=num(odds_decimal),top3_market_probability=num(implied_probability),top3_sportsbook=sportsbook)
 top3_odds_lookup <- bind_rows(verified_top3_odds%>%mutate(source_priority=1L),derived_top3_odds%>%mutate(source_priority=2L)) %>%
   arrange(source_priority) %>% distinct(season,round,driver_id,.keep_all=TRUE) %>% select(-source_priority)
 
