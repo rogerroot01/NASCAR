@@ -1812,7 +1812,7 @@
   },
   "files": {
     "app.R": {
-      "checksum": "7ef0a2c9d530de11d1feb5da77d60862"
+      "checksum": "413329e0f1c876e25309225ee7c7c31d"
     },
     "data/keep these files/f1_current_driver_weekend_signals_2018_2026.csv": {
       "checksum": "ba7c7df8dcd861e634868cdcabde8a3c"
@@ -1846,6 +1846,12 @@
     },
     "data/keep these files/f1_winner_without_odds_current_2025_2026.csv": {
       "checksum": "66bbce465f78a9771b4c7e9bab4e62e5"
+    },
+    "data/nascar_stage1_driver_race_backbone_2018_2026.csv": {
+      "checksum": "43d13214dafe45936b24685389018f5b"
+    },
+    "data/nascar_stage1_stage2_driver_race_backbone_2018_2026.csv": {
+      "checksum": "e2a95be2ecd5a3c86b143ee5349a7a09"
     },
     "data/nascar_stage1_stage2_stage3_driver_race_backbone_2018_2026.csv": {
       "checksum": "d5cdcbbece83814edc147cf30fe50394"
@@ -1928,6 +1934,9 @@
     "data/nascar_stage19_draftkings_top_lineups_latest.csv": {
       "checksum": "9af92796a4f576057c6d208926dc53ab"
     },
+    "data/nascar_stage2_driver_race_detailed_2018_2026.csv": {
+      "checksum": "f982fc271b2ab4dc67276bc48af2a7df"
+    },
     "data/nascar_stage20_2025_draftkings_points_backtest.csv": {
       "checksum": "e525f7113200f5b189d80c8f12739d2c"
     },
@@ -1947,7 +1956,7 @@
       "checksum": "27828b161522c27a1af30cab19235da9"
     },
     "README.md": {
-      "checksum": "a5b80a483761d7cca5d4d9701c0b51f2"
+      "checksum": "92b99fc868f5004db78966b4670515f3"
     },
     "www/app-icon-512.png": {
       "checksum": "32b1599aa4b360cf8a7c4101131b9418"

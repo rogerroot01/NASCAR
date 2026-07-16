@@ -19,9 +19,11 @@ The local app listens at <http://127.0.0.1:4488>.
 
 - The 2026 forecast is fit once on 2018-2025 data.
 - The 2025 backtest is fit once on 2018-2024 data.
-- Qualifying, finish, probability, and points pages expose the recency baseline,
-  both general XGBoost models, all three track specialists, routed consensus,
-  and a live ensemble of the models selected in the left rail.
+- Finish, probability, and points pages expose the recency baseline, both
+  general XGBoost models, Drafting, Road Course, Speedway, and Short / Steep
+  specialists, routed consensus, and a live ensemble of the selected models.
+  Qualifying keeps the three qualifying specialists and has no Short / Steep
+  choice because that specialist is a race-outcome model.
 - Historical prediction contracts are bundled as compact, column-pruned RDS
   files. Full CSV/modeling exports and feature-importance tables stay in the
   project-level `data` directory and are not part of the published app.
@@ -32,15 +34,19 @@ The local app listens at <http://127.0.0.1:4488>.
 - Winner ROI and average edge use archived full-field DraftKings winner boards
   for all 56 completed 2025–2026 races. The original eventual-winner archive is
   retained as a payout-validation source and fallback.
-  Podium ROI is limited to supplied verified top-three quotes.
-- Stage 15 publishes all seven current-race component predictions as well as the
+  Verified quotes take priority and missing podium prices use the documented
+  implied-fair fallback below.
+- Stage 15 publishes all eight current-race component predictions as well as the
   production routed-consensus contract used by downstream overlays and fantasy.
-- The Model Consensus page combines independently selected models across all
-  four prediction families and reports its 2026 out-of-sample performance.
+- The Model Consensus page has four inclusion controls—Finish, Probability,
+  Points, and Routed Specialists—and inherits the actual model selections from
+  those four tabs instead of asking the user to select them again.
 - The Routed Specialists page automatically maps the selected race to one of
   four NASCAR routes: Drafting, Road Course, Conventional Speedway, or Short /
-  Steep Oval. Each route has separate finish, probability, and points models
-  and is evaluated only on matching races.
+  Steep Oval. All 12 route/outcome checkboxes remain visible; changing the race
+  checks its Position, Probability, and Points specialists by default, after
+  which any of the 12 can be turned on or off. Each specialist is evaluated
+  only on matching races.
 - Verified top-three quotes are used when available. Missing podium prices are
   represented by fair Plackett-Luce top-three odds derived from each race's
   complete no-vig winner board and are labeled as implied rather than quoted.
