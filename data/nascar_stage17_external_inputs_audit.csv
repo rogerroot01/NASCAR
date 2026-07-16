@@ -1,0 +1,7 @@
+input,rows,usable_rows,note
+chatter,2304,0,Proxy/scaffold rows remain unapplied until timestamp and source verification.
+winner_market,56,0,"Eventual-winner-only prices are evaluation/payout data, never predictive features."
+verified_top3,13,13,Sparse individual quotes; not a full market board.
+synthetic_top3,56,0,Synthetic estimates remain evaluation-only.
+qualifying_market,38,38,Primarily one archived Daytona pole board.
+draftkings,37,37,Current-event salary slate; roster discrepancies are retained in a separate audit.
