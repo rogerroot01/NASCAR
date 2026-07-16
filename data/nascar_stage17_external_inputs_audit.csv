@@ -1,5 +1,5 @@
 input,rows,usable_rows,note
-chatter,2304,0,Proxy/scaffold rows remain unapplied until timestamp and source verification.
+chatter,2304,512,0 source-verified historical rows; 512 timestamped production rows. Production-only proxies never enter historical backtests.
 winner_market,56,0,"Eventual-winner-only prices are evaluation/payout data, never predictive features."
 verified_top3,13,13,Sparse individual quotes; not a full market board.
 synthetic_top3,56,0,Synthetic estimates remain evaluation-only.
