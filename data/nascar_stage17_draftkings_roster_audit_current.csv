@@ -1,0 +1,39 @@
+driver_id,forecast_driver_name,dk_id,driver_name_dk,roster_position,salary,game_info,dk_avg_points_per_game,dk_status,dk_starting_position,roster_status
+bj_mcleod,B.J. McLeod,,,,,,,,,forecast_only
+aj_allmendinger,A.J. Allmendinger,43607018,AJ Allmendinger,D,5500,Window World 450,27,,,matched
+alex_bowman,Alex Bowman,43607007,Alex Bowman,D,7000,Window World 450,23.9,,,matched
+austin_cindric,Austin Cindric,43607005,Austin Cindric,D,7200,Window World 450,27.3,,,matched
+austin_dillon,Austin Dillon,43607012,Austin Dillon,D,6300,Window World 450,26,,,matched
+austin_hill,Austin Hill,43607013,Austin Hill,D,6100,Window World 450,8.8,,,matched
+brad_keselowski,Brad Keselowski,43607003,Brad Keselowski,D,7600,Window World 450,29.1,,,matched
+bubba_wallace,Bubba Wallace,43607001,Bubba Wallace,D,7900,Window World 450,28.3,,,matched
+carson_hocevar,Carson Hocevar,43606997,Carson Hocevar,D,8700,Window World 450,32.3,,,matched
+chad_finchum,Chad Finchum,43607024,Chad Finchum,D,4500,Window World 450,16.3,,,matched
+chase_briscoe,Chase Briscoe,43606996,Chase Briscoe,D,8900,Window World 450,32.6,,,matched
+chase_elliott,Chase Elliott,43606993,Chase Elliott,D,9700,Window World 450,36.9,,,matched
+chris_buescher,Chris Buescher,43606999,Chris Buescher,D,8300,Window World 450,30.3,,,matched
+christopher_bell,Christopher Bell,43606991,Christopher Bell,D,10200,Window World 450,36.4,,,matched
+cody_ware,Cody Ware,43607023,Cody Ware,D,4800,Window World 450,18,,,matched
+cole_custer,Cole Custer,43607021,Cole Custer,D,5100,Window World 450,17.6,,,matched
+connor_zilisch,Connor Zilisch,43607014,Connor Zilisch,D,6000,Window World 450,16,,,matched
+daniel_suarez,Daniel Suarez,43607004,Daniel Suarez,D,7400,Window World 450,30.3,,,matched
+denny_hamlin,Denny Hamlin,43606988,Denny Hamlin,D,11000,Window World 450,57.7,,,matched
+erik_jones,Erik Jones,43607009,Erik Jones,D,6600,Window World 450,33,,,matched
+joey_logano,Joey Logano,43606994,Joey Logano,D,9500,Window World 450,22.3,,,matched
+john_hunter_nemechek,John Hunter Nemechek,43607019,John H. Nemechek,D,5400,Window World 450,24.5,,,matched
+josh_berry,Josh Berry,43607006,Josh Berry,D,7100,Window World 450,17,,,matched
+kyle_larson,Kyle Larson,43606990,Kyle Larson,D,10500,Window World 450,32.6,,,matched
+michael_mcdowell,Michael McDowell,43607011,Michael McDowell,D,6400,Window World 450,26.3,,,matched
+noah_gragson,Noah Gragson,43607016,Noah Gragson,D,5700,Window World 450,23.1,,,matched
+ricky_stenhouse_jr,Ricky Stenhouse Jr.,43607020,Ricky Stenhouse Jr,D,5200,Window World 450,24.7,,,matched
+riley_herbst,Riley Herbst,43607015,Riley Herbst,D,5800,Window World 450,22.3,,,matched
+ross_chastain,Ross Chastain,43607000,Ross Chastain,D,8100,Window World 450,24.2,,,matched
+ryan_blaney,Ryan Blaney,43606989,Ryan Blaney,D,10700,Window World 450,46.2,,,matched
+ryan_preece,Ryan Preece,43607002,Ryan Preece,D,7700,Window World 450,28.7,,,matched
+shane_van_gisbergen,Shane van Gisbergen,43607008,Shane Van Gisbergen,D,6800,Window World 450,30,,,matched
+todd_gilliland,Todd Gilliland,43607017,Todd Gilliland,D,5600,Window World 450,25.7,,,matched
+ty_dillon,Ty Dillon,43607022,Ty Dillon,D,5000,Window World 450,23.4,,,matched
+ty_gibbs,Ty Gibbs,43606998,Ty Gibbs,D,8500,Window World 450,33.2,,,matched
+tyler_reddick,Tyler Reddick,43606995,Tyler Reddick,D,9200,Window World 450,42.2,,,matched
+william_byron,William Byron,43606992,William Byron,D,9900,Window World 450,32.1,,,matched
+zane_smith,Zane Smith,43607010,Zane Smith,D,6500,Window World 450,22.9,,,matched
