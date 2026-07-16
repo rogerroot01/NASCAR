@@ -480,13 +480,13 @@ app_shell <- navbarPage(
 
   navbarMenu("Drivers and Tracks",
     profile_shell("Tracks","Track context plus historical driver and owner performance.",
-      tagList(h3("Track selection"),selectInput("track_schedule_key","2026 race / track",choices=track_schedule_choices,selected=default_track_schedule_key),selectInput("track_start","From",choices=sort(unique(history$season))),selectInput("track_end","Through",choices=sort(unique(history$season),decreasing=TRUE))),
-      tagList(uiOutput("track_cards"),div(class="two-col",div(class="panel",h2("Driver performance at this track"),plotOutput("track_driver_plot",height=390)),div(class="panel",h2("Owner performance at this track"),plotOutput("track_owner_plot",height=390))),div(class="panel",h2("Historical leaders"),tableOutput("track_leaders")),div(class="panel",h2("Race history"),div(class="table-scroll",tableOutput("track_history"))))),
+      tagList(h3("Track selection"),selectInput("track_schedule_key","2026 race / track",choices=track_schedule_choices,selected=default_track_schedule_key),selectInput("track_start","From",choices=sort(unique(history$season)),selected=2022),selectInput("track_end","Through",choices=sort(unique(history$season),decreasing=TRUE),selected=2026)),
+      tagList(uiOutput("track_cards"),uiOutput("track_history_note"),div(class="two-col",div(class="panel",h2("Driver performance"),plotOutput("track_driver_plot",height=390)),div(class="panel",h2("Owner performance"),plotOutput("track_owner_plot",height=390))),div(class="panel",h2("Historical leaders"),tableOutput("track_leaders")),div(class="panel",h2("Race history"),div(class="table-scroll",tableOutput("track_history"))))),
     profile_shell("Driver Profiles","Form, pace, passing, and results by NASCAR track family.",
-      tagList(h3("Driver selection"),selectInput("driver_name","Driver",choices=valid_choices(history$driver_name)),selectInput("driver_start","From",choices=sort(unique(history$season))),selectInput("driver_end","Through",choices=sort(unique(history$season),decreasing=TRUE))),
+      tagList(h3("Driver selection"),selectInput("driver_name","Driver",choices=valid_choices(history$driver_name)),selectInput("driver_start","From",choices=sort(unique(history$season)),selected=2022),selectInput("driver_end","Through",choices=sort(unique(history$season),decreasing=TRUE),selected=2026)),
       tagList(uiOutput("driver_cards"),div(class="two-col",div(class="panel",h2("Finish trend"),plotOutput("driver_plot",height=320)),div(class="panel",h2("Performance by track family"),plotOutput("driver_family_plot",height=320))),div(class="panel",h2("Track-family summary"),tableOutput("driver_family")),div(class="panel",h2("Recent races"),tableOutput("driver_recent")))),
     profile_shell("Owner Profiles","The F1 constructor view translated to NASCAR owners and manufacturers.",
-      tagList(h3("Owner selection"),selectInput("owner_name","Owner",choices=valid_choices(history$owner_name)),selectInput("owner_start","From",choices=sort(unique(history$season))),selectInput("owner_end","Through",choices=sort(unique(history$season),decreasing=TRUE))),
+      tagList(h3("Owner selection"),selectInput("owner_name","Owner",choices=valid_choices(history$owner_name)),selectInput("owner_start","From",choices=sort(unique(history$season)),selected=2022),selectInput("owner_end","Through",choices=sort(unique(history$season),decreasing=TRUE),selected=2026)),
       tagList(uiOutput("owner_cards"),div(class="two-col",div(class="panel",h2("Owner finish trend"),plotOutput("owner_plot",height=320)),div(class="panel",h2("Performance by track family"),plotOutput("owner_family_plot",height=320))),div(class="panel",h2("Track-family summary"),tableOutput("owner_family")),div(class="panel",h2("Recent results"),tableOutput("owner_recent"))))
   ),
   navbarMenu("Qualifying",
@@ -854,12 +854,25 @@ server <- function(input, output, session) {
 
   # Profiles.
   selected_track_schedule<-reactive({req(input$track_schedule_key);x<-track_schedule_2026%>%filter(schedule_key==input$track_schedule_key)%>%slice(1);validate(need(nrow(x),"That 2026 schedule entry is unavailable."));x})
-  track_rows<-reactive({s<-selected_track_schedule();history%>%filter(track_name==s$track_name[[1]],season>=as.integer(input$track_start),season<=as.integer(input$track_end))})
+  exact_track_rows<-reactive({s<-selected_track_schedule();history%>%filter(track_name==s$track_name[[1]],season>=as.integer(input$track_start),season<=as.integer(input$track_end))})
+  track_rows<-reactive({
+    exact<-exact_track_rows()
+    if(nrow(exact))return(exact)
+    s<-selected_track_schedule();meta<-race_track_metadata(s)
+    if("track_cluster_id"%in%names(history)) history%>%filter(track_cluster_id==meta$cluster,season>=as.integer(input$track_start),season<=as.integer(input$track_end))
+    else history%>%filter(track_primary_family==meta$family,season>=as.integer(input$track_start),season<=as.integer(input$track_end))
+  })
+  track_history_is_fallback<-reactive(!nrow(exact_track_rows()))
   output$track_cards<-renderUI({s<-selected_track_schedule();meta<-race_track_metadata(s);characteristics<-track_characteristics_label(s);div(class="metric-row",metric_card(paste0("Round ",s$round[[1]]),meta$track_name,s$race_name[[1]],"gold"),metric_card("Track family",str_to_title(str_replace_all(meta$family,"_"," ")),str_to_title(str_replace_all(meta$cluster,"_"," ")),"blue"),metric_card("Characteristics",if(is.finite(meta$length))paste0(format(meta$length,nsmall=if(meta$length<1)3 else 2)," mi")else"Profile",characteristics,"green"))})
+  output$track_history_note<-renderUI({
+    s<-selected_track_schedule();x<-track_rows()
+    if(!track_history_is_fallback())div(class="rail-note",paste0("Showing exact ",s$track_name[[1]]," history for ",input$track_start,"–",input$track_end,"."))
+    else {peers<-sort(unique(x$track_name));div(class="rail-note",strong("Comparable-track fallback: "),paste0("The points-race backbone has no exact ",s$track_name[[1]]," history in this window. Showing ",str_to_title(str_replace_all(race_track_metadata(s)$cluster,"_"," "))," peers: ",paste(peers,collapse=", "),"."))}
+  })
   output$track_driver_plot<-renderPlot({x<-track_rows();validate(need(nrow(x),"No track history in this season window."));bubble_performance_plot(x,"driver_name",min_starts=2,limit=15,accent="#F4C542")})
   output$track_owner_plot<-renderPlot({x<-track_rows();validate(need(nrow(x),"No track history in this season window."));bubble_performance_plot(x,"owner_name",min_starts=3,limit=12,accent="#23A6D5")})
   output$track_leaders<-renderTable({track_rows()%>%filter(is.finite(finish_position))%>%group_by(driver_name)%>%summarise(Starts=n(),Wins=sum(finish_position==1,na.rm=TRUE),`Top 3`=sum(finish_position<=3,na.rm=TRUE),`Avg finish`=mean(finish_position,na.rm=TRUE),.groups="drop")%>%arrange(desc(Wins),`Avg finish`)%>%slice_head(n=12)%>%mutate(`Avg finish`=round(`Avg finish`,1))},striped=TRUE,hover=TRUE,rownames=FALSE)
-  output$track_history<-renderTable({track_rows()%>%arrange(desc(season),desc(round),finish_position)%>%transmute(Season=as.character(as.integer(season)),Round=as.character(as.integer(round)),Race=race_name,Driver=driver_name,Owner=owner_name,Start=fmt_int(start_position),Finish=fmt_int(finish_position),Points=fmt_int(points))%>%slice_head(n=80)},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
+  output$track_history<-renderTable({track_rows()%>%arrange(desc(season),desc(round),finish_position)%>%transmute(Season=as.character(as.integer(season)),Round=as.character(as.integer(round)),Track=track_name,Race=race_name,Driver=driver_name,Owner=owner_name,Start=fmt_int(start_position),Finish=fmt_int(finish_position),Points=fmt_int(points))%>%slice_head(n=80)},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
 
   profile_rows<-function(entity,column,start,end)history%>%filter(.data[[column]]==entity,season>=as.integer(start),season<=as.integer(end))
   driver_rows<-reactive(profile_rows(input$driver_name,"driver_name",input$driver_start,input$driver_end)); owner_rows<-reactive(profile_rows(input$owner_name,"owner_name",input$owner_start,input$owner_end))

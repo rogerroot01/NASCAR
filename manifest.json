@@ -1812,7 +1812,7 @@
   },
   "files": {
     "app.R": {
-      "checksum": "924950478be47868956d9f6e30a57626"
+      "checksum": "3601f6415e2ab259e8edafbe22ab1f1e"
     },
     "data/keep these files/f1_current_driver_weekend_signals_2018_2026.csv": {
       "checksum": "ba7c7df8dcd861e634868cdcabde8a3c"
@@ -1899,7 +1899,7 @@
       "checksum": "3f67d95ae8d1fcd38fafe8f4b39090ff"
     },
     "data/nascar_stage15_upcoming_race_predictions_latest.csv": {
-      "checksum": "f7ebfee982d124ae7e11c42e029cd92e"
+      "checksum": "9d3fcd4de4a4ad2c97aea2cfd8f473cf"
     },
     "data/nascar_stage16_fixed_season_backtest_2025.csv": {
       "checksum": "ed6c8f5648a1c379e39c81ae969ea466"
