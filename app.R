@@ -358,7 +358,7 @@ rows_to_bets <- function(rows) {
   if(!nrow(rows)) return(tibble())
   winner_bets <- rows %>% filter(consensus_rank==1) %>% left_join(winner_odds_lookup,by=c("season","round","driver_id")) %>%
     transmute(season,round,race_name,bet_market="win",consensus_rank,driver_name,owner_name,predicted_value,model_probability=model_win_probability,odds_american=win_odds_american,odds_decimal=win_odds_decimal,market_probability=win_market_probability,odds_source=win_sportsbook,actual_finish,bet_won=actual_winner) %>%
-    mutate(stake=if_else(is.finite(actual_finish)&(!bet_won|is.finite(odds_decimal)),1,0),profit=case_when(stake==0~NA_real_,bet_won~odds_decimal-1,TRUE~-1),model_edge=model_probability-market_probability)
+    mutate(stake=if_else(is.finite(actual_finish)&is.finite(odds_decimal),1,0),profit=case_when(stake==0~NA_real_,bet_won~odds_decimal-1,TRUE~-1),model_edge=model_probability-market_probability)
   podium_bets <- rows %>% filter(consensus_rank<=3) %>% left_join(top3_odds_lookup,by=c("season","round","driver_id")) %>%
     transmute(season,round,race_name,bet_market="podium",consensus_rank,driver_name,owner_name,predicted_value,model_probability=model_top3_probability,odds_american=top3_odds_american,odds_decimal=top3_odds_decimal,market_probability=top3_market_probability,odds_source=top3_sportsbook,actual_finish,bet_won=actual_top3) %>%
     mutate(stake=if_else(is.finite(actual_finish)&is.finite(odds_decimal),1,0),profit=case_when(stake==0~NA_real_,bet_won~odds_decimal-1,TRUE~-1),model_edge=model_probability-market_probability)
@@ -746,7 +746,7 @@ server <- function(input, output, session) {
       mutate(actual_winner=actual_finish==1,actual_top3=actual_finish<=3)
   })
   routed_consensus_bets<-reactive(rows_to_bets(routed_consensus_contract()))
-  output$route_context<-renderUI({x<-route_rows_auto();div(class="race-context",span(class="context-chip",paste0(first(x$season)," • Round ",first(x$round))),strong(first(x$track_name)),span(paste0("Default route: ",specialist_route_label(active_route_group()))))})
+  output$route_context<-renderUI({x<-route_rows_auto();r<-x[1,];meta<-race_track_metadata(r);div(class="race-context",span(class="context-chip",paste0(first(x$season)," • Round ",first(x$round))),strong(meta$track_name),span(first(x$race_name)),span(track_characteristics_label(r)),span(paste0("Default route: ",specialist_route_label(active_route_group()))))})
   output$route_cards<-renderUI({x<-route_rows_auto();races<-bind_rows(lapply(c("finish","probability","points"),function(outcome)route_rows_for(outcome,window=TRUE)))%>%distinct(season,round);div(class="metric-row",metric_card("Default route",specialist_route_label(active_route_group()),"Three matching choices checked on race change","gold"),metric_card("Selected choices",length(input$route_models),paste(route_choice_rows()$choice_label,collapse=" • "),"blue"),metric_card("Matching races",nrow(races),paste0(input$route_roi_start,"–",input$route_roi_end),"green"))})
   output$route_roi<-renderTable({result<-summarise_bets_window(routed_consensus_bets(),input$route_roi_start,input$route_roi_end);validate(need(nrow(result),"No completed routed-specialist consensus bets with odds are available in this window."));render_roi_table(result)%>%mutate(Market=paste("Consensus",Market))},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$route_winner<-renderTable({bind_rows(lapply(c(Finish="finish",Probability="probability",Points="points"),function(outcome){x<-route_rows_for(outcome,input$route_season,input$route_round);if(!nrow(x))return(tibble());specialist_contract(x,str_to_title(outcome))%>%filter(consensus_rank==1)%>%transmute(Outcome=str_to_title(outcome),Pick=driver_name,Owner=owner_name,Projection=fmt_num(predicted_value,2),`Win probability`=fmt_pct(model_win_probability,1),`Actual finish`=fmt_int(actual_finish))}))},striped=TRUE,hover=TRUE,rownames=FALSE)
@@ -859,7 +859,7 @@ server <- function(input, output, session) {
   })
   consensus_rows<-reactive({req(input$cons_season,input$cons_round);x<-consensus_contract()%>%filter(season==as.integer(input$cons_season),round==as.integer(input$cons_round));validate(need(nrow(x),"No consensus rows for this race and family selection."));x})
   cons_bet_rows<-reactive(rows_to_bets(consensus_contract()))
-  output$cons_context<-renderUI({x<-consensus_rows();div(class="race-context",span(class="context-chip",paste0(input$cons_season," • Round ",input$cons_round)),strong(first(x$race_name)),span(paste(names(consensus_flags())[consensus_flags()],collapse=" • ")))})
+  output$cons_context<-renderUI({x<-consensus_rows();r<-x[1,];meta<-race_track_metadata(r);div(class="race-context",span(class="context-chip",paste0(input$cons_season," • Round ",input$cons_round)),strong(meta$track_name),span(first(x$race_name)),span(track_characteristics_label(r)),span(paste(names(consensus_flags())[consensus_flags()],collapse=" • ")))})
   output$cons_roi<-renderTable({x<-summarise_bets_window(cons_bet_rows(),input$cons_roi_start,input$cons_roi_end);validate(need(nrow(x),"No completed consensus bets with odds in this window."));render_roi_table(x)},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$cons_bets<-renderTable({x<-cons_bet_rows()%>%filter(season==as.integer(input$cons_season),round==as.integer(input$cons_round));validate(need(nrow(x),"No consensus bet rows for this race."));render_bets_table(x)},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$cons_winner<-renderTable({consensus_rows()%>%filter(consensus_rank==1)%>%transmute(Pick=driver_name,Owner=owner_name,`Consensus score`=fmt_num(predicted_value,2),Families=family_count,`Win probability`=fmt_pct(model_win_probability,1),`Actual finish`=fmt_int(actual_finish),Correct=ifelse(actual_winner,"Yes",ifelse(is.na(actual_winner),"—","No")))},striped=TRUE,hover=TRUE,rownames=FALSE)
@@ -911,8 +911,21 @@ server <- function(input, output, session) {
     validate(need(nrow(base)&&nrow(adjusted),"No completed chatter-validation bets in this season window."))
     bind_rows(render_roi_table(base)%>%mutate(Variant="Base consensus",.before=1),render_roi_table(adjusted)%>%mutate(Variant="With chatter",.before=1))
   },striped=TRUE,hover=TRUE,spacing="s",rownames=FALSE)
-  output$chatter_cards<-renderUI({x<-if(input$chatter_view=="current")forecast else overlay_backtest;applied<-if("chatter_overlay_applied"%in%names(x))sum(x$chatter_overlay_applied%in%TRUE,na.rm=TRUE)else 0;div(class="metric-row",metric_card("Rows",nrow(x),if(input$chatter_view=="current")first(x$race_name)else"2025 fixed-season validation","gold"),metric_card("Adjustments applied",applied,"Neutral rows remain unchanged","blue"),metric_card("Signal status",if(applied>0)"Active"else"Neutral","Safety-gated overlay","green"))})
-  output$chatter_table<-renderTable({x<-if(input$chatter_view=="current")forecast else overlay_backtest;keep<-intersect(c("season","round","race_name","driver_name","chatter_additive","chatter_multiplicative","chatter_overlay_applied","predicted_finish_position","adjusted_predicted_finish_position","win_probability","adjusted_win_probability","predicted_points","adjusted_predicted_points"),names(x));x%>%select(all_of(keep))%>%slice_head(n=100)},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
+  output$chatter_cards<-renderUI({
+    x<-if(input$chatter_view=="current")forecast else overlay_backtest;applied<-if("chatter_overlay_applied"%in%names(x))sum(x$chatter_overlay_applied%in%TRUE,na.rm=TRUE)else 0
+    if(input$chatter_view=="current"&&nrow(x)){
+      base_pick<-x%>%slice_min(predicted_finish_rank,n=1,with_ties=FALSE);adjusted_pick<-x%>%slice_min(predicted_finish_rank_adjusted,n=1,with_ties=FALSE)
+      div(class="metric-row",metric_card("Base finish pick",base_pick$driver_name,fmt_num(base_pick$predicted_finish_position,2),"gold"),metric_card("Chatter finish pick",adjusted_pick$driver_name,fmt_num(adjusted_pick$predicted_finish_position_adjusted,2),"blue"),metric_card("Adjustments applied",applied,paste0(nrow(x)-applied," neutral rows"),"green"))
+    }else div(class="metric-row",metric_card("Rows",nrow(x),"2025 fixed-season validation","gold"),metric_card("Adjustments applied",applied,"Historical proxies remain neutral","blue"),metric_card("Signal status",if(applied>0)"Active"else"Neutral","Safety-gated overlay","green"))
+  })
+  output$chatter_table<-renderTable({
+    x<-if(input$chatter_view=="current")forecast else overlay_backtest
+    required<-c("predicted_finish_position_adjusted","predicted_points_adjusted","win_probability_adjusted","top3_probability_adjusted")
+    validate(need(all(required%in%names(x)),"Adjusted chatter columns are unavailable."))
+    x%>%mutate(finish_change=predicted_finish_position_adjusted-predicted_finish_position,points_change=predicted_points_adjusted-predicted_points,win_change=win_probability_adjusted-win_probability,top3_change=top3_probability_adjusted-top3_probability)%>%
+      arrange(desc(abs(finish_change)),desc(abs(points_change)))%>%
+      transmute(Driver=driver_name,Applied=ifelse(chatter_overlay_applied,"Yes","No"),`Chatter score`=fmt_num(composite_chatter_score,3),`Base finish`=fmt_num(predicted_finish_position,2),`Chatter finish`=fmt_num(predicted_finish_position_adjusted,2),`Finish change`=fmt_num(finish_change,2),`Base points`=fmt_num(predicted_points,2),`Chatter points`=fmt_num(predicted_points_adjusted,2),`Points change`=fmt_num(points_change,2),`Base win`=fmt_pct(win_probability,2),`Chatter win`=fmt_pct(win_probability_adjusted,2),`Win change`=fmt_pct(win_change,2),`Base podium`=fmt_pct(top3_probability,2),`Chatter podium`=fmt_pct(top3_probability_adjusted,2),`Podium change`=fmt_pct(top3_change,2))%>%slice_head(n=100)
+  },striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$chatter_metrics<-renderTable(overlay_metrics,striped=TRUE,rownames=FALSE)
   dk_variant<-reactive(if(isTRUE(input$dk_use_chatter))"chatter"else"base")
   dk_lineups_view<-reactive({if("projection_variant"%in%names(dk_lineups))dk_lineups%>%filter(projection_variant==dk_variant())else dk_lineups})
