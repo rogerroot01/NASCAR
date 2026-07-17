@@ -1,0 +1,7 @@
+model,training_rows,fallback,train_end_season,numeric_features,max_depth,eta,min_child_weight,subsample,colsample_bytree,nrounds,eval_metric,eval_value,tuning_status
+xgb_owner_track,10943,FALSE,2025,300,5,0.025,5,0.9,0.8,120,rmse,11.61240169124407,solved
+xgb_no_owner,10943,FALSE,2025,300,5,0.04,1,0.75,0.95,120,rmse,11.601370031324302,solved
+xgb_drafting_specialist,1565,FALSE,2025,300,2,0.04,10,0.9,0.8,200,rmse,12.5488900953265,solved
+xgb_road_specialist,1452,FALSE,2025,300,5,0.04,1,0.9,0.8,120,rmse,10.753709832490784,solved
+xgb_short_steep_specialist,2105,FALSE,2025,300,3,0.025,10,0.9,0.6,300,rmse,10.91335909487876,solved
+xgb_speedway_specialist,5709,FALSE,2025,300,3,0.025,1,0.75,0.6,300,rmse,11.483116674342972,solved
