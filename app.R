@@ -620,7 +620,8 @@ server <- function(input, output, session) {
       if(is.null(season)||is.null(round))return(intersect(default_models,available_models))
       rows <- data %>% filter(.data$season==as.integer(season),.data$round==as.integer(round))
       route_column <- switch(family,qualifying="qualifying_route",finish="finish_route",probability="probability_route",points="points_route")
-      routes <- if(route_column%in%names(rows)) as.character(rows[[route_column]]) else character()
+      routed_rows <- rows %>% filter(.data$model=="routed_consensus")
+      routes <- if(route_column%in%names(routed_rows)) as.character(routed_rows[[route_column]]) else character()
       routes <- routes[!is.na(routes)&nzchar(routes)]
       specialist <- if(length(routes)) unname(specialist_model_map[routes[[1]]]) else character()
       intersect(unique(c(default_models,specialist)),available_models)
