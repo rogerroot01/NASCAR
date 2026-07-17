@@ -33,6 +33,12 @@ read_optional <- function(name) {
   if (grepl("\\.rds$", path, ignore.case = TRUE)) return(as_tibble(readRDS(path)))
   suppressMessages(read_csv(path, show_col_types = FALSE, progress = FALSE))
 }
+read_required <- function(name) {
+  path <- data_path(name)
+  if (!file.exists(path)) stop("Required app artifact is missing: ", name, ". Run the numbered pipeline through the matching Step 4.", call. = FALSE)
+  if (grepl("\\.rds$", path, ignore.case = TRUE)) return(as_tibble(readRDS(path)))
+  suppressMessages(read_csv(path, show_col_types = FALSE, progress = FALSE))
+}
 num <- function(x) suppressWarnings(as.numeric(x))
 fmt_num <- function(x, digits = 1) ifelse(is.finite(num(x)), format(round(num(x), digits), nsmall = digits, big.mark = ","), "—")
 fmt_int <- function(x) ifelse(is.finite(num(x)), format(round(num(x)), big.mark = ","), "—")
@@ -57,8 +63,8 @@ qualifying_models <- setdiff(all_models, "xgb_short_steep_specialist")
 default_models <- c("xgb_owner_track", "xgb_no_owner", "routed_consensus")
 
 load_family <- function(stage, family) {
-  historical <- read_optional(stage)
-  current <- read_optional(paste0("nascar_stage15_current_", family, "_model_predictions_latest.csv"))
+  historical <- read_required(stage)
+  current <- read_required(paste0("nascar_stage15_current_", family, "_model_predictions_latest.csv"))
   if (nrow(current)) current <- current %>% mutate(data_split = "upcoming")
   id_columns <- c("event_id","race_id","track_id","track_cluster_id","driver_id","car_number","owner_id","manufacturer_id")
   historical <- historical %>% mutate(across(any_of(id_columns), as.character))
@@ -66,10 +72,24 @@ load_family <- function(stage, family) {
   bind_rows(historical, current)
 }
 
+active_strategy <- read_required("nascar_active_strategy.csv")
+if (nrow(active_strategy) != 1L || !"strategy" %in% names(active_strategy)) stop("nascar_active_strategy.csv is invalid.", call. = FALSE)
+active_strategy_name <- as.character(active_strategy$strategy[[1]])
+if (!active_strategy_name %in% c("annual", "rolling")) {
+  required_runner <- if ("required_evaluation_runner" %in% names(active_strategy)) active_strategy$required_evaluation_runner[[1]] else "the matching Step 4"
+  stop("App results are not active (state: ", active_strategy_name, "). Run ", required_runner, " before opening the app.", call. = FALSE)
+}
+
 qualifying <- load_family("nascar_stage7_qualifying_predictions_2018_2026.csv", "qualifying")
 finish <- load_family("nascar_stage11_finish_predictions_2018_2026.csv", "finish")
 probability <- load_family("nascar_stage12_probability_predictions_2018_2026.csv", "probability")
 points <- load_family("nascar_stage13_points_predictions_2018_2026.csv", "points")
+active_test_rows <- finish %>% filter(.data$season %in% c(2025, 2026), .data$data_split == "test")
+if (!nrow(active_test_rows)) stop("The active finish file contains no 2025-2026 test rows.", call. = FALSE)
+if (active_strategy_name == "rolling" &&
+    (!"training_races" %in% names(active_test_rows) || any(!is.finite(num(active_test_rows$training_races))))) {
+  stop("Strategy says rolling, but the canonical finish rows are not race-by-race evaluation rows. Rerun rolling Step 4.", call. = FALSE)
+}
 
 family_metrics <- list(
   qualifying = read_optional("nascar_stage7_qualifying_metrics_2018_2026.csv"),
@@ -84,8 +104,7 @@ family_specs <- list(
   points = read_optional("nascar_stage13_points_model_specs_2018_2026.csv")
 )
 
-forecast <- read_optional("nascar_stage18_current_forecast_with_safe_overlays_latest.csv")
-if (!nrow(forecast)) forecast <- read_optional("nascar_stage15_upcoming_race_predictions_latest.csv")
+forecast <- read_required("nascar_stage18_current_forecast_with_safe_overlays_latest.csv")
 qualifying_chatter <- qualifying
 if (nrow(forecast) && all(c("predicted_qualifying_position","predicted_qualifying_position_adjusted") %in% names(forecast))) {
   qualifying_chatter_shift <- forecast %>%
@@ -99,36 +118,39 @@ if (nrow(forecast) && all(c("predicted_qualifying_position","predicted_qualifyin
     mutate(predicted_qualifying_rank=rank(.data$predicted_position_score,ties.method="first")) %>%
     ungroup() %>% select(-chatter_qualifying_shift)
 }
-tracks <- read_optional("nascar_stage4_track_profile_inventory_2018_2026.csv")
-current_track_features <- read_optional("nascar_stage14_upcoming_race_features_latest.csv")
+tracks <- read_required("nascar_stage4_track_profile_inventory_2018_2026.csv")
+current_track_features <- read_required("nascar_stage14_upcoming_race_features_latest.csv")
 if (nrow(current_track_features)) current_track_features <- current_track_features %>%
   select(any_of(c("season","round","race_name","track_name","track_primary_family","track_cluster_id","track_cluster_label",
                   "track_length_miles","max_banking_deg","surface","track_type","length_bucket","banking_bucket",
                   "is_high_banked","is_tire_wear_heavy","is_braking_heavy","is_high_speed","is_pack_racing"))) %>%
   distinct(season,round,.keep_all=TRUE)
-history <- read_optional("nascar_stage1_stage2_stage3_driver_race_backbone_2018_2026.csv")
+history <- read_required("nascar_stage1_stage2_stage3_driver_race_backbone_2018_2026.csv")
 if (nrow(history) && !"track_primary_family" %in% names(history) && nrow(tracks)) {
   history <- history %>% left_join(
     tracks %>% distinct(track_name, .keep_all=TRUE) %>% select(track_name,track_primary_family,track_cluster_id),
     by="track_name"
   )
 }
-backtest <- read_optional("nascar_stage16_fixed_season_backtest_2025.csv")
-specialist_backtest <- read_optional("nascar_stage16_specialist_backtest_2025.csv")
-backtest_metrics <- read_optional("nascar_stage16_fixed_season_backtest_2025_metrics.csv")
+backtest <- read_required("nascar_stage16_active_backtest_2025_2026.csv")
+backtest_metrics <- backtest %>% filter(.data$season == 2025L) %>% summarise(
+  Races = n_distinct(.data$round),
+  `Winner-pick accuracy` = mean(.data$predicted_finish_rank == 1 & .data$target_finish_position == 1, na.rm = TRUE) /
+    mean(.data$predicted_finish_rank == 1, na.rm = TRUE),
+  `Finish-rank MAE` = mean(abs(.data$predicted_finish_rank - .data$target_finish_position), na.rm = TRUE)
+)
 overlay_backtest <- read_optional("nascar_stage18_2025_backtest_safe_overlay.csv")
 overlay_metrics <- read_optional("nascar_stage18_2025_backtest_safe_overlay_metrics.csv")
-dk <- read_optional("nascar_stage19_draftkings_driver_projections_latest.csv")
-dk_lineups <- read_optional("nascar_stage19_draftkings_top_lineups_latest.csv")
-dk_members <- read_optional("nascar_stage19_draftkings_top_lineup_members_latest.csv")
+dk <- read_required("nascar_stage19_draftkings_driver_projections_latest.csv")
+dk_lineups <- read_required("nascar_stage19_draftkings_top_lineups_latest.csv")
+dk_members <- read_required("nascar_stage19_draftkings_top_lineup_members_latest.csv")
 dk_initial_lineups <- if ("projection_variant" %in% names(dk_lineups)) {
   dk_lineups %>% filter(.data$projection_variant == "base")
 } else dk_lineups
 dk_backtest <- read_optional("nascar_stage20_2025_draftkings_points_backtest.csv")
 dk_backtest_metrics <- read_optional("nascar_stage20_2025_draftkings_points_backtest_metrics.csv")
-external_audit <- read_optional("nascar_stage17_external_inputs_audit.csv")
-winner_odds <- read_optional("nascar_stage17_market_winner_full_boards_2025_2026.csv")
-if(!nrow(winner_odds))winner_odds <- read_optional("nascar_stage17_market_winner_evaluation_2025_2026.csv")
+external_audit <- read_required("nascar_stage17_external_inputs_audit.csv")
+winner_odds <- read_required("nascar_stage17_market_winner_full_boards_2025_2026.csv")
 top3_odds <- read_optional("nascar_stage17_market_top3_verified_partial_2025_2026.csv")
 
 winner_odds_lookup <- if (!nrow(winner_odds)) {
@@ -167,8 +189,13 @@ verified_top3_odds <- if (!nrow(top3_odds)) {
          top3_odds_decimal=double(),top3_market_probability=double(),top3_sportsbook=character())
 } else top3_odds %>%
     transmute(season=num(season),round=num(round),driver_id=as.character(driver_id),top3_odds_american=num(odds_american),top3_odds_decimal=num(odds_decimal),top3_market_probability=num(implied_probability),top3_sportsbook=sportsbook)
-top3_odds_lookup <- bind_rows(verified_top3_odds%>%mutate(source_priority=1L),derived_top3_odds%>%mutate(source_priority=2L)) %>%
-  arrange(source_priority) %>% distinct(season,round,driver_id,.keep_all=TRUE) %>% select(-source_priority)
+top3_odds_lookup <- if (!nrow(derived_top3_odds)) {
+  tibble(season=double(),round=double(),driver_id=character(),top3_odds_american=double(),
+         top3_odds_decimal=double(),top3_market_probability=double(),top3_sportsbook=character())
+} else bind_rows(
+  verified_top3_odds%>%mutate(source_priority=1L),
+  derived_top3_odds%>%mutate(source_priority=2L)
+) %>% arrange(source_priority) %>% distinct(season,round,driver_id,.keep_all=TRUE) %>% select(-source_priority)
 
 for (column in intersect(c("season", "round", "finish_position", "start_position", "points", "laps_led", "driver_rating", "average_running_position", "quality_pass_rate", "fastest_lap_pct"), names(history))) history[[column]] <- num(history[[column]])
 
@@ -202,12 +229,12 @@ specialist_route <- function(track_family, track_name) case_when(
 )
 specialist_route_label <- function(x) recode(x,drafting_superspeedway="Drafting",road_course="Road Course",conventional_speedway="Conventional Speedway",short_steep_oval="Short / Steep Oval",overall_fallback="Overall fallback")
 specialist_keys <- c("season","round","driver_id","model")
-current_specialists <- finish %>%
-  filter(season==2026,data_split%in%c("test","upcoming"),model%in%unname(specialist_model_map)) %>%
+active_specialists <- finish %>%
+  filter(season%in%c(2025,2026),data_split%in%c("test","upcoming"),model%in%unname(specialist_model_map)) %>%
   select(any_of(c(specialist_keys,"race_name","race_date","track_name","track_primary_family","driver_name","owner_name","manufacturer","target_finish_position","target_win","target_top3","predicted_finish_position","predicted_finish_rank","finish_route"))) %>%
-  inner_join(probability%>%filter(season==2026,data_split%in%c("test","upcoming"),model%in%unname(specialist_model_map))%>%select(any_of(c(specialist_keys,"win_probability","top3_probability","predicted_win_rank","predicted_top3_rank","probability_route"))),by=specialist_keys) %>%
-  inner_join(points%>%filter(season==2026,data_split%in%c("test","upcoming"),model%in%unname(specialist_model_map))%>%select(any_of(c(specialist_keys,"target_points","predicted_points","predicted_points_rank","points_route"))),by=specialist_keys)
-specialist_all <- bind_rows(specialist_backtest,current_specialists) %>%
+  inner_join(probability%>%filter(season%in%c(2025,2026),data_split%in%c("test","upcoming"),model%in%unname(specialist_model_map))%>%select(any_of(c(specialist_keys,"win_probability","top3_probability","predicted_win_rank","predicted_top3_rank","probability_route"))),by=specialist_keys) %>%
+  inner_join(points%>%filter(season%in%c(2025,2026),data_split%in%c("test","upcoming"),model%in%unname(specialist_model_map))%>%select(any_of(c(specialist_keys,"target_points","predicted_points","predicted_points_rank","points_route"))),by=specialist_keys)
+specialist_all <- active_specialists %>%
   mutate(
     season=num(season),round=num(round),driver_id=as.character(driver_id),
     route_group=specialist_route(track_primary_family,track_name),
@@ -334,24 +361,19 @@ american_label <- function(x) ifelse(is.finite(num(x)),paste0(ifelse(num(x)>0,"+
 
 family_consensus_rows <- function(data, family, models) {
   models <- intersect(models,all_models)
-  current_rows <- data %>% filter(season==2026,data_split%in%c("test","upcoming"),model%in%models)
-  if(nrow(current_rows)) {
-    current_rows <- if(n_distinct(current_rows$model)>1) make_ensemble(current_rows,family) else current_rows %>% mutate(model="selected_ensemble")
-    current_contract <- if(family=="finish") current_rows %>% transmute(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,consensus_rank=predicted_finish_rank,predicted_value=predicted_finish_position,actual_finish=target_finish_position)
-      else if(family=="probability") current_rows %>% transmute(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,consensus_rank=predicted_win_rank,predicted_value=win_probability,actual_finish=target_finish_position,model_win_probability=win_probability,model_top3_probability=top3_probability)
-      else current_rows %>% transmute(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,consensus_rank=predicted_points_rank,predicted_value=predicted_points,actual_finish=target_finish_position)
+  active_rows <- data %>% filter(season%in%c(2025,2026),data_split%in%c("test","upcoming"),model%in%models)
+  if(nrow(active_rows)) {
+    active_rows <- if(n_distinct(active_rows$model)>1) make_ensemble(active_rows,family) else active_rows %>% mutate(model="selected_ensemble")
+    active_contract <- if(family=="finish") active_rows %>% transmute(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,consensus_rank=predicted_finish_rank,predicted_value=predicted_finish_position,actual_finish=target_finish_position)
+      else if(family=="probability") active_rows %>% transmute(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,consensus_rank=predicted_win_rank,predicted_value=win_probability,actual_finish=target_finish_position,model_win_probability=win_probability,model_top3_probability=top3_probability)
+      else active_rows %>% transmute(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,consensus_rank=predicted_points_rank,predicted_value=predicted_points,actual_finish=target_finish_position)
     if(family!="probability") {
-      prob_rows <- probability %>% filter(season==2026,data_split%in%c("test","upcoming"),model%in%models)
+      prob_rows <- probability %>% filter(season%in%c(2025,2026),data_split%in%c("test","upcoming"),model%in%models)
       prob_rows <- if(n_distinct(prob_rows$model)>1) make_ensemble(prob_rows,"probability") else prob_rows
-      current_contract <- current_contract %>% left_join(prob_rows%>%select(season,round,driver_id,model_win_probability=win_probability,model_top3_probability=top3_probability),by=c("season","round","driver_id"))
+      active_contract <- active_contract %>% left_join(prob_rows%>%select(season,round,driver_id,model_win_probability=win_probability,model_top3_probability=top3_probability),by=c("season","round","driver_id"))
     }
-  } else current_contract <- tibble()
-  fixed_2025 <- if(!nrow(backtest)) tibble() else {
-    if(family=="finish") backtest%>%transmute(season,round,race_name,race_date,driver_id=as.character(driver_id),driver_name,owner_name,manufacturer,consensus_rank=predicted_finish_rank,predicted_value=predicted_finish_position,actual_finish=target_finish_position,model_win_probability=win_probability,model_top3_probability=top3_probability)
-    else if(family=="probability") backtest%>%transmute(season,round,race_name,race_date,driver_id=as.character(driver_id),driver_name,owner_name,manufacturer,consensus_rank=win_probability_rank,predicted_value=win_probability,actual_finish=target_finish_position,model_win_probability=win_probability,model_top3_probability=top3_probability)
-    else backtest%>%transmute(season,round,race_name,race_date,driver_id=as.character(driver_id),driver_name,owner_name,manufacturer,consensus_rank=predicted_points_rank,predicted_value=predicted_points,actual_finish=target_finish_position,model_win_probability=win_probability,model_top3_probability=top3_probability)
-  }
-  bind_rows(fixed_2025,current_contract)%>%mutate(actual_winner=actual_finish==1,actual_top3=actual_finish<=3)
+  } else active_contract <- tibble()
+  active_contract%>%mutate(actual_winner=actual_finish==1,actual_top3=actual_finish<=3)
 }
 
 rows_to_bets <- function(rows) {
@@ -367,25 +389,34 @@ rows_to_bets <- function(rows) {
 
 summarise_bets_window <- function(bets,start_season,end_season) {
   lo<-min(as.integer(start_season),as.integer(end_season));hi<-max(as.integer(start_season),as.integer(end_season))
-  x<-bets%>%filter(season>=lo,season<=hi,stake>0)
+  x<-bets%>%filter(season>=lo,season<=hi,is.finite(actual_finish))
   if(!nrow(x)) return(tibble())
-  by_market<-x%>%group_by(bet_market)%>%summarise(races=n_distinct(paste(season,round)),bets=n(),wins=sum(bet_won,na.rm=TRUE),hit_rate=wins/bets,avg_edge=safe_mean(model_edge),stake=sum(stake),profit=sum(profit,na.rm=TRUE),roi=profit/stake,.groups="drop")
-  combined<-x%>%summarise(bet_market="combined",races=n_distinct(paste(season,round)),bets=n(),wins=sum(bet_won,na.rm=TRUE),hit_rate=wins/bets,avg_edge=NA_real_,stake=sum(stake),profit=sum(profit,na.rm=TRUE),roi=profit/stake)
+  summarise_market<-function(tbl,market) {
+    priced_stake<-sum(tbl$stake,na.rm=TRUE)
+    priced_profit<-if(priced_stake>0)sum(tbl$profit,na.rm=TRUE)else NA_real_
+    tibble(
+      bet_market=market,races=n_distinct(paste(tbl$season,tbl$round)),bets=nrow(tbl),
+      wins=sum(tbl$bet_won,na.rm=TRUE),hit_rate=wins/bets,priced_bets=sum(tbl$stake>0,na.rm=TRUE),
+      avg_edge=safe_mean(ifelse(tbl$stake>0,tbl$model_edge,NA_real_)),stake=priced_stake,
+      profit=priced_profit,roi=ifelse(priced_stake>0,priced_profit/priced_stake,NA_real_)
+    )
+  }
+  by_market<-x%>%group_split(bet_market)%>%lapply(function(tbl)summarise_market(tbl,first(tbl$bet_market)))%>%bind_rows()
+  combined<-summarise_market(x,"combined")%>%mutate(avg_edge=NA_real_)
   bind_rows(by_market,combined)%>%mutate(period=paste0(lo,"–",hi))%>%arrange(match(bet_market,c("win","podium","combined")))
 }
 
-render_roi_table <- function(x) x%>%transmute(Period=period,Market=recode(bet_market,win="Winner",podium="Podium",combined="Combined"),Races=races,Bets=bets,Wins=wins,`Hit rate`=fmt_pct(hit_rate,1),`Average edge`=ifelse(bet_market!="combined"&is.finite(avg_edge),fmt_pct(avg_edge,1),"—"),Stake=fmt_num(stake,0),Profit=fmt_num(profit,2),ROI=fmt_pct(roi,1))
+render_roi_table <- function(x) x%>%transmute(Period=period,Market=recode(bet_market,win="Winner",podium="Podium",combined="Combined"),Races=races,Bets=bets,Wins=wins,`Hit rate`=fmt_pct(hit_rate,1),`Priced bets`=priced_bets,`Average edge`=ifelse(bet_market!="combined"&is.finite(avg_edge),fmt_pct(avg_edge,1),"—"),Stake=fmt_num(stake,0),Profit=fmt_num(profit,2),ROI=fmt_pct(roi,1))
 render_bets_table <- function(x) x%>%mutate(bet_market=recode(bet_market,win="Winner",podium="Podium"))%>%transmute(Market=bet_market,Rank=fmt_int(consensus_rank),Driver=driver_name,Owner=owner_name,Projection=fmt_num(predicted_value,2),`Value probability`=fmt_pct(model_probability,1),Odds=american_label(odds_american),Source=coalesce(odds_source,"Missing"),`Market %`=fmt_pct(market_probability,1),Edge=fmt_pct(model_edge,1),Result=bet_status,`Actual finish`=fmt_int(actual_finish),Stake=fmt_num(stake,0),Profit=fmt_num(profit,2),ROI=fmt_pct(roi,1))
 
 qualifying_consensus_rows <- function(data,models) {
   models<-intersect(models,all_models)
-  current<-data%>%filter(season==2026,data_split%in%c("test","upcoming"),model%in%models)
-  if(nrow(current)) {
-    current<-if(n_distinct(current$model)>1)make_ensemble(current,"qualifying")else current%>%mutate(model="selected_ensemble")
-    current<-current%>%transmute(season,round,race_name,consensus_rank=predicted_qualifying_rank,actual_qualifying=target_qualifying_position)
+  active<-data%>%filter(season%in%c(2025,2026),data_split%in%c("test","upcoming"),model%in%models)
+  if(nrow(active)) {
+    active<-if(n_distinct(active$model)>1)make_ensemble(active,"qualifying")else active%>%mutate(model="selected_ensemble")
+    active<-active%>%transmute(season,round,race_name,consensus_rank=predicted_qualifying_rank,actual_qualifying=target_qualifying_position)
   }
-  fixed<-if(!nrow(backtest))tibble()else backtest%>%transmute(season,round,race_name,consensus_rank=predicted_qualifying_rank,actual_qualifying=target_qualifying_position)
-  bind_rows(fixed,current)
+  active
 }
 
 summarise_qualifying_window <- function(rows,start_season,end_season) {
@@ -451,11 +482,11 @@ family_tab <- function(prefix, title, subtitle, note = NULL, betting = FALSE, qu
           ),
           selectInput(paste0(prefix,"_season"),"Season",choices=sort(unique(qualifying$season),decreasing=TRUE),selected=max(qualifying$season,na.rm=TRUE)),
           selectInput(paste0(prefix,"_round"),"Race",choices=character()),
-          checkboxGroupInput(paste0(prefix,"_models"),"Models",choices=setNames(selector_models,model_label(selector_models)),selected=default_models),
           actionButton(paste0(prefix,"_all"),"Select all",class="mini-button"),
           actionButton(paste0(prefix,"_default"),"Reset",class="mini-button"),
+          checkboxGroupInput(paste0(prefix,"_models"),"Models",choices=setNames(selector_models,model_label(selector_models)),selected=default_models),
           if (!is.null(note)) div(class="rail-note",note),
-          if(betting) div(class="rail-note","Winner ROI counts every consensus pick. Average winner edge appears only when every pick has a saved price. Top-three ROI uses only supplied verified top-three quotes. The 2025 rows use the leakage-safe fixed-season backtest trained through 2024."),
+          if(betting) div(class="rail-note",paste0("Winner ROI counts every consensus pick. Average winner edge appears only when every pick has a saved price. Top-three ROI uses supplied verified quotes or fair prices derived from the complete winner board. Active evaluation: ",active_strategy_name,".")),
           if(qualifying_summary) div(class="rail-note","Pole and front-row hit rates use completed qualifying results. NASCAR's front row is the first two starting positions; qualifying ROI remains unavailable without complete pole-market boards.")
         ),
         main(class="content-stack",
@@ -520,7 +551,7 @@ app_shell <- navbarPage(
     div(class="page-shell",
       div(class="page-hero",div(class="eyebrow","ROUTE LAB"),h1("Routed Specialists"),p("Choose a race and the app automatically activates its Drafting, Road Course, Conventional Speedway, or Short / Steep Oval finish, probability, and points specialists.")),
       div(class="app-grid",
-        aside(class="control-rail",h3("Race and specialist models"),selectInput("route_roi_start","ROI start season",choices=c(2026,2025),selected=2025),selectInput("route_roi_end","ROI end season",choices=c(2026,2025),selected=2026),selectInput("route_season","Season",choices=sort(unique(specialist_history$season),decreasing=TRUE),selected=max(specialist_history$season,na.rm=TRUE)),selectInput("route_round","Race",choices=character()),checkboxGroupInput("route_models","Routed specialist models",choices=routed_specialist_model_choices,selected=character()),actionButton("route_defaults","Use race defaults",class="mini-button"),actionButton("route_all","Select all",class="mini-button"),actionButton("route_clear","Clear all",class="mini-button"),div(class="rail-note","All 12 specialist choices remain visible. Changing the race selects its Position, Probability, and Points specialists by default; you can then change any checkbox. Each specialist is scored only on matching tracks.")),
+        aside(class="control-rail",h3("Race and specialist models"),selectInput("route_roi_start","ROI start season",choices=c(2026,2025),selected=2025),selectInput("route_roi_end","ROI end season",choices=c(2026,2025),selected=2026),selectInput("route_season","Season",choices=sort(unique(specialist_history$season),decreasing=TRUE),selected=max(specialist_history$season,na.rm=TRUE)),selectInput("route_round","Race",choices=character()),actionButton("route_defaults","Use race defaults",class="mini-button"),actionButton("route_all","Select all",class="mini-button"),actionButton("route_clear","Clear all",class="mini-button"),checkboxGroupInput("route_models","Routed specialist models",choices=routed_specialist_model_choices,selected=character()),div(class="rail-note","All 12 specialist choices remain visible. Changing the race selects its Position, Probability, and Points specialists by default; you can then change any checkbox. Each specialist is scored only on matching tracks.")),
         main(class="content-stack",uiOutput("route_context"),uiOutput("route_cards"),div(class="panel",h2("Routed Specialist Consensus Season Betting ROI"),p(class="panel-note","Winner, podium, and combined returns use one consensus ranking across the selected routed specialist outcomes."),tableOutput("route_roi")),div(class="panel",h2("Selected Race Specialist Picks"),tableOutput("route_winner")),div(class="panel",h2("Selected Race Driver Board"),div(class="table-scroll",tableOutput("route_table"))),div(class="panel",h2("Route-only Model Performance"),tableOutput("route_metrics")))
       )
     )
@@ -624,7 +655,7 @@ server <- function(input, output, session) {
       output[[paste0(prefix,"_roi")]] <- renderTable({
         req(input[[paste0(prefix,"_roi_start")]],input[[paste0(prefix,"_roi_end")]])
         x<-summarise_bets_window(consensus_bets(),input[[paste0(prefix,"_roi_start")]],input[[paste0(prefix,"_roi_end")]])
-        validate(need(nrow(x),"No completed consensus bets with odds in this season window."));render_roi_table(x)
+        validate(need(nrow(x),"No completed consensus picks in this season window."));render_roi_table(x)
       },striped=TRUE,hover=TRUE,spacing="s",rownames=FALSE)
       output[[paste0(prefix,"_bets")]] <- renderTable({
         x<-consensus_bets()%>%filter(season==as.integer(input[[paste0(prefix,"_season")]]),round==as.integer(input[[paste0(prefix,"_round")]]))
@@ -667,7 +698,7 @@ server <- function(input, output, session) {
   route_contract<-reactive({req(input$route_models);family_consensus_rows(finish,"finish",input$route_models)})
   route_bet_rows<-reactive(rows_to_bets(route_contract()))
   output$route_context<-renderUI({x<-route_rows();validate(need(nrow(x),"No routed predictions for this race."));div(class="race-context",span(class="context-chip",paste0(first(x$season)," • Round ",first(x$round))),strong(first(x$track_name)),span(str_to_title(str_replace_all(first(x$track_primary_family),"_"," "))))})
-  output$route_roi<-renderTable({req(input$route_roi_start,input$route_roi_end);x<-summarise_bets_window(route_bet_rows(),input$route_roi_start,input$route_roi_end);validate(need(nrow(x),"No completed routed bets with odds in this window."));render_roi_table(x)},striped=TRUE,hover=TRUE,rownames=FALSE)
+  output$route_roi<-renderTable({req(input$route_roi_start,input$route_roi_end);x<-summarise_bets_window(route_bet_rows(),input$route_roi_start,input$route_roi_end);validate(need(nrow(x),"No completed routed picks in this window."));render_roi_table(x)},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$route_bets<-renderTable({x<-route_bet_rows()%>%filter(season==as.integer(input$route_season),round==as.integer(input$route_round));validate(need(nrow(x),"No routed consensus bet rows for this race."));render_bets_table(x)},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$route_winner<-renderTable({route_contract()%>%filter(season==as.integer(input$route_season),round==as.integer(input$route_round),consensus_rank==1)%>%transmute(Pick=driver_name,Owner=owner_name,`Pred finish`=fmt_num(predicted_value,2),`Win probability`=fmt_pct(model_win_probability,1),`Actual finish`=fmt_int(actual_finish),Correct=ifelse(actual_winner,"Yes",ifelse(is.na(actual_winner),"—","No")))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$route_cards<-renderUI({x<-route_rows();active<-x%>%filter(model=="routed_consensus")%>%slice(1);div(class="metric-row",metric_card("Active route",str_to_title(str_replace_all(active$finish_route%||%first(x$finish_route),"_"," ")),"Race-specific routing","gold"),metric_card("Models shown",length(unique(x$model)),paste(model_label(unique(x$model)),collapse=" • "),"blue"),metric_card("Drivers",length(unique(x$driver_id)),"Expected field","green"))})
@@ -748,7 +779,7 @@ server <- function(input, output, session) {
   routed_consensus_bets<-reactive(rows_to_bets(routed_consensus_contract()))
   output$route_context<-renderUI({x<-route_rows_auto();r<-x[1,];meta<-race_track_metadata(r);div(class="race-context",span(class="context-chip",paste0(first(x$season)," • Round ",first(x$round))),strong(meta$track_name),span(first(x$race_name)),span(track_characteristics_label(r)),span(paste0("Default route: ",specialist_route_label(active_route_group()))))})
   output$route_cards<-renderUI({x<-route_rows_auto();races<-bind_rows(lapply(c("finish","probability","points"),function(outcome)route_rows_for(outcome,window=TRUE)))%>%distinct(season,round);div(class="metric-row",metric_card("Default route",specialist_route_label(active_route_group()),"Three matching choices checked on race change","gold"),metric_card("Selected choices",length(input$route_models),paste(route_choice_rows()$choice_label,collapse=" • "),"blue"),metric_card("Matching races",nrow(races),paste0(input$route_roi_start,"–",input$route_roi_end),"green"))})
-  output$route_roi<-renderTable({result<-summarise_bets_window(routed_consensus_bets(),input$route_roi_start,input$route_roi_end);validate(need(nrow(result),"No completed routed-specialist consensus bets with odds are available in this window."));render_roi_table(result)%>%mutate(Market=paste("Consensus",Market))},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
+  output$route_roi<-renderTable({result<-summarise_bets_window(routed_consensus_bets(),input$route_roi_start,input$route_roi_end);validate(need(nrow(result),"No completed routed-specialist consensus picks are available in this window."));render_roi_table(result)%>%mutate(Market=paste("Consensus",Market))},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$route_winner<-renderTable({bind_rows(lapply(c(Finish="finish",Probability="probability",Points="points"),function(outcome){x<-route_rows_for(outcome,input$route_season,input$route_round);if(!nrow(x))return(tibble());specialist_contract(x,str_to_title(outcome))%>%filter(consensus_rank==1)%>%transmute(Outcome=str_to_title(outcome),Pick=driver_name,Owner=owner_name,Projection=fmt_num(predicted_value,2),`Win probability`=fmt_pct(model_win_probability,1),`Actual finish`=fmt_int(actual_finish))}))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$route_table<-renderTable({selected<-unique(route_choice_rows()$outcome);route_rows_auto()%>%arrange(predicted_finish_rank)%>%transmute(Driver=driver_name,Owner=owner_name,Manufacturer=manufacturer,`Finish rank`=if("finish"%in%selected)fmt_int(predicted_finish_rank)else"—",`Pred finish`=if("finish"%in%selected)fmt_num(predicted_finish_position,2)else"—",`Win rank`=if("probability"%in%selected)fmt_int(predicted_win_rank)else"—",Win=if("probability"%in%selected)fmt_pct(win_probability,1)else"—",`Top 3`=if("probability"%in%selected)fmt_pct(top3_probability,1)else"—",`Points rank`=if("points"%in%selected)fmt_int(predicted_points_rank)else"—",Points=if("points"%in%selected)fmt_num(predicted_points,1)else"—")},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$route_metrics<-renderTable({result<-bind_rows(lapply(c("finish","probability","points"),function(outcome){x<-route_rows_for(outcome,window=TRUE);if(!nrow(x))return(tibble());if(outcome=="finish")tibble(Outcome="Position",Races=n_distinct(paste(x$season,x$round)),Rows=nrow(x),Metric="Rank MAE",Value=mean(abs(x$predicted_finish_rank-x$target_finish_position),na.rm=TRUE))else if(outcome=="probability")bind_rows(tibble(Outcome="Probability",Races=n_distinct(paste(x$season,x$round)),Rows=nrow(x),Metric="Win Brier",Value=mean((x$win_probability-x$target_win)^2,na.rm=TRUE)),tibble(Outcome="Probability",Races=n_distinct(paste(x$season,x$round)),Rows=nrow(x),Metric="Top-3 Brier",Value=mean((x$top3_probability-x$target_top3)^2,na.rm=TRUE)))else tibble(Outcome="Points",Races=n_distinct(paste(x$season,x$round)),Rows=nrow(x),Metric="MAE",Value=mean(abs(x$predicted_points-x$target_points),na.rm=TRUE))}));validate(need(nrow(result),"Select at least one routed specialist model."));result%>%mutate(Value=round(Value,3))},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
@@ -779,7 +810,7 @@ server <- function(input, output, session) {
   })
   cons_bet_rows<-reactive(rows_to_bets(consensus_contract()))
   output$cons_context<-renderUI({x<-consensus_rows();div(class="race-context",span(class="context-chip",paste0(input$cons_season," • Round ",input$cons_round)),strong(first(x$track_name)),span(str_to_title(str_replace_all(first(x$track_primary_family),"_"," "))))})
-  output$cons_roi<-renderTable({req(input$cons_roi_start,input$cons_roi_end);x<-summarise_bets_window(cons_bet_rows(),input$cons_roi_start,input$cons_roi_end);validate(need(nrow(x),"No completed all-model bets with odds in this window."));render_roi_table(x)},striped=TRUE,hover=TRUE,rownames=FALSE)
+  output$cons_roi<-renderTable({req(input$cons_roi_start,input$cons_roi_end);x<-summarise_bets_window(cons_bet_rows(),input$cons_roi_start,input$cons_roi_end);validate(need(nrow(x),"No completed all-model picks in this window."));render_roi_table(x)},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$cons_bets<-renderTable({x<-cons_bet_rows()%>%filter(season==as.integer(input$cons_season),round==as.integer(input$cons_round));validate(need(nrow(x),"No all-model consensus bet rows for this race."));render_bets_table(x)},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$cons_winner<-renderTable({consensus_contract()%>%filter(season==as.integer(input$cons_season),round==as.integer(input$cons_round),consensus_rank==1)%>%transmute(Pick=driver_name,Owner=owner_name,`Consensus score`=fmt_num(predicted_value,2),`Win probability`=fmt_pct(model_win_probability,1),`Actual finish`=fmt_int(actual_finish),Correct=ifelse(actual_winner,"Yes",ifelse(is.na(actual_winner),"—","No")))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$cons_cards<-renderUI({x<-consensus_rows();top<-slice_head(x,n=1);div(class="metric-row",metric_card("Consensus winner",top$driver_name,top$owner_name,"gold"),metric_card("Win probability",fmt_pct(top$win_probability,1),"Selected probability ensemble","blue"),metric_card("Projected points",fmt_num(top$predicted_points,1),paste0("Finish rank ",top$finish_rank),"green"))})
@@ -840,33 +871,22 @@ server <- function(input, output, session) {
       left_join(pt%>%select(season,round,driver_id,predicted_points,predicted_points_rank),by=c("season","round","driver_id"))%>%
       inner_join(scores,by=c("season","round","driver_id"))%>%arrange(consensus_rank)
   }
-  fixed_consensus_rows<-function(){
-    validate_consensus_selection();flags<-consensus_flags();x<-backtest
-    ranks<-bind_rows(
-      if(flags[["Finish"]])x%>%transmute(season,round,driver_id=as.character(driver_id),family="Finish",family_rank=predicted_finish_rank)else tibble(),
-      if(flags[["Probability"]])x%>%transmute(season,round,driver_id=as.character(driver_id),family="Probability",family_rank=win_probability_rank)else tibble(),
-      if(flags[["Points"]])x%>%transmute(season,round,driver_id=as.character(driver_id),family="Points",family_rank=predicted_points_rank)else tibble(),
-      if(flags[["Routed Specialists"]])routed_family_ranks(2025)else tibble()
-    )
-    scores<-ranks%>%group_by(season,round,driver_id)%>%summarise(consensus_score=mean(family_rank,na.rm=TRUE),family_count=n_distinct(family),.groups="drop")%>%group_by(season,round)%>%mutate(consensus_rank=rank(consensus_score,ties.method="first"))%>%ungroup()
-    x%>%mutate(driver_id=as.character(driver_id))%>%select(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,target_finish_position,predicted_finish_rank,win_probability,top3_probability,win_probability_rank,predicted_points,predicted_points_rank)%>%inner_join(scores,by=c("season","round","driver_id"))
-  }
   consensus_contract<-reactive({
     validate_consensus_selection()
-    races_2026<-finish%>%filter(season==2026,data_split%in%c("test","upcoming"))%>%distinct(season,round)%>%arrange(round)
-    rows_2026<-bind_rows(lapply(seq_len(nrow(races_2026)),function(i)consensus_for_race(races_2026$season[[i]],races_2026$round[[i]])))
-    bind_rows(fixed_consensus_rows(),rows_2026)%>%transmute(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,track_name,track_primary_family,consensus_rank,predicted_value=consensus_score,actual_finish=target_finish_position,model_win_probability=win_probability,model_top3_probability=top3_probability,family_count,predicted_finish_rank,predicted_win_rank=coalesce(predicted_win_rank,win_probability_rank),predicted_points,predicted_points_rank)%>%mutate(actual_winner=actual_finish==1,actual_top3=actual_finish<=3)
+    races<-finish%>%filter(season%in%c(2025,2026),data_split%in%c("test","upcoming"))%>%distinct(season,round)%>%arrange(season,round)
+    rows<-bind_rows(lapply(seq_len(nrow(races)),function(i)consensus_for_race(races$season[[i]],races$round[[i]])))
+    rows%>%transmute(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,track_name,track_primary_family,consensus_rank,predicted_value=consensus_score,actual_finish=target_finish_position,model_win_probability=win_probability,model_top3_probability=top3_probability,family_count,predicted_finish_rank,predicted_win_rank,predicted_points,predicted_points_rank)%>%mutate(actual_winner=actual_finish==1,actual_top3=actual_finish<=3)
   })
   consensus_rows<-reactive({req(input$cons_season,input$cons_round);x<-consensus_contract()%>%filter(season==as.integer(input$cons_season),round==as.integer(input$cons_round));validate(need(nrow(x),"No consensus rows for this race and family selection."));x})
   cons_bet_rows<-reactive(rows_to_bets(consensus_contract()))
   output$cons_context<-renderUI({x<-consensus_rows();r<-x[1,];meta<-race_track_metadata(r);div(class="race-context",span(class="context-chip",paste0(input$cons_season," • Round ",input$cons_round)),strong(meta$track_name),span(first(x$race_name)),span(track_characteristics_label(r)),span(paste(names(consensus_flags())[consensus_flags()],collapse=" • ")))})
-  output$cons_roi<-renderTable({x<-summarise_bets_window(cons_bet_rows(),input$cons_roi_start,input$cons_roi_end);validate(need(nrow(x),"No completed consensus bets with odds in this window."));render_roi_table(x)},striped=TRUE,hover=TRUE,rownames=FALSE)
+  output$cons_roi<-renderTable({x<-summarise_bets_window(cons_bet_rows(),input$cons_roi_start,input$cons_roi_end);validate(need(nrow(x),"No completed consensus picks in this window."));render_roi_table(x)},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$cons_bets<-renderTable({x<-cons_bet_rows()%>%filter(season==as.integer(input$cons_season),round==as.integer(input$cons_round));validate(need(nrow(x),"No consensus bet rows for this race."));render_bets_table(x)},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$cons_winner<-renderTable({consensus_rows()%>%filter(consensus_rank==1)%>%transmute(Pick=driver_name,Owner=owner_name,`Consensus score`=fmt_num(predicted_value,2),Families=family_count,`Win probability`=fmt_pct(model_win_probability,1),`Actual finish`=fmt_int(actual_finish),Correct=ifelse(actual_winner,"Yes",ifelse(is.na(actual_winner),"—","No")))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$cons_cards<-renderUI({x<-consensus_rows();top<-slice_head(x,n=1);div(class="metric-row",metric_card("Consensus winner",top$driver_name,top$owner_name,"gold"),metric_card("Families included",top$family_count,paste(names(consensus_flags())[consensus_flags()],collapse=" • "),"blue"),metric_card("Consensus score",fmt_num(top$predicted_value,2),"Lower is better","green"))})
   output$cons_table<-renderTable({consensus_rows()%>%transmute(Rank=fmt_int(consensus_rank),Driver=driver_name,Owner=owner_name,Manufacturer=manufacturer,Families=family_count,`Finish rank`=fmt_int(predicted_finish_rank),`Win rank`=fmt_int(predicted_win_rank),`Points rank`=fmt_int(predicted_points_rank),Win=fmt_pct(model_win_probability,1),`Top 3`=fmt_pct(model_top3_probability,1),Points=fmt_num(predicted_points,1),Score=fmt_num(predicted_value,2))},striped=TRUE,hover=TRUE,spacing="s",rownames=FALSE)
   output$cons_recipe<-renderUI({tags$ul(tags$li(paste("Finish:",if(input$cons_use_finish)paste(model_label(input$finish_models),collapse=", ")else"Excluded")),tags$li(paste("Probability:",if(input$cons_use_probability)paste(model_label(input$prob_models),collapse=", ")else"Excluded")),tags$li(paste("Points:",if(input$cons_use_points)paste(model_label(input$points_models),collapse=", ")else"Excluded")),tags$li(paste("Routed Specialists:",if(input$cons_use_routed)paste(route_choice_rows()$choice_label,collapse=", ")else"Excluded")))})
-  output$cons_metrics<-renderTable({x<-consensus_contract()%>%filter(season==2026,is.finite(actual_finish));validate(need(nrow(x),"No completed-race validation rows."));picks<-x%>%filter(consensus_rank==1);tibble(Metric=c("Races","Winner-pick accuracy","Top-3 selection hit rate","Finish-rank MAE"),Value=c(n_distinct(paste(picks$season,picks$round)),fmt_pct(mean(picks$actual_finish==1,na.rm=TRUE),1),fmt_pct(mean(x$actual_finish<=3&x$consensus_rank<=3,na.rm=TRUE)/mean(x$consensus_rank<=3,na.rm=TRUE),1),fmt_num(mean(abs(x$consensus_rank-x$actual_finish),na.rm=TRUE),2)))},striped=TRUE,spacing="s",rownames=FALSE)
+  output$cons_metrics<-renderTable({x<-consensus_contract()%>%filter(is.finite(actual_finish));validate(need(nrow(x),"No completed-race validation rows."));picks<-x%>%filter(consensus_rank==1);tibble(Metric=c("Races","Winner-pick accuracy","Top-3 selection hit rate","Finish-rank MAE"),Value=c(n_distinct(paste(picks$season,picks$round)),fmt_pct(mean(picks$actual_finish==1,na.rm=TRUE),1),fmt_pct(mean(x$actual_finish<=3&x$consensus_rank<=3,na.rm=TRUE)/mean(x$consensus_rank<=3,na.rm=TRUE),1),fmt_num(mean(abs(x$consensus_rank-x$actual_finish),na.rm=TRUE),2)))},striped=TRUE,spacing="s",rownames=FALSE)
 
   # Profiles.
   selected_track_schedule<-reactive({req(input$track_schedule_key);x<-track_schedule_2026%>%filter(schedule_key==input$track_schedule_key)%>%slice(1);validate(need(nrow(x),"That 2026 schedule entry is unavailable."));x})
@@ -946,11 +966,11 @@ server <- function(input, output, session) {
   output$dk_board<-renderTable({dk_driver_view()%>%arrange(desc(dk_projection))%>%transmute(Rank=row_number(),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank),`Laps led`=fmt_num(projected_laps_led,1),`Fastest laps`=fmt_num(projected_fastest_laps,1))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$dk_top<-renderTable({dk_lineups_view()%>%slice_head(n=10)%>%transmute(Rank=fmt_int(lineup_rank),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),Projection=fmt_num(projected_points,1),Drivers=drivers)},striped=TRUE,rownames=FALSE)
   output$dk_metrics<-renderTable(dk_backtest_metrics,striped=TRUE,rownames=FALSE)
-  output$bt_cards<-renderUI({x<-backtest%>%filter(round==as.integer(input$bt_round));pick<-x%>%slice_min(predicted_finish_rank,n=1);div(class="metric-row",metric_card("Predicted winner",pick$driver_name,pick$owner_name,"gold"),metric_card("Actual winner",(x%>%filter(target_finish_position==1)%>%pull(driver_name)%>%first())%||%"—",first(x$race_name),"blue"),metric_card("Field",nrow(x),"2018–2024 training only","green"))})
+  output$bt_cards<-renderUI({x<-backtest%>%filter(round==as.integer(input$bt_round));pick<-x%>%slice_min(predicted_finish_rank,n=1);div(class="metric-row",metric_card("Predicted winner",pick$driver_name,pick$owner_name,"gold"),metric_card("Actual winner",(x%>%filter(target_finish_position==1)%>%pull(driver_name)%>%first())%||%"—",first(x$race_name),"blue"),metric_card("Field",nrow(x),paste0(str_to_title(active_strategy_name)," evaluation"),"green"))})
   output$bt_metrics<-renderTable(backtest_metrics,striped=TRUE,rownames=FALSE)
   output$bt_table<-renderTable({backtest%>%filter(round==as.integer(input$bt_round))%>%arrange(predicted_finish_rank)%>%transmute(Rank=predicted_finish_rank,Driver=driver_name,Owner=owner_name,Qualifying=predicted_qualifying_rank,`Pred finish`=fmt_num(predicted_finish_position,1),Win=fmt_pct(win_probability,1),`Top 3`=fmt_pct(top3_probability,1),Points=fmt_num(predicted_points,1),Actual=fmt_int(target_finish_position))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$spec_table<-renderTable({x<-family_specs[[input$spec_family]];x%>%mutate(model=model_label(model))%>%select(any_of(c("model","route","train_end_season","position_rows","deficit_rows","training_rows","selected_numeric_features","target","max_depth","eta","min_child_weight","subsample","colsample_bytree","nrounds","eval_metric","eval_value","tuning_status")))},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
-  output$file_table<-renderTable({files<-c("nascar_stage15_upcoming_race_predictions_latest.csv",paste0("nascar_stage15_current_",c("qualifying","finish","probability","points"),"_model_predictions_latest.csv"),"nascar_stage16_fixed_season_backtest_2025.csv","nascar_stage17_market_winner_full_boards_2025_2026.csv","nascar_stage18_current_forecast_with_safe_overlays_latest.csv","nascar_stage19_draftkings_driver_projections_latest.csv");tibble(File=files,Exists=vapply(files,function(x)file.exists(data_path(x)),logical(1)),Modified=vapply(files,function(x){p<-data_path(x);if(file.exists(p))format(file.info(p)$mtime,"%Y-%m-%d %H:%M")else"—"},character(1)))},striped=TRUE,hover=TRUE,rownames=FALSE)
+  output$file_table<-renderTable({files<-c("nascar_active_strategy.csv","nascar_stage15_upcoming_race_predictions_latest.csv",paste0("nascar_stage15_current_",c("qualifying","finish","probability","points"),"_model_predictions_latest.csv"),"nascar_stage16_active_backtest_2025_2026.csv","nascar_stage17_market_winner_full_boards_2025_2026.csv","nascar_stage18_current_forecast_with_safe_overlays_latest.csv","nascar_stage19_draftkings_driver_projections_latest.csv");tibble(File=files,Exists=vapply(files,function(x)file.exists(data_path(x)),logical(1)),Modified=vapply(files,function(x){p<-data_path(x);if(file.exists(p))format(file.info(p)$mtime,"%Y-%m-%d %H:%M")else"—"},character(1)))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$audit_table<-renderTable(external_audit,striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
 }
 
