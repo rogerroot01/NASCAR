@@ -614,14 +614,29 @@ ui <- tagList(
 server <- function(input, output, session) {
   register_family <- function(prefix, data, family) {
     available_models <- if(family=="qualifying") qualifying_models else all_models
+    default_models_for_race <- function() {
+      season <- input[[paste0(prefix,"_season")]]
+      round <- input[[paste0(prefix,"_round")]]
+      if(is.null(season)||is.null(round))return(intersect(default_models,available_models))
+      rows <- data %>% filter(.data$season==as.integer(season),.data$round==as.integer(round))
+      route_column <- switch(family,qualifying="qualifying_route",finish="finish_route",probability="probability_route",points="points_route")
+      routes <- if(route_column%in%names(rows)) as.character(rows[[route_column]]) else character()
+      routes <- routes[!is.na(routes)&nzchar(routes)]
+      specialist <- if(length(routes)) unname(specialist_model_map[routes[[1]]]) else character()
+      intersect(unique(c(default_models,specialist)),available_models)
+    }
     observeEvent(input[[paste0(prefix,"_season")]], {
       choices <- race_choices(data,input[[paste0(prefix,"_season")]])
       upcoming <- choices %>% filter(data_split=="upcoming") %>% slice_min(round,n=1,with_ties=FALSE)
       selected_round <- if(nrow(upcoming)) upcoming$round[[1]] else if(nrow(choices)) max(choices$round) else NULL
       updateSelectInput(session,paste0(prefix,"_round"),choices=setNames(choices$round,choices$label),selected=selected_round)
     },ignoreInit=FALSE)
+    observeEvent(list(input[[paste0(prefix,"_season")]],input[[paste0(prefix,"_round")]]), {
+      req(input[[paste0(prefix,"_season")]],input[[paste0(prefix,"_round")]])
+      updateCheckboxGroupInput(session,paste0(prefix,"_models"),selected=default_models_for_race())
+    },ignoreInit=FALSE)
     observeEvent(input[[paste0(prefix,"_all")]], updateCheckboxGroupInput(session,paste0(prefix,"_models"),selected=available_models))
-    observeEvent(input[[paste0(prefix,"_default")]], updateCheckboxGroupInput(session,paste0(prefix,"_models"),selected=default_models))
+    observeEvent(input[[paste0(prefix,"_default")]], updateCheckboxGroupInput(session,paste0(prefix,"_models"),selected=default_models_for_race()))
     selected <- reactive({
       req(input[[paste0(prefix,"_season")]],input[[paste0(prefix,"_round")]],input[[paste0(prefix,"_models")]])
       rows <- data %>% filter(season==as.integer(input[[paste0(prefix,"_season")]]),round==as.integer(input[[paste0(prefix,"_round")]]),model %in% input[[paste0(prefix,"_models")]])
