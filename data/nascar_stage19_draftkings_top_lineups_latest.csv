@@ -1,41 +1,41 @@
 projection_variant,lineup_rank,total_salary,salary_remaining,projected_points,drivers
-base,1,49500,500,306.9775468515085,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Kyle Larson | Shane van Gisbergen
-base,2,49700,300,306.4285344838051,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Ryan Blaney | Shane van Gisbergen
-base,3,49800,200,305.76107880384365,Alex Bowman | Austin Dillon | Christopher Bell | Denny Hamlin | Shane van Gisbergen | Ty Gibbs
-base,4,49900,100,304.24126236497443,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Ty Gibbs | Tyler Reddick
-base,5,49700,300,303.66066445527446,A.J. Allmendinger | Austin Dillon | Bubba Wallace | Denny Hamlin | Kyle Larson | Ty Gibbs
-base,6,50000,0,303.6352342816304,Alex Bowman | Austin Dillon | Brad Keselowski | Bubba Wallace | Christopher Bell | Denny Hamlin
-base,7,49900,100,303.11165208757103,A.J. Allmendinger | Austin Dillon | Bubba Wallace | Denny Hamlin | Ryan Blaney | Ty Gibbs
-base,8,49900,100,302.76628635573707,A.J. Allmendinger | Bubba Wallace | Christopher Bell | Denny Hamlin | Shane van Gisbergen | Ty Gibbs
-base,9,49800,200,302.39384703147334,Austin Dillon | Bubba Wallace | Denny Hamlin | Kyle Larson | Todd Gilliland | Ty Gibbs
-base,10,50000,0,301.8448346637699,Austin Dillon | Bubba Wallace | Denny Hamlin | Ryan Blaney | Todd Gilliland | Ty Gibbs
-base,11,49900,100,301.79683141855793,Bubba Wallace | Denny Hamlin | Kyle Larson | Ricky Stenhouse Jr. | Shane van Gisbergen | Ty Gibbs
-base,12,50000,0,301.49946893193595,Bubba Wallace | Christopher Bell | Denny Hamlin | Shane van Gisbergen | Todd Gilliland | Ty Gibbs
-base,13,49700,300,301.21953563832676,Alex Bowman | Bubba Wallace | Denny Hamlin | Kyle Larson | Shane van Gisbergen | Zane Smith
-base,14,49800,200,301.18223409454936,A.J. Allmendinger | Alex Bowman | Bubba Wallace | Denny Hamlin | Ty Gibbs | William Byron
-base,15,50000,0,301.09542805779085,Austin Dillon | Bubba Wallace | Denny Hamlin | Kyle Larson | Riley Herbst | Ty Gibbs
-base,16,49700,300,300.9115173664292,Austin Dillon | Bubba Wallace | Denny Hamlin | Shane van Gisbergen | Ty Gibbs | Tyler Reddick
-base,17,49800,200,300.8974456901993,Alex Bowman | Austin Dillon | Denny Hamlin | Kyle Larson | Ty Gibbs | Zane Smith
-base,18,49200,800,300.8910107588606,Alex Bowman | Austin Dillon | Bubba Wallace | Christopher Bell | Denny Hamlin | Shane van Gisbergen
-base,19,49500,500,300.8472815441107,Alex Bowman | Austin Dillon | Denny Hamlin | Shane van Gisbergen | Ty Gibbs | William Byron
-base,20,49900,100,300.67052327062333,Alex Bowman | Bubba Wallace | Denny Hamlin | Ryan Blaney | Shane van Gisbergen | Zane Smith
-chatter,1,49700,300,306.4285344838051,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Ryan Blaney | Shane van Gisbergen
-chatter,2,49800,200,304.28843814337256,Alex Bowman | Austin Dillon | Kyle Larson | Ryan Blaney | Shane van Gisbergen | Ty Gibbs
-chatter,3,49900,100,303.11165208757103,A.J. Allmendinger | Austin Dillon | Bubba Wallace | Denny Hamlin | Ryan Blaney | Ty Gibbs
-chatter,4,49500,500,302.9775468515085,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Kyle Larson | Shane van Gisbergen
-chatter,5,50000,0,302.1625936211593,Alex Bowman | Austin Dillon | Brad Keselowski | Bubba Wallace | Kyle Larson | Ryan Blaney
-chatter,6,50000,0,301.8448346637699,Austin Dillon | Bubba Wallace | Denny Hamlin | Ryan Blaney | Todd Gilliland | Ty Gibbs
-chatter,7,49800,200,301.76107880384365,Alex Bowman | Austin Dillon | Christopher Bell | Denny Hamlin | Shane van Gisbergen | Ty Gibbs
-chatter,8,49900,100,301.293645695266,A.J. Allmendinger | Bubba Wallace | Kyle Larson | Ryan Blaney | Shane van Gisbergen | Ty Gibbs
-chatter,9,49900,100,300.67052327062333,Alex Bowman | Bubba Wallace | Denny Hamlin | Ryan Blaney | Shane van Gisbergen | Zane Smith
-chatter,10,50000,0,300.34843332249585,Alex Bowman | Austin Dillon | Denny Hamlin | Ryan Blaney | Ty Gibbs | Zane Smith
-chatter,11,49900,100,300.24126236497443,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Ty Gibbs | Tyler Reddick
-chatter,12,50000,0,300.02682827146486,Bubba Wallace | Kyle Larson | Ryan Blaney | Shane van Gisbergen | Todd Gilliland | Ty Gibbs
-chatter,13,49500,500,299.7416708320459,A.J. Allmendinger | Alex Bowman | Denny Hamlin | Ryan Blaney | Shane van Gisbergen | Ty Gibbs
-chatter,14,49700,300,299.66066445527446,A.J. Allmendinger | Austin Dillon | Bubba Wallace | Denny Hamlin | Kyle Larson | Ty Gibbs
-chatter,15,50000,0,299.6352342816304,Alex Bowman | Austin Dillon | Brad Keselowski | Bubba Wallace | Christopher Bell | Denny Hamlin
-chatter,16,49200,800,299.4183700983895,Alex Bowman | Austin Dillon | Bubba Wallace | Kyle Larson | Ryan Blaney | Shane van Gisbergen
-chatter,17,49800,200,298.83284862261405,Austin Dillon | Brad Keselowski | Bubba Wallace | Kyle Larson | Ryan Blaney | Shane van Gisbergen
-chatter,18,50000,0,298.77967209590787,Alex Bowman | Bubba Wallace | John Hunter Nemechek | Kyle Larson | Ryan Blaney | Ty Gibbs
-chatter,19,49900,100,298.76628635573707,A.J. Allmendinger | Bubba Wallace | Christopher Bell | Denny Hamlin | Shane van Gisbergen | Ty Gibbs
-chatter,20,49800,200,298.5368546011633,A.J. Allmendinger | Alex Bowman | Bubba Wallace | Christopher Bell | Ryan Blaney | Ty Gibbs
+base,1,49700,300,309.4285344838051,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Ryan Blaney | Shane van Gisbergen
+base,2,50000,0,308.05058991234904,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Riley Herbst | Ryan Blaney
+base,3,50000,0,306.6352342816304,Alex Bowman | Austin Dillon | Brad Keselowski | Bubba Wallace | Christopher Bell | Denny Hamlin
+base,4,49400,600,306.28087375939396,Alex Bowman | Austin Dillon | Brad Keselowski | Denny Hamlin | Ryan Blaney | Shane van Gisbergen
+base,5,49500,500,305.9775468515085,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Kyle Larson | Shane van Gisbergen
+base,6,49800,200,305.72084491380383,Brad Keselowski | Bubba Wallace | Denny Hamlin | Riley Herbst | Ryan Blaney | Shane van Gisbergen
+base,7,49800,200,305.1764344345623,Alex Bowman | Denny Hamlin | Riley Herbst | Ryan Blaney | Shane van Gisbergen | Ty Gibbs
+base,8,49800,200,304.59960228005247,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Kyle Larson | Riley Herbst
+base,9,49800,200,304.3490088860315,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Ryan Blaney | Todd Gilliland
+base,10,49800,200,304.30548928308514,Austin Dillon | Brad Keselowski | Bubba Wallace | Christopher Bell | Denny Hamlin | Shane van Gisbergen
+base,11,50000,0,304.1625936211593,Alex Bowman | Austin Dillon | Brad Keselowski | Bubba Wallace | Kyle Larson | Ryan Blaney
+base,12,49800,200,304.1031527869476,Alex Bowman | Bubba Wallace | Denny Hamlin | Michael McDowell | Ryan Blaney | Shane van Gisbergen
+base,13,50000,0,303.8172278893253,Alex Bowman | Brad Keselowski | Bubba Wallace | Christopher Bell | Kyle Larson | Shane van Gisbergen
+base,14,49800,200,303.76107880384365,Alex Bowman | Austin Dillon | Christopher Bell | Denny Hamlin | Shane van Gisbergen | Ty Gibbs
+base,15,49500,500,303.4156915886908,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Shane van Gisbergen | Tyler Reddick
+base,16,49900,100,303.35441826188895,Alex Bowman | Brad Keselowski | Bubba Wallace | Ryan Blaney | Shane van Gisbergen | William Byron
+base,17,50000,0,303.1204919682831,Alex Bowman | Brad Keselowski | Bubba Wallace | Chase Elliott | Denny Hamlin | Shane van Gisbergen
+base,18,49200,800,302.8298861270974,Alex Bowman | Austin Dillon | Brad Keselowski | Denny Hamlin | Kyle Larson | Shane van Gisbergen
+base,19,49700,300,302.72143702189743,Alex Bowman | Austin Dillon | Brad Keselowski | Bubba Wallace | Denny Hamlin | William Byron
+base,20,50000,0,302.42990332498863,Alex Bowman | Brad Keselowski | Denny Hamlin | Ricky Stenhouse Jr. | Ryan Blaney | Ty Gibbs
+chatter,1,49700,300,309.4285344838051,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Ryan Blaney | Shane van Gisbergen
+chatter,2,50000,0,308.05058991234904,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Riley Herbst | Ryan Blaney
+chatter,3,50000,0,306.6352342816304,Alex Bowman | Austin Dillon | Brad Keselowski | Bubba Wallace | Christopher Bell | Denny Hamlin
+chatter,4,49400,600,306.28087375939396,Alex Bowman | Austin Dillon | Brad Keselowski | Denny Hamlin | Ryan Blaney | Shane van Gisbergen
+chatter,5,49500,500,305.9775468515085,Alex Bowman | Austin Dillon | Bubba Wallace | Denny Hamlin | Kyle Larson | Shane van Gisbergen
+chatter,6,49800,200,305.72084491380383,Brad Keselowski | Bubba Wallace | Denny Hamlin | Riley Herbst | Ryan Blaney | Shane van Gisbergen
+chatter,7,49800,200,305.1764344345623,Alex Bowman | Denny Hamlin | Riley Herbst | Ryan Blaney | Shane van Gisbergen | Ty Gibbs
+chatter,8,49800,200,304.59960228005247,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Kyle Larson | Riley Herbst
+chatter,9,49800,200,304.3490088860315,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Ryan Blaney | Todd Gilliland
+chatter,10,49800,200,304.30548928308514,Austin Dillon | Brad Keselowski | Bubba Wallace | Christopher Bell | Denny Hamlin | Shane van Gisbergen
+chatter,11,50000,0,304.1625936211593,Alex Bowman | Austin Dillon | Brad Keselowski | Bubba Wallace | Kyle Larson | Ryan Blaney
+chatter,12,49800,200,304.1031527869476,Alex Bowman | Bubba Wallace | Denny Hamlin | Michael McDowell | Ryan Blaney | Shane van Gisbergen
+chatter,13,50000,0,303.8172278893253,Alex Bowman | Brad Keselowski | Bubba Wallace | Christopher Bell | Kyle Larson | Shane van Gisbergen
+chatter,14,49800,200,303.76107880384365,Alex Bowman | Austin Dillon | Christopher Bell | Denny Hamlin | Shane van Gisbergen | Ty Gibbs
+chatter,15,49500,500,303.4156915886908,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Shane van Gisbergen | Tyler Reddick
+chatter,16,49900,100,303.35441826188895,Alex Bowman | Brad Keselowski | Bubba Wallace | Ryan Blaney | Shane van Gisbergen | William Byron
+chatter,17,50000,0,303.1204919682831,Alex Bowman | Brad Keselowski | Bubba Wallace | Chase Elliott | Denny Hamlin | Shane van Gisbergen
+chatter,18,49200,800,302.8298861270974,Alex Bowman | Austin Dillon | Brad Keselowski | Denny Hamlin | Kyle Larson | Shane van Gisbergen
+chatter,19,49700,300,302.72143702189743,Alex Bowman | Austin Dillon | Brad Keselowski | Bubba Wallace | Denny Hamlin | William Byron
+chatter,20,50000,0,302.42990332498863,Alex Bowman | Brad Keselowski | Denny Hamlin | Ricky Stenhouse Jr. | Ryan Blaney | Ty Gibbs
