@@ -31,7 +31,11 @@ body.splash-open { overflow:hidden; }
 .page-hero h1 { margin:5px 0 6px; font-weight:850; font-size:36px; letter-spacing:-.03em; }
 .page-hero p { color:var(--muted); font-size:15px; margin:0; max-width:900px; }
 .app-grid { display:grid; grid-template-columns:260px minmax(0,1fr); gap:20px; align-items:start; }
-.control-rail { position:sticky; top:72px; background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; }
+.control-rail { position:sticky; top:72px; box-sizing:border-box; max-height:calc(100vh - 88px); overflow-y:auto; overflow-x:hidden; scrollbar-gutter:stable; background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; }
+.control-rail::-webkit-scrollbar { width:10px; }
+.control-rail::-webkit-scrollbar-track { background:#10151d; border-radius:999px; }
+.control-rail::-webkit-scrollbar-thumb { background:#465469; border:2px solid #10151d; border-radius:999px; }
+.control-rail::-webkit-scrollbar-thumb:hover { background:#60718a; }
 .control-rail h3 { margin:0 0 18px; font-size:17px; }
 .control-rail .form-group { margin-bottom:17px; }
 .control-rail .checkbox { margin:8px 0; }
@@ -77,6 +81,6 @@ table { color:#dfe6ef!important; background:transparent!important; }
 .table>tbody>tr>td { border-top:1px solid #252e3a; vertical-align:middle; }
 .table-striped>tbody>tr:nth-of-type(odd) { background:#11161e; }.table-hover>tbody>tr:hover { background:#202936; }
 .notice { padding:16px 18px; border-left:4px solid var(--gold); border-radius:8px; background:#1b2029; color:#cbd4df; }
-@media(max-width:1000px){ .app-grid{grid-template-columns:1fr}.control-rail{position:static}.two-col,.grid-two,.metric-row{grid-template-columns:1fr 1fr}.page-hero h1,.hero h1{font-size:30px} }
+@media(max-width:1000px){ .app-grid{grid-template-columns:1fr}.control-rail{position:static;max-height:none;overflow:visible;scrollbar-gutter:auto}.two-col,.grid-two,.metric-row{grid-template-columns:1fr 1fr}.page-hero h1,.hero h1{font-size:30px} }
 @media(max-width:650px){ .two-col,.grid-two,.metric-row{grid-template-columns:1fr}.page-shell{padding:18px 12px 40px}.page-hero,.hero{padding:24px 20px}.navbar-inverse .navbar-nav>li>a{font-size:15px}.app-splash{padding:18px}.splash-content{padding:34px 22px 30px;border-radius:18px}.splash-logo{width:88px;height:88px;margin-bottom:18px}.splash-content p{font-size:13px;margin-bottom:24px}.splash-enter{width:100%;min-width:0}.splash-rule{margin-top:26px} }
 @media(prefers-reduced-motion:reduce){ .splash-content{animation:none}.app-splash,.splash-enter,.splash-arrow{transition:none} }
