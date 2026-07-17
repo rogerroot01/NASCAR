@@ -615,10 +615,13 @@ server <- function(input, output, session) {
   register_family <- function(prefix, data, family) {
     available_models <- if(family=="qualifying") qualifying_models else all_models
     default_models_for_race <- function() {
-      season <- input[[paste0(prefix,"_season")]]
-      round <- input[[paste0(prefix,"_round")]]
-      if(is.null(season)||is.null(round))return(intersect(default_models,available_models))
-      rows <- data %>% filter(.data$season==as.integer(season),.data$round==as.integer(round))
+      selected_season <- input[[paste0(prefix,"_season")]]
+      selected_round <- input[[paste0(prefix,"_round")]]
+      if(is.null(selected_season)||is.null(selected_round))return(intersect(default_models,available_models))
+      rows <- data %>% filter(
+        .data$season==as.integer(.env$selected_season),
+        .data$round==as.integer(.env$selected_round)
+      )
       route_column <- switch(family,qualifying="qualifying_route",finish="finish_route",probability="probability_route",points="points_route")
       routed_rows <- rows %>% filter(.data$model=="routed_consensus")
       routes <- if(route_column%in%names(routed_rows)) as.character(routed_rows[[route_column]]) else character()
