@@ -883,7 +883,7 @@ server <- function(input, output, session) {
       if(flags[["Points"]])pt%>%transmute(season,round,driver_id,family="Points",family_rank=predicted_points_rank)else tibble(),
       if(flags[["Routed Specialists"]])routed_family_ranks(season,round)else tibble()
     )
-    validate(need(nrow(ranks),"No selected model-family predictions are available for this race."))
+    if(!nrow(ranks))return(tibble())
     scores<-ranks%>%group_by(season,round,driver_id)%>%summarise(consensus_score=mean(family_rank,na.rm=TRUE),family_count=n_distinct(family),.groups="drop")%>%group_by(season,round)%>%mutate(consensus_rank=rank(consensus_score,ties.method="first"))%>%ungroup()
     f%>%select(season,round,race_name,race_date,track_name,track_primary_family,driver_id,driver_name,owner_name,manufacturer,target_finish_position,predicted_finish_rank)%>%
       left_join(p%>%select(season,round,driver_id,win_probability,top3_probability,predicted_win_rank),by=c("season","round","driver_id"))%>%
@@ -894,6 +894,7 @@ server <- function(input, output, session) {
     validate_consensus_selection()
     races<-finish%>%filter(season%in%c(2025,2026),data_split%in%c("test","upcoming"))%>%distinct(season,round)%>%arrange(season,round)
     rows<-bind_rows(lapply(seq_len(nrow(races)),function(i)consensus_for_race(races$season[[i]],races$round[[i]])))
+    validate(need(nrow(rows),"No races match the selected routed specialists and model-family choices."))
     rows%>%transmute(season,round,race_name,race_date,driver_id,driver_name,owner_name,manufacturer,track_name,track_primary_family,consensus_rank,predicted_value=consensus_score,actual_finish=target_finish_position,model_win_probability=win_probability,model_top3_probability=top3_probability,family_count,predicted_finish_rank,predicted_win_rank,predicted_points,predicted_points_rank)%>%mutate(actual_winner=actual_finish==1,actual_top3=actual_finish<=3)
   })
   consensus_rows<-reactive({req(input$cons_season,input$cons_round);x<-consensus_contract()%>%filter(season==as.integer(input$cons_season),round==as.integer(input$cons_round));validate(need(nrow(x),"No consensus rows for this race and family selection."));x})
