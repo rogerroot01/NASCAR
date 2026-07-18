@@ -1,5 +1,5 @@
 input,rows,usable_rows,note
-chatter,2304,518,10 source-verified historical rows; 518 timestamped production rows. Production-only proxies never enter historical backtests.
+chatter,2337,1171,1685 direct source-verified historical rows; 1600 generated one-race 50% carryover rows; 1171 timestamped production rows. Production-only proxies never enter historical backtests.
 winner_market,56,0,"Eventual-winner-only prices are evaluation/payout data, never predictive features."
 verified_top3,13,13,Sparse individual quotes; not a full market board.
 synthetic_top3,56,0,Synthetic estimates remain evaluation-only.
