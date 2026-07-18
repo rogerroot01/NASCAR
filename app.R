@@ -434,7 +434,7 @@ chatter_contract <- function(data,adjusted=FALSE) {
   finish_col<-if(adjusted)"predicted_finish_position_adjusted"else"predicted_finish_position"
   win_col<-if(adjusted)"win_probability_adjusted"else"win_probability"
   top3_col<-if(adjusted)"top3_probability_adjusted"else"top3_probability"
-  data%>%transmute(season,round,race_name,race_date,driver_id=as.character(driver_id),driver_name,owner_name,manufacturer,consensus_rank=.data[[rank_col]],predicted_value=.data[[finish_col]],actual_finish=target_finish_position,model_win_probability=.data[[win_col]],model_top3_probability=.data[[top3_col]])%>%mutate(actual_winner=actual_finish==1,actual_top3=actual_finish<=3)
+  data%>%transmute(season,round,race_name,driver_id=as.character(driver_id),driver_name,owner_name,manufacturer,consensus_rank=.data[[rank_col]],predicted_value=.data[[finish_col]],actual_finish=target_finish_position,model_win_probability=.data[[win_col]],model_top3_probability=.data[[top3_col]])%>%mutate(actual_winner=actual_finish==1,actual_top3=actual_finish<=3)
 }
 
 bubble_performance_plot <- function(data, entity, min_starts=2, limit=14, accent="#F4C542") {
