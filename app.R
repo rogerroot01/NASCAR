@@ -407,7 +407,7 @@ summarise_bets_window <- function(bets,start_season,end_season) {
 }
 
 render_roi_table <- function(x) x%>%transmute(Period=period,Market=recode(bet_market,win="Winner",podium="Podium",combined="Combined"),Races=races,Bets=bets,Wins=wins,`Hit rate`=fmt_pct(hit_rate,1),`Priced bets`=priced_bets,`Average edge`=ifelse(bet_market!="combined"&is.finite(avg_edge),fmt_pct(avg_edge,1),"—"),Stake=fmt_num(stake,0),Profit=fmt_num(profit,2),ROI=fmt_pct(roi,1))
-render_bets_table <- function(x) x%>%mutate(bet_market=recode(bet_market,win="Winner",podium="Podium"))%>%transmute(Market=bet_market,Rank=fmt_int(consensus_rank),Driver=driver_name,Owner=owner_name,Projection=fmt_num(predicted_value,2),`Value probability`=fmt_pct(model_probability,1),Odds=american_label(odds_american),Source=coalesce(odds_source,"Missing"),`Market %`=fmt_pct(market_probability,1),Edge=fmt_pct(model_edge,1),Result=bet_status,`Actual finish`=fmt_int(actual_finish),Stake=fmt_num(stake,0),Profit=fmt_num(profit,2),ROI=fmt_pct(roi,1))
+render_bets_table <- function(x) x%>%arrange(match(bet_market,c("win","podium")),consensus_rank,driver_name)%>%mutate(bet_market=recode(bet_market,win="Winner",podium="Podium"))%>%transmute(Market=bet_market,Rank=fmt_int(consensus_rank),Driver=driver_name,Owner=owner_name,Projection=fmt_num(predicted_value,2),`Value probability`=fmt_pct(model_probability,1),Odds=american_label(odds_american),Source=coalesce(odds_source,"Missing"),`Market %`=fmt_pct(market_probability,1),Edge=fmt_pct(model_edge,1),Result=bet_status,`Actual finish`=fmt_int(actual_finish),Stake=fmt_num(stake,0),Profit=fmt_num(profit,2),ROI=fmt_pct(roi,1))
 
 qualifying_consensus_rows <- function(data,models) {
   models<-intersect(models,all_models)
