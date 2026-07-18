@@ -388,6 +388,8 @@ rows_to_bets <- function(rows) {
 }
 
 summarise_bets_window <- function(bets,start_season,end_season) {
+  required_columns<-c("season","round","bet_market","bet_won","stake","profit","model_edge")
+  if(!nrow(bets)||!all(required_columns%in%names(bets)))return(tibble())
   lo<-min(as.integer(start_season),as.integer(end_season));hi<-max(as.integer(start_season),as.integer(end_season))
   x<-bets%>%filter(season>=lo,season<=hi,is.finite(actual_finish))
   if(!nrow(x)) return(tibble())
@@ -583,7 +585,7 @@ app_shell <- navbarPage(
       div(class="page-hero",div(class="eyebrow","DRAFTKINGS LAB"),h1("Fantasy Lineup"),p("Current projections, optimized lineups, salary use, place differential, laps led, and fastest laps.")),
       div(class="app-grid",
         aside(class="control-rail",h3("Lineup"),checkboxInput("dk_use_chatter","Include chatter overlay",value=FALSE),selectInput("dk_lineup","Optimized lineup",choices=if(nrow(dk_initial_lineups)) setNames(dk_initial_lineups$lineup_rank,paste0("#",dk_initial_lineups$lineup_rank," — ",fmt_num(dk_initial_lineups$projected_points,1)," pts")) else character()),div(class="rail-note","DraftKings NASCAR Classic uses six equal driver slots and a $50,000 salary cap—there is no captain multiplier. Chatter affects lineups only when a row passes the verified pre-race safety gate.")),
-        main(class="content-stack",uiOutput("dk_cards"),div(class="two-col",div(class="panel",h2("Selected lineup"),tableOutput("dk_selected")),div(class="panel",h2("2025 fantasy validation"),tableOutput("dk_metrics"))),div(class="panel",h2("Full driver board"),div(class="table-scroll",tableOutput("dk_board"))),div(class="panel",h2("Top optimized lineups"),tableOutput("dk_top")))
+        main(class="content-stack",uiOutput("dk_cards"),div(class="panel",h2("Selected lineup"),tableOutput("dk_selected")),div(class="panel",h2("Full driver board"),div(class="table-scroll",tableOutput("dk_board"))),div(class="panel",h2("Top optimized lineups"),tableOutput("dk_top")))
       )
     )
   ),
@@ -985,7 +987,6 @@ server <- function(input, output, session) {
   output$dk_selected<-renderTable({dk_members_view()%>%filter(lineup_rank==as.integer(input$dk_lineup))%>%arrange(driver_slot)%>%transmute(Slot=fmt_int(driver_slot),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank))},striped=TRUE,rownames=FALSE)
   output$dk_board<-renderTable({dk_driver_view()%>%arrange(desc(dk_projection))%>%transmute(Rank=row_number(),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank),`Laps led`=fmt_num(projected_laps_led,1),`Fastest laps`=fmt_num(projected_fastest_laps,1))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$dk_top<-renderTable({dk_lineups_view()%>%slice_head(n=10)%>%transmute(Rank=fmt_int(lineup_rank),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),Projection=fmt_num(projected_points,1),Drivers=drivers)},striped=TRUE,rownames=FALSE)
-  output$dk_metrics<-renderTable(dk_backtest_metrics,striped=TRUE,rownames=FALSE)
   output$bt_cards<-renderUI({x<-backtest%>%filter(round==as.integer(input$bt_round));pick<-x%>%slice_min(predicted_finish_rank,n=1);div(class="metric-row",metric_card("Predicted winner",pick$driver_name,pick$owner_name,"gold"),metric_card("Actual winner",(x%>%filter(target_finish_position==1)%>%pull(driver_name)%>%first())%||%"—",first(x$race_name),"blue"),metric_card("Field",nrow(x),paste0(str_to_title(active_strategy_name)," evaluation"),"green"))})
   output$bt_metrics<-renderTable(backtest_metrics,striped=TRUE,rownames=FALSE)
   output$bt_table<-renderTable({backtest%>%filter(round==as.integer(input$bt_round))%>%arrange(predicted_finish_rank)%>%transmute(Rank=predicted_finish_rank,Driver=driver_name,Owner=owner_name,Qualifying=predicted_qualifying_rank,`Pred finish`=fmt_num(predicted_finish_position,1),Win=fmt_pct(win_probability,1),`Top 3`=fmt_pct(top3_probability,1),Points=fmt_num(predicted_points,1),Actual=fmt_int(target_finish_position))},striped=TRUE,hover=TRUE,rownames=FALSE)
