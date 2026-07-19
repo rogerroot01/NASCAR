@@ -1,5 +1,4 @@
 driver_id,forecast_driver_name,dk_id,driver_name_dk,roster_position,salary,game_info,dk_avg_points_per_game,dk_status,dk_starting_position,roster_status
-bj_mcleod,B.J. McLeod,,,,,,,,,forecast_only
 aj_allmendinger,A.J. Allmendinger,43607018,AJ Allmendinger,D,5500,Window World 450,27,,,matched
 alex_bowman,Alex Bowman,43607007,Alex Bowman,D,7000,Window World 450,23.9,,,matched
 austin_cindric,Austin Cindric,43607005,Austin Cindric,D,7200,Window World 450,27.3,,,matched
