@@ -1814,14 +1814,35 @@
     "app.R": {
       "checksum": "5ab0656b9d0733b037745b9d74eb6ecb"
     },
+    "data/keep these files/DKSalaries_NAS.csv": {
+      "checksum": "26c90356439387db744ac99cc307ed8e"
+    },
+    "data/keep these files/NASCAR_Cup_Historical_Odds_2025_2026_YTD_v2.xlsx": {
+      "checksum": "575235e177210ff39cbe8325eefad781"
+    },
     "data/keep these files/nascar_current_market_odds.csv": {
       "checksum": "cef29b320134f1a90a42836ecbde1881"
     },
     "data/keep these files/nascar_current_qualifying_override.csv": {
       "checksum": "8de0a2452ffa780040664e1a312c688b"
     },
+    "data/keep these files/nascar_draftkings_official_driver_points.csv": {
+      "checksum": "092698bc378d5d1dd5e7575041058a5c"
+    },
+    "data/keep these files/nascar_draftkings_salary_history.csv": {
+      "checksum": "3e29fbae530cb3b633d19e20bbce5c36"
+    },
     "data/keep these files/nascar_next_race_roster_override.csv": {
       "checksum": "a681728b91868700fe626cb079597dd1"
+    },
+    "data/keep these files/nascar_prerace_chatter_signal_2025_2026.csv": {
+      "checksum": "e655cd208f0f527fe901150d6946fb77"
+    },
+    "data/keep these files/nascar_prerace_chatter_signal_2025_2026_scored.xlsx": {
+      "checksum": "af8dd50fd899cbc51bcfcd33eee8f740"
+    },
+    "data/keep these files/nascar_prerace_chatter_verified.csv": {
+      "checksum": "5a7bbb852422bbe1a2117c9c522b9c83"
     },
     "data/nascar_active_strategy.csv": {
       "checksum": "d9166a9e721b81c6c689f8780d389fca"
@@ -1944,13 +1965,13 @@
       "checksum": "3194de94e6b687870968fb78e0e896c5"
     },
     "data/nascar_stage17_draftkings_current.csv": {
-      "checksum": "61140b14a0b1d71133871e3c596d61c3"
+      "checksum": "127dc001bc74f6dae297550ef42f62ce"
     },
     "data/nascar_stage17_draftkings_roster_audit_current.csv": {
-      "checksum": "44bdaa570b52d46c9ca814e7c0b4706b"
+      "checksum": "cb79f36e575c9ef66b37062cc9d591af"
     },
     "data/nascar_stage17_external_inputs_audit.csv": {
-      "checksum": "b62528812f8f43554f89caa76ab1b18e"
+      "checksum": "80f4222af5322113f2852d46db327238"
     },
     "data/nascar_stage17_market_qualifying_partial_2025_2026.csv": {
       "checksum": "09ed167bb0614fcafe4ac917c79a9402"
@@ -1974,19 +1995,19 @@
       "checksum": "e17a96b4aea9eb33874059c332cfb00f"
     },
     "data/nascar_stage18_current_forecast_with_safe_overlays_latest.csv": {
-      "checksum": "cda048c08f19a3690f56d9a1609d3fa2"
+      "checksum": "276e842818591e8e64c9fb9d046c6205"
     },
     "data/nascar_stage19_draftkings_driver_projections_latest.csv": {
-      "checksum": "e07ea20cc769826cc009e230d2b8d9f4"
+      "checksum": "2f5380249a46c620c5124b2ada1a2c31"
     },
     "data/nascar_stage19_draftkings_salary_history.csv": {
-      "checksum": "9c5cbc29c48bb9483dd89b944f704309"
+      "checksum": "3e29fbae530cb3b633d19e20bbce5c36"
     },
     "data/nascar_stage19_draftkings_top_lineup_members_latest.csv": {
-      "checksum": "2319f68c1493ecda416210fd5e6c7ec5"
+      "checksum": "492ac865fc4408ad3288ca4c00b82e85"
     },
     "data/nascar_stage19_draftkings_top_lineups_latest.csv": {
-      "checksum": "15d82755f83a3aacee5ae311ae3307e8"
+      "checksum": "29a2d06879ef859509c488300631ffd5"
     },
     "data/nascar_stage2_driver_race_detailed_2018_2026.csv": {
       "checksum": "787d5a525e7235d473a5429ecf64fdec"
@@ -2034,7 +2055,7 @@
       "checksum": "dcf8466e408d99cdbeba693cc4474842"
     },
     "README.md": {
-      "checksum": "4d28924943de0a6690636d9451479c23"
+      "checksum": "5fb72d0ba0ae5ffa9d0d08c910414b35"
     },
     "www/app-icon-512.png": {
       "checksum": "32b1599aa4b360cf8a7c4101131b9418"
