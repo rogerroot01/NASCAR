@@ -1,0 +1,39 @@
+include,driver_id,driver_name,car_number,owner_id,owner_name,manufacturer_id,manufacturer,recent_appearances,roster_source
+TRUE,ross_chastain,Ross Chastain,1,trackhouse_racing,Trackhouse Racing,chevrolet,Chevrolet,5,latest_race
+TRUE,austin_cindric,Austin Cindric,2,team_penske,Team Penske,ford,Ford,5,latest_race
+TRUE,austin_dillon,Austin Dillon,3,richard_childress_racing,Richard Childress Racing,chevrolet,Chevrolet,5,latest_race
+TRUE,noah_gragson,Noah Gragson,4,front_row_motorsports,Front Row Motorsports,ford,Ford,5,latest_race
+TRUE,kyle_larson,Kyle Larson,5,hendrick_motorsports,Hendrick Motorsports,chevrolet,Chevrolet,5,latest_race
+TRUE,brad_keselowski,Brad Keselowski,6,rfk_racing,RFK Racing,ford,Ford,5,latest_race
+TRUE,daniel_suarez,Daniel Suarez,7,spire_motorsports,Spire Motorsports,chevrolet,Chevrolet,5,latest_race
+TRUE,chase_elliott,Chase Elliott,9,hendrick_motorsports,Hendrick Motorsports,chevrolet,Chevrolet,5,latest_race
+TRUE,ty_dillon,Ty Dillon,10,kaulig_racing,Kaulig Racing,chevrolet,Chevrolet,5,latest_race
+TRUE,denny_hamlin,Denny Hamlin,11,joe_gibbs_racing,Joe Gibbs Racing,toyota,Toyota,5,latest_race
+TRUE,ryan_blaney,Ryan Blaney,12,team_penske,Team Penske,ford,Ford,5,latest_race
+TRUE,aj_allmendinger,A.J. Allmendinger,16,kaulig_racing,Kaulig Racing,chevrolet,Chevrolet,5,latest_race
+TRUE,chris_buescher,Chris Buescher,17,rfk_racing,RFK Racing,ford,Ford,5,latest_race
+TRUE,chase_briscoe,Chase Briscoe,19,joe_gibbs_racing,Joe Gibbs Racing,toyota,Toyota,5,latest_race
+TRUE,christopher_bell,Christopher Bell,20,joe_gibbs_racing,Joe Gibbs Racing,toyota,Toyota,5,latest_race
+TRUE,josh_berry,Josh Berry,21,wood_brothers_racing,Wood Brothers Racing,ford,Ford,5,latest_race
+TRUE,joey_logano,Joey Logano,22,team_penske,Team Penske,ford,Ford,5,latest_race
+TRUE,bubba_wallace,Bubba Wallace,23,23xi_racing,23XI Racing,toyota,Toyota,5,latest_race
+TRUE,william_byron,William Byron,24,hendrick_motorsports,Hendrick Motorsports,chevrolet,Chevrolet,5,latest_race
+TRUE,austin_hill,Austin Hill,33,richard_childress_racing,Richard Childress Racing,chevrolet,Chevrolet,5,latest_race
+TRUE,todd_gilliland,Todd Gilliland,34,front_row_motorsports,Front Row Motorsports,ford,Ford,5,latest_race
+TRUE,riley_herbst,Riley Herbst,35,23xi_racing,23XI Racing,toyota,Toyota,5,latest_race
+TRUE,zane_smith,Zane Smith,38,front_row_motorsports,Front Row Motorsports,ford,Ford,5,latest_race
+TRUE,cole_custer,Cole Custer,41,haas_factory_team,Haas Factory Team,chevrolet,Chevrolet,5,latest_race
+TRUE,john_hunter_nemechek,John Hunter Nemechek,42,legacy_motor_club,Legacy Motor Club,toyota,Toyota,5,latest_race
+TRUE,erik_jones,Erik Jones,43,legacy_motor_club,Legacy Motor Club,toyota,Toyota,5,latest_race
+TRUE,tyler_reddick,Tyler Reddick,45,23xi_racing,23XI Racing,toyota,Toyota,5,latest_race
+TRUE,ricky_stenhouse_jr,Ricky Stenhouse Jr.,47,hyak_motorsports,Hyak Motorsports,chevrolet,Chevrolet,5,latest_race
+TRUE,alex_bowman,Alex Bowman,48,hendrick_motorsports,Hendrick Motorsports,chevrolet,Chevrolet,5,latest_race
+TRUE,cody_ware,Cody Ware,51,rick_ware_racing,Rick Ware Racing,chevrolet,Chevrolet,5,latest_race
+TRUE,ty_gibbs,Ty Gibbs,54,joe_gibbs_racing,Joe Gibbs Racing,toyota,Toyota,5,latest_race
+TRUE,ryan_preece,Ryan Preece,60,rfk_racing,RFK Racing,ford,Ford,5,latest_race
+TRUE,chad_finchum,Chad Finchum,66,garage_66,Garage 66,ford,Ford,1,latest_race
+TRUE,michael_mcdowell,Michael McDowell,71,spire_motorsports,Spire Motorsports,chevrolet,Chevrolet,5,latest_race
+TRUE,carson_hocevar,Carson Hocevar,77,spire_motorsports,Spire Motorsports,chevrolet,Chevrolet,5,latest_race
+FALSE,bj_mcleod,B.J. McLeod,78,live_fast_motorsports,Live Fast Motorsports,chevrolet,Chevrolet,1,not_in_official_2026_r21_starting_lineup
+TRUE,connor_zilisch,Connor Zilisch,88,trackhouse_racing,Trackhouse Racing,chevrolet,Chevrolet,5,latest_race
+TRUE,shane_van_gisbergen,Shane van Gisbergen,97,trackhouse_racing,Trackhouse Racing,chevrolet,Chevrolet,5,latest_race
