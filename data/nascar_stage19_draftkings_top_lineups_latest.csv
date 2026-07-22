@@ -1,41 +1,41 @@
-projection_variant,lineup_rank,total_salary,salary_remaining,projected_points,drivers
-base,1,49900,100,235.10215804671412,A.J. Allmendinger | Brad Keselowski | Chase Elliott | Denny Hamlin | Erik Jones | Ty Gibbs
-base,2,50000,0,234.23660040805657,Alex Bowman | Brad Keselowski | Chase Elliott | Erik Jones | Ty Gibbs | William Byron
-base,3,49800,200,234.1969864261457,Brad Keselowski | Bubba Wallace | Denny Hamlin | Erik Jones | Ty Gibbs | Zane Smith
-base,4,50000,0,233.60790136984886,Alex Bowman | Brad Keselowski | Chase Elliott | Denny Hamlin | Ty Gibbs | Zane Smith
-base,5,50000,0,233.07613224326502,Alex Bowman | Brad Keselowski | Bubba Wallace | Erik Jones | Ty Gibbs | Tyler Reddick
-base,6,49800,200,233.0716002485381,Brad Keselowski | Chase Elliott | Erik Jones | Kyle Larson | Ty Gibbs | Zane Smith
-base,7,50000,0,232.86527039468237,Brad Keselowski | Chase Elliott | Erik Jones | Ryan Blaney | Ty Gibbs | Zane Smith
-base,8,49900,100,232.7803107851307,Brad Keselowski | Chase Elliott | Daniel Suarez | Erik Jones | Ty Gibbs | William Byron
-base,9,49900,100,232.15161174692298,Brad Keselowski | Chase Elliott | Daniel Suarez | Denny Hamlin | Ty Gibbs | Zane Smith
-base,10,49600,400,232.0748593065623,Brad Keselowski | Chase Elliott | Denny Hamlin | Erik Jones | Ricky Stenhouse Jr. | Ty Gibbs
-base,11,49400,600,232.05476639078648,Brad Keselowski | Chase Elliott | Cole Custer | Denny Hamlin | Erik Jones | Ty Gibbs
-base,12,50000,0,231.70845647552494,Brad Keselowski | Erik Jones | Kyle Larson | Ty Gibbs | William Byron | Zane Smith
-base,13,49500,500,231.62307066354975,Brad Keselowski | Chase Elliott | Erik Jones | Ty Gibbs | Tyler Reddick | Zane Smith
-base,14,49900,100,231.61984262033914,Brad Keselowski | Bubba Wallace | Daniel Suarez | Erik Jones | Ty Gibbs | Tyler Reddick
-base,15,50000,0,230.88958755114695,Brad Keselowski | Bubba Wallace | Erik Jones | Kyle Larson | Ryan Preece | Ty Gibbs
-base,16,49800,200,230.71171553354915,Brad Keselowski | Denny Hamlin | Erik Jones | Ricky Stenhouse Jr. | Ty Gibbs | William Byron
-base,17,49600,400,230.69162261777333,Brad Keselowski | Cole Custer | Denny Hamlin | Erik Jones | Ty Gibbs | William Byron
-base,18,49700,300,230.60152613095013,Brad Keselowski | Chase Elliott | Erik Jones | Ryan Preece | Ty Gibbs | William Byron
-base,19,49300,700,230.45358418644773,Alex Bowman | Brad Keselowski | Bubba Wallace | Chase Elliott | Erik Jones | Ty Gibbs
-base,20,50000,0,230.37452775549474,Brad Keselowski | Chase Elliott | Erik Jones | Riley Herbst | Ty Gibbs | Tyler Reddick
-chatter,1,49900,100,236.69815804671413,A.J. Allmendinger | Brad Keselowski | Chase Elliott | Denny Hamlin | Erik Jones | Ty Gibbs
-chatter,2,50000,0,236.05460040805656,Alex Bowman | Brad Keselowski | Chase Elliott | Erik Jones | Ty Gibbs | William Byron
-chatter,3,50000,0,235.69327039468237,Brad Keselowski | Chase Elliott | Erik Jones | Ryan Blaney | Ty Gibbs | Zane Smith
-chatter,4,49800,200,235.6189864261457,Brad Keselowski | Bubba Wallace | Denny Hamlin | Erik Jones | Ty Gibbs | Zane Smith
-chatter,5,50000,0,235.47990136984887,Alex Bowman | Brad Keselowski | Chase Elliott | Denny Hamlin | Ty Gibbs | Zane Smith
-chatter,6,50000,0,234.88213224326503,Alex Bowman | Brad Keselowski | Bubba Wallace | Erik Jones | Ty Gibbs | Tyler Reddick
-chatter,7,49800,200,234.5056002485381,Brad Keselowski | Chase Elliott | Erik Jones | Kyle Larson | Ty Gibbs | Zane Smith
-chatter,8,49900,100,234.3223107851307,Brad Keselowski | Chase Elliott | Daniel Suarez | Erik Jones | Ty Gibbs | William Byron
-chatter,9,49900,100,233.74761174692298,Brad Keselowski | Chase Elliott | Daniel Suarez | Denny Hamlin | Ty Gibbs | Zane Smith
-chatter,10,49600,400,233.6168593065623,Brad Keselowski | Chase Elliott | Denny Hamlin | Erik Jones | Ricky Stenhouse Jr. | Ty Gibbs
-chatter,11,49400,600,233.59676639078648,Brad Keselowski | Chase Elliott | Cole Custer | Denny Hamlin | Erik Jones | Ty Gibbs
-chatter,12,50000,0,233.29845647552494,Brad Keselowski | Erik Jones | Kyle Larson | Ty Gibbs | William Byron | Zane Smith
-chatter,13,49900,100,233.2387345250817,Brad Keselowski | Christopher Bell | Cole Custer | Denny Hamlin | Erik Jones | Ty Gibbs
-chatter,14,49500,500,233.16507066354976,Brad Keselowski | Chase Elliott | Erik Jones | Ty Gibbs | Tyler Reddick | Zane Smith
-chatter,15,49900,100,233.14984262033914,Brad Keselowski | Bubba Wallace | Daniel Suarez | Erik Jones | Ty Gibbs | Tyler Reddick
-chatter,16,50000,0,232.9926380382585,Brad Keselowski | Chase Elliott | Christopher Bell | Erik Jones | Ryan Preece | Ty Gibbs
-chatter,17,50000,0,232.80703879784494,Brad Keselowski | Christopher Bell | Erik Jones | Ty Gibbs | Tyler Reddick | Zane Smith
-chatter,18,49800,200,232.40971553354913,Brad Keselowski | Denny Hamlin | Erik Jones | Ricky Stenhouse Jr. | Ty Gibbs | William Byron
-chatter,19,49600,400,232.38962261777334,Brad Keselowski | Cole Custer | Denny Hamlin | Erik Jones | Ty Gibbs | William Byron
-chatter,20,50000,0,232.31158755114694,Brad Keselowski | Bubba Wallace | Erik Jones | Kyle Larson | Ryan Preece | Ty Gibbs
+projection_variant,lineup_rank,scenario_name,scenario_role,lineup_archetype,scenario_probability,total_salary,salary_remaining,projected_points,mean_projected_points,front_start_count,top10_start_count,deep_start_count,premium_count,upper_mid_count,mid_tier_count,value_count,true_punt_count,drivers,max_shared_drivers,max_driver_exposure_pct
+base,1,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,49800,200,257.2069467547227,234.1969864261457,2,2,2,1,2,2,1,0,Brad Keselowski | Bubba Wallace | Denny Hamlin | Erik Jones | Ty Gibbs | Zane Smith,0,70
+base,2,primary_kyle_larson,Primary dominator B,conventional_primary_control,0.099015820525827275,49800,200,258.5565259883565,233.0716002485381,1,3,2,2,1,2,1,0,Brad Keselowski | Chase Elliott | Erik Jones | Kyle Larson | Ty Gibbs | Zane Smith,4,70
+base,3,primary_brad_keselowski,Contrarian dominator ceiling,conventional_primary_control,0.024500038828520174,50000,0,263.0921195921603,234.23660040805657,1,3,2,2,1,3,0,0,Alex Bowman | Brad Keselowski | Chase Elliott | Erik Jones | Ty Gibbs | William Byron,4,70
+base,4,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,50000,0,256.0631691259024,233.60790136984886,2,3,3,2,1,2,1,0,Alex Bowman | Brad Keselowski | Chase Elliott | Denny Hamlin | Ty Gibbs | Zane Smith,4,70
+base,5,primary_ryan_blaney,Primary dominator C,conventional_primary_control,0.0750010312079267,50000,0,253.56125761036367,226.47056749200536,2,2,2,1,2,2,1,0,Brad Keselowski | Bubba Wallace | Erik Jones | Riley Herbst | Ryan Blaney | Ty Gibbs,4,70
+base,6,split_primary_pair,Split dominators,conventional_split_control,0.3486238532110092,49500,500,256.46672199799747,226.11712220162582,1,2,3,2,0,3,1,0,Alex Bowman | Brad Keselowski | Denny Hamlin | Erik Jones | Kyle Larson | Zane Smith,4,70
+base,7,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,49600,400,251.53218637042042,228.52494218766483,1,2,2,2,0,4,0,0,Alex Bowman | Brad Keselowski | Chase Elliott | Denny Hamlin | Erik Jones | Ross Chastain,4,70
+base,8,primary_kyle_larson,Primary dominator B,conventional_primary_control,0.099015820525827275,50000,0,256.82465235847957,230.88958755114695,1,2,2,1,2,2,1,0,Brad Keselowski | Bubba Wallace | Erik Jones | Kyle Larson | Ryan Preece | Ty Gibbs,4,70
+base,9,primary_christopher_bell,Contrarian dominator ceiling,conventional_primary_control,0.04336542032040238,50000,0,259.1442718465556,230.05663803825848,1,2,2,2,1,2,1,0,Brad Keselowski | Chase Elliott | Christopher Bell | Erik Jones | Ryan Preece | Ty Gibbs,4,70
+base,10,strategy_disruption,Caution / strategy disruption,conventional_disruption,0.22018348623853212,50000,0,232.34220580983725,233.07613224326502,1,2,2,1,2,3,0,0,Alex Bowman | Brad Keselowski | Bubba Wallace | Erik Jones | Ty Gibbs | Tyler Reddick,4,70
+base,11,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,50000,0,251.42675746810556,228.44125822644952,2,3,2,1,2,2,1,0,Brad Keselowski | Chris Buescher | Denny Hamlin | Erik Jones | Ryan Preece | Ty Gibbs,4,70
+base,12,primary_kyle_larson,Primary dominator B,conventional_primary_control,0.099015820525827275,49900,100,253.0872850959574,227.33312715440866,1,2,2,1,2,2,1,0,Alex Bowman | Brad Keselowski | Bubba Wallace | Daniel Suarez | Kyle Larson | Ty Gibbs,4,70
+base,13,primary_brad_keselowski,Contrarian dominator ceiling,conventional_primary_control,0.024500038828520174,49400,600,260.1726778643058,230.3332602399551,1,2,1,1,2,3,0,0,Brad Keselowski | Bubba Wallace | Chase Elliott | Erik Jones | Ross Chastain | Ty Gibbs,4,70
+base,14,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,49900,100,250.91493930775542,228.60968331972927,2,3,3,2,1,1,2,0,Brad Keselowski | Denny Hamlin | Ryan Preece | Ty Gibbs | William Byron | Zane Smith,4,70
+base,15,primary_ryan_blaney,Primary dominator C,conventional_primary_control,0.0750010312079267,50000,0,250.3956354570502,223.45003409060118,2,3,2,2,1,2,1,0,Alex Bowman | Chase Elliott | Erik Jones | Ryan Blaney | Ryan Preece | Ty Gibbs,4,70
+base,16,split_primary_pair,Split dominators,conventional_split_control,0.3486238532110092,50000,0,251.7958301646006,221.66452113323604,2,3,3,2,1,1,2,0,Alex Bowman | Denny Hamlin | Kyle Larson | Ryan Preece | Ty Gibbs | Zane Smith,4,70
+base,17,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,49800,200,246.9966756144154,223.7795500988639,1,2,2,2,1,2,1,0,Alex Bowman | Bubba Wallace | Chase Elliott | Denny Hamlin | Erik Jones | Zane Smith,4,70
+base,18,primary_kyle_larson,Primary dominator B,conventional_primary_control,0.099015820525827275,50000,0,246.66445941754128,220.47215122386513,0,2,2,2,1,2,1,0,Alex Bowman | Bubba Wallace | Chase Elliott | Erik Jones | Kyle Larson | Ryan Preece,4,70
+base,19,primary_christopher_bell,Contrarian dominator ceiling,conventional_primary_control,0.04336542032040238,49900,100,242.24225159147937,214.67998355931437,1,1,2,2,1,1,2,0,Alex Bowman | Bubba Wallace | Christopher Bell | Daniel Suarez | Denny Hamlin | Zane Smith,4,70
+base,20,strategy_disruption,Caution / strategy disruption,conventional_disruption,0.22018348623853212,49700,300,214.86000121582052,215.34683729564588,0,2,1,2,1,2,1,0,Alex Bowman | Bubba Wallace | Chase Elliott | Daniel Suarez | Ross Chastain | Tyler Reddick,3,70
+chatter,1,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,49800,200,258.6289467547227,235.6189864261457,2,2,2,1,2,2,1,0,Brad Keselowski | Bubba Wallace | Denny Hamlin | Erik Jones | Ty Gibbs | Zane Smith,0,70
+chatter,2,primary_kyle_larson,Primary dominator B,conventional_primary_control,0.099015820525827275,49800,200,259.99052598835647,234.5056002485381,1,3,2,2,1,2,1,0,Brad Keselowski | Chase Elliott | Erik Jones | Kyle Larson | Ty Gibbs | Zane Smith,4,70
+chatter,3,primary_brad_keselowski,Contrarian dominator ceiling,conventional_primary_control,0.024500038828520174,50000,0,264.91011959216036,236.05460040805656,1,3,2,2,1,3,0,0,Alex Bowman | Brad Keselowski | Chase Elliott | Erik Jones | Ty Gibbs | William Byron,4,70
+chatter,4,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,50000,0,257.9351691259024,235.47990136984887,2,3,3,2,1,2,1,0,Alex Bowman | Brad Keselowski | Chase Elliott | Denny Hamlin | Ty Gibbs | Zane Smith,4,70
+chatter,5,primary_ryan_blaney,Primary dominator C,conventional_primary_control,0.0750010312079267,49800,200,256.6304086589809,230.16770139727092,2,3,2,2,1,2,1,0,Brad Keselowski | Chase Elliott | Ross Chastain | Ryan Blaney | Ty Gibbs | Zane Smith,4,70
+chatter,6,split_primary_pair,Split dominators,conventional_split_control,0.3486238532110092,49500,500,258.11672199799744,227.7671222016258,1,2,3,2,0,3,1,0,Alex Bowman | Brad Keselowski | Denny Hamlin | Erik Jones | Kyle Larson | Zane Smith,4,70
+chatter,7,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,49600,400,253.4101863704204,230.40294218766485,1,2,2,2,0,4,0,0,Alex Bowman | Brad Keselowski | Chase Elliott | Denny Hamlin | Erik Jones | Ross Chastain,4,70
+chatter,8,primary_kyle_larson,Primary dominator B,conventional_primary_control,0.099015820525827275,50000,0,258.24665235847954,232.31158755114694,1,2,2,1,2,2,1,0,Brad Keselowski | Bubba Wallace | Erik Jones | Kyle Larson | Ryan Preece | Ty Gibbs,4,70
+chatter,9,primary_christopher_bell,Contrarian dominator ceiling,conventional_primary_control,0.04336542032040238,50000,0,262.08027184655566,232.9926380382585,1,2,2,2,1,2,1,0,Brad Keselowski | Chase Elliott | Christopher Bell | Erik Jones | Ryan Preece | Ty Gibbs,4,70
+chatter,10,strategy_disruption,Caution / strategy disruption,conventional_disruption,0.22018348623853212,50000,0,234.14820580983726,234.88213224326503,1,2,2,1,2,3,0,0,Alex Bowman | Brad Keselowski | Bubba Wallace | Erik Jones | Ty Gibbs | Tyler Reddick,4,70
+chatter,11,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,50000,0,252.89675746810556,229.91125822644952,2,3,2,1,2,2,1,0,Brad Keselowski | Chris Buescher | Denny Hamlin | Erik Jones | Ryan Preece | Ty Gibbs,4,70
+chatter,12,primary_kyle_larson,Primary dominator B,conventional_primary_control,0.099015820525827275,49900,100,254.83928509595742,229.08512715440864,1,2,2,1,2,2,1,0,Alex Bowman | Brad Keselowski | Bubba Wallace | Daniel Suarez | Kyle Larson | Ty Gibbs,4,70
+chatter,13,primary_brad_keselowski,Contrarian dominator ceiling,conventional_primary_control,0.024500038828520174,49400,600,261.71467786430577,231.87526023995514,1,2,1,1,2,3,0,0,Brad Keselowski | Bubba Wallace | Chase Elliott | Erik Jones | Ross Chastain | Ty Gibbs,4,70
+chatter,14,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,49900,100,252.66693930775543,230.36168331972928,2,3,3,2,1,1,2,0,Brad Keselowski | Denny Hamlin | Ryan Preece | Ty Gibbs | William Byron | Zane Smith,4,70
+chatter,15,primary_ryan_blaney,Primary dominator C,conventional_primary_control,0.0750010312079267,50000,0,253.60763545705018,226.66203409060117,2,3,2,2,1,2,1,0,Alex Bowman | Chase Elliott | Erik Jones | Ryan Blaney | Ryan Preece | Ty Gibbs,4,70
+chatter,16,split_primary_pair,Split dominators,conventional_split_control,0.3486238532110092,50000,0,253.8238301646006,223.69252113323603,2,3,3,2,1,1,2,0,Alex Bowman | Denny Hamlin | Kyle Larson | Ryan Preece | Ty Gibbs | Zane Smith,4,70
+chatter,17,primary_denny_hamlin,Primary dominator A,conventional_primary_control,0.12101287254518049,49800,200,248.7666756144154,225.5495500988639,1,2,2,2,1,2,1,0,Alex Bowman | Bubba Wallace | Chase Elliott | Denny Hamlin | Erik Jones | Zane Smith,4,70
+chatter,18,primary_kyle_larson,Primary dominator B,conventional_primary_control,0.099015820525827275,50000,0,248.57176925176017,223.22902014824314,0,3,2,3,0,2,1,0,Alex Bowman | Chase Elliott | Erik Jones | Kyle Larson | William Byron | Zane Smith,4,70
+chatter,19,primary_christopher_bell,Contrarian dominator ceiling,conventional_primary_control,0.04336542032040238,50000,0,251.12428367976557,222.73760247056313,0,2,2,3,0,2,1,0,Alex Bowman | Chase Elliott | Christopher Bell | Erik Jones | Tyler Reddick | Zane Smith,4,70
+chatter,20,strategy_disruption,Caution / strategy disruption,conventional_disruption,0.22018348623853212,50000,0,217.48938234278393,218.89112129697594,1,3,2,3,0,2,1,0,Alex Bowman | Chase Elliott | Ross Chastain | Ryan Blaney | William Byron | Zane Smith,4,70
