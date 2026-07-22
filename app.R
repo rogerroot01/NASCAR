@@ -780,7 +780,7 @@ app_shell <- navbarPage(
     div(class="page-shell",
       div(class="page-hero",div(class="eyebrow","DRAFTKINGS LAB"),h1("Fantasy Lineup"),p("Current and historical projections, optimized lineups, salary use, place differential, laps led, and fastest laps.")),
       div(class="app-grid",
-        aside(class="control-rail",h3("Lineup"),selectInput("dk_race","Race",choices=dk_export_choices,selected="current"),checkboxInput("dk_use_chatter","Include chatter overlay",value=FALSE),selectInput("dk_lineup","Optimized lineup",choices=if(nrow(dk_initial_lineups)) setNames(dk_initial_lineups$lineup_rank,paste0("#",dk_initial_lineups$lineup_rank," — ",fmt_num(dk_initial_lineups$projected_points,1)," pts")) else character()),div(class="rail-note","DraftKings NASCAR Classic uses six equal driver slots and a $50,000 salary cap—there is no captain multiplier. Historical optimized lineups appear when that race's salary slate is archived. Chatter affects current lineups only when a row passes the verified pre-race safety gate."),hr(),h3("Projection download"),downloadButton("dk_driver_download","Download driver projections (CSV)"),div(class="rail-note","The download follows the selected race. Current-slate downloads follow the chatter toggle; completed races include projected versus actual scoring components.")),
+        aside(class="control-rail",h3("Lineup"),selectInput("dk_race","Race",choices=dk_export_choices,selected="current"),checkboxInput("dk_use_chatter","Include chatter overlay",value=FALSE),selectInput("dk_lineup","Optimized lineup",choices=if(nrow(dk_initial_lineups)) setNames(dk_initial_lineups$lineup_rank,paste0("#",dk_initial_lineups$lineup_rank," — ",fmt_num(dk_initial_lineups$projected_points,1)," pts")) else character()),div(class="rail-note","DraftKings NASCAR Classic uses six equal driver slots and a $50,000 salary cap—there is no captain multiplier. Current portfolios cover primary, split, contrarian, and disruption dominator scripts; cap driver exposure at 70%; allow no more than two top-three starters; and limit shared cores to four drivers. Historical optimized lineups appear when that race's salary slate is archived."),hr(),h3("Lineup download"),downloadButton("dk_lineup_download","Download optimized lineups (CSV)"),div(class="rail-note","Exports all 20 optimized lineups for the selected race and chatter setting, with scenario roles, mean and scenario totals, six driver names, DraftKings IDs, salaries, and projections on each row."),hr(),h3("Projection download"),downloadButton("dk_driver_download","Download driver projections (CSV)"),div(class="rail-note","The download follows the selected race. Current-slate downloads include dominator probabilities and 75th/90th-percentile fantasy scores; completed races include projected versus actual scoring components.")),
         main(class="content-stack",uiOutput("dk_cards"),div(class="panel",h2("Selected lineup"),tableOutput("dk_selected")),div(class="panel",h2("Full driver board"),div(class="table-scroll",tableOutput("dk_board"))),div(class="panel",h2("Top optimized lineups"),tableOutput("dk_top")))
       )
     )
@@ -1260,9 +1260,9 @@ server <- function(input, output, session) {
   dk_current_driver_view<-reactive({
     x<-dk
     suffix<-if(dk_variant()=="chatter")"chatter"else"base"
-    projection_col<-paste0("dk_projection_",suffix);value_col<-paste0("dk_value_per_1000_",suffix);finish_col<-paste0("dk_projected_finish_rank_",suffix);finish_points_col<-paste0("dk_finish_position_points_",suffix);place_diff_col<-paste0("dk_place_differential_points_",suffix);model_points_col<-paste0("dk_projected_points_model_",suffix)
-    variant_cols<-c(projection_col,value_col,finish_col,finish_points_col,place_diff_col,model_points_col)
-    if(all(variant_cols%in%names(x)))x<-x%>%mutate(dk_projection=.data[[projection_col]],dk_value_per_1000=.data[[value_col]],dk_projected_finish_rank=.data[[finish_col]],dk_finish_position_points=.data[[finish_points_col]],dk_place_differential_points=.data[[place_diff_col]],dk_projected_points_model=.data[[model_points_col]])
+    projection_col<-paste0("dk_projection_",suffix);value_col<-paste0("dk_value_per_1000_",suffix);finish_col<-paste0("dk_projected_finish_rank_",suffix);finish_points_col<-paste0("dk_finish_position_points_",suffix);place_diff_col<-paste0("dk_place_differential_points_",suffix);model_points_col<-paste0("dk_projected_points_model_",suffix);p75_col<-paste0("dk_score_p75_",suffix);p90_col<-paste0("dk_score_p90_",suffix)
+    variant_cols<-c(projection_col,value_col,finish_col,finish_points_col,place_diff_col,model_points_col,p75_col,p90_col)
+    if(all(variant_cols%in%names(x)))x<-x%>%mutate(dk_projection=.data[[projection_col]],dk_value_per_1000=.data[[value_col]],dk_projected_finish_rank=.data[[finish_col]],dk_finish_position_points=.data[[finish_points_col]],dk_place_differential_points=.data[[place_diff_col]],dk_projected_points_model=.data[[model_points_col]],dk_score_p75=.data[[p75_col]],dk_score_p90=.data[[p90_col]])
     x
   })
   dk_historical_rows<-reactive({
@@ -1338,6 +1338,9 @@ server <- function(input, output, session) {
         projected_fastest_laps,projected_fastest_lap_points=dk_fastest_lap_points,
         projected_model_dk_points=dk_projected_points_model,
         displayed_dk_projection=dk_projection,dk_value_per_1000,
+        dk_score_p75,dk_score_p90,
+        prob_lead_50_plus,prob_lead_100_plus,prob_lead_200_plus,
+        dominator_role,punt_role,front_start_risk,dominator_scenario_source,
         actual_start_position=NA_real_,actual_finish_position=NA_real_,actual_finish_points=NA_real_,
         actual_place_differential_points=NA_real_,actual_laps_led=NA_real_,actual_laps_led_points=NA_real_,
         actual_fastest_laps=NA_real_,actual_fastest_lap_points=NA_real_,actual_dk_points=NA_real_,
@@ -1365,6 +1368,10 @@ server <- function(input, output, session) {
       projected_fastest_laps,projected_fastest_lap_points=.45*projected_fastest_laps,
       projected_model_dk_points=projected_dk_points_postqual,displayed_dk_projection=projected_dk_points_postqual,
       dk_value_per_1000=if_else(!is.na(.data$salary)&.data$salary>0,1000*.data$projected_dk_points_postqual/.data$salary,NA_real_),
+      dk_score_p75=NA_real_,dk_score_p90=NA_real_,
+      prob_lead_50_plus=NA_real_,prob_lead_100_plus=NA_real_,prob_lead_200_plus=NA_real_,
+      dominator_role="Historical mean projection",punt_role=NA_character_,front_start_risk=actual_start_position<=3,
+      dominator_scenario_source="historical_backtest_not_archived",
       actual_start_position,actual_finish_position,actual_finish_points=actual_dk_finish_points,
       actual_place_differential_points=actual_dk_place_diff,actual_laps_led,actual_laps_led_points=.25*actual_laps_led,
       actual_fastest_laps,actual_fastest_lap_points=.45*actual_fastest_laps,actual_dk_points,
@@ -1384,6 +1391,40 @@ server <- function(input, output, session) {
     },
     content=function(file)write_csv(dk_export_rows(),file,na="")
   )
+  dk_lineup_export_rows<-reactive({
+    lineups<-dk_lineups_view()
+    members<-dk_members_view()
+    validate(need(nrow(lineups)>0,"No optimized lineups are available for download."))
+    validate(need(nrow(members)>0,"No optimized lineup members are available for download."))
+    meta<-if(dk_is_current())dk_driver_view()else dk_historical_rows()
+    validate(need(nrow(meta)>0,"No race metadata is available for this lineup download."))
+    member_wide<-members%>%
+      arrange(.data$projection_variant,.data$lineup_rank,.data$driver_slot)%>%
+      transmute(.data$projection_variant,.data$lineup_rank,slot=as.integer(.data$driver_slot),
+                name=.data$driver_name,dk_id=.data$dk_id,salary=.data$salary,projection=.data$dk_projection)%>%
+      pivot_wider(names_from=slot,values_from=c(name,dk_id,salary,projection),
+                  names_glue="driver_{slot}_{.value}")
+    slot_cols<-unlist(lapply(seq_len(6L),function(slot)paste0("driver_",slot,"_",c("name","dk_id","salary","projection"))))
+    lineups%>%
+      left_join(member_wide,by=c("projection_variant","lineup_rank"),relationship="one-to-one")%>%
+      mutate(source_type=if(dk_is_current())"current_slate"else"completed_backtest",
+             season=first(meta$season),round=first(meta$round),race_name=first(meta$race_name),
+             track_name=first(meta$track_name),.before=1)%>%
+      select(source_type,projection_variant,season,round,race_name,track_name,
+             lineup_rank,total_salary,salary_remaining,projected_points,
+             any_of(c("scenario_name","scenario_role","scenario_probability","mean_projected_points",
+                      "front_start_count","max_shared_drivers","max_driver_exposure_pct")),
+             any_of(slot_cols),drivers)%>%
+      arrange(.data$lineup_rank)
+  })
+  output$dk_lineup_download<-downloadHandler(
+    filename=function(){
+      x<-dk_lineup_export_rows()%>%slice(1)
+      race_slug<-str_to_lower(str_replace_all(x$race_name,"[^A-Za-z0-9]+","_"))%>%str_replace_all("^_|_$","")
+      paste0("nascar_fantasy_optimized_lineups_",x$season,"_round_",x$round,"_",race_slug,"_",x$projection_variant,".csv")
+    },
+    content=function(file)write_csv(dk_lineup_export_rows(),file,na="")
+  )
   observeEvent(list(dk_variant(),dk_race_choice()),{
     x<-dk_lineups_view();choices<-if(nrow(x))setNames(x$lineup_rank,paste0("#",x$lineup_rank," — ",fmt_num(x$projected_points,1)," pts"))else character()
     updateSelectInput(session,"dk_lineup",choices=choices,selected=if(length(choices))unname(choices[[1]])else character())
@@ -1397,11 +1438,24 @@ server <- function(input, output, session) {
     proxies<-applied-verified
     changed<-if(all(c("dk_projection_base","dk_projection_chatter")%in%names(dk)))sum(abs(dk$dk_projection_base-dk$dk_projection_chatter)>1e-9,na.rm=TRUE)else 0
     overlay_note<-if(!dk_is_current())"Historical backtest; chatter variant was not archived"else if(dk_variant()=="chatter")paste0(applied," applied: ",verified," verified (",carryover," carryovers) + ",proxies," proxies; ",changed," driver projections changed")else"Excluded"
-    div(class="metric-row",metric_card("Projected points",fmt_num(r$projected_points,1),paste0("Lineup #",r$lineup_rank),"gold"),metric_card("Salary",paste0("$",fmt_int(r$total_salary)),paste0("$",fmt_int(r$salary_remaining)," remaining"),"blue"),metric_card("Chatter overlay",if(dk_is_current()&&dk_variant()=="chatter")"Included"else"Excluded",overlay_note,"green"))
+    projection_note<-if(dk_is_current()&&all(c("scenario_role","mean_projected_points")%in%names(r)))paste0(r$scenario_role,"; mean ",fmt_num(r$mean_projected_points,1))else paste0("Lineup #",r$lineup_rank)
+    div(class="metric-row",metric_card("Scenario points",fmt_num(r$projected_points,1),projection_note,"gold"),metric_card("Salary",paste0("$",fmt_int(r$total_salary)),paste0("$",fmt_int(r$salary_remaining)," remaining"),"blue"),metric_card("Chatter overlay",if(dk_is_current()&&dk_variant()=="chatter")"Included"else"Excluded",overlay_note,"green"))
   })
-  output$dk_selected<-renderTable({x<-dk_members_view();validate(need(nrow(x),"No archived salary slate is available to optimize this historical race."));x%>%filter(lineup_rank==as.integer(input$dk_lineup))%>%arrange(driver_slot)%>%transmute(Slot=fmt_int(driver_slot),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank))},striped=TRUE,rownames=FALSE)
-  output$dk_board<-renderTable({x<-dk_driver_view()%>%arrange(desc(dk_projection));if(dk_is_current())x%>%transmute(Rank=row_number(),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank),`Laps led`=fmt_num(projected_laps_led,1),`Fastest laps`=fmt_num(projected_fastest_laps,1))else x%>%transmute(Rank=row_number(),Driver=driver_name,Salary=ifelse(is.na(salary),"—",paste0("$",fmt_int(salary))),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank),`Laps led`=fmt_num(projected_laps_led,1),`Fastest laps`=fmt_num(projected_fastest_laps,1),`Actual DK points`=fmt_num(actual_dk_points,1))},striped=TRUE,hover=TRUE,rownames=FALSE)
-  output$dk_top<-renderTable({x<-dk_lineups_view();validate(need(nrow(x),"No optimized lineups are available without an archived salary slate."));x%>%slice_head(n=10)%>%transmute(Rank=fmt_int(lineup_rank),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),Projection=fmt_num(projected_points,1),Drivers=drivers)},striped=TRUE,rownames=FALSE)
+  output$dk_selected<-renderTable({
+    x<-dk_members_view();validate(need(nrow(x),"No archived salary slate is available to optimize this historical race."));x<-x%>%filter(lineup_rank==as.integer(input$dk_lineup))%>%arrange(driver_slot)
+    if(dk_is_current())x%>%transmute(Slot=fmt_int(driver_slot),Driver=driver_name,Role=dominator_role,Salary=paste0("$",fmt_int(salary)),`Scenario projection`=fmt_num(dk_projection,1),P75=fmt_num(dk_score_p75,1),P90=fmt_num(dk_score_p90,1),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank))
+    else x%>%transmute(Slot=fmt_int(driver_slot),Driver=driver_name,Salary=paste0("$",fmt_int(salary)),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank))
+  },striped=TRUE,rownames=FALSE)
+  output$dk_board<-renderTable({
+    x<-dk_driver_view()%>%arrange(desc(dk_projection))
+    if(dk_is_current())x%>%transmute(Rank=row_number(),Driver=driver_name,Role=dominator_role,Salary=paste0("$",fmt_int(salary)),Mean=fmt_num(dk_projection,1),P75=fmt_num(dk_score_p75,1),P90=fmt_num(dk_score_p90,1),`Lead 50+`=fmt_pct(prob_lead_50_plus,1),`Lead 100+`=fmt_pct(prob_lead_100_plus,1),`Lead 200+`=fmt_pct(prob_lead_200_plus,1),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank),`Laps led`=fmt_num(projected_laps_led,1),`Fastest laps`=fmt_num(projected_fastest_laps,1))
+    else x%>%transmute(Rank=row_number(),Driver=driver_name,Salary=ifelse(is.na(salary),"—",paste0("$",fmt_int(salary))),Projection=fmt_num(dk_projection,1),Value=fmt_num(dk_value_per_1000,2),Start=fmt_int(dk_starting_position_used),`Finish rank`=fmt_int(dk_projected_finish_rank),`Laps led`=fmt_num(projected_laps_led,1),`Fastest laps`=fmt_num(projected_fastest_laps,1),`Actual DK points`=fmt_num(actual_dk_points,1))
+  },striped=TRUE,hover=TRUE,rownames=FALSE)
+  output$dk_top<-renderTable({
+    x<-dk_lineups_view();validate(need(nrow(x),"No optimized lineups are available without an archived salary slate."));x<-x%>%slice_head(n=10)
+    if(dk_is_current())x%>%transmute(Rank=fmt_int(lineup_rank),Script=scenario_role,Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),`Scenario projection`=fmt_num(projected_points,1),Mean=fmt_num(mean_projected_points,1),Front=fmt_int(front_start_count),Shared=fmt_int(max_shared_drivers),Drivers=drivers)
+    else x%>%transmute(Rank=fmt_int(lineup_rank),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),Projection=fmt_num(projected_points,1),Drivers=drivers)
+  },striped=TRUE,rownames=FALSE)
   output$bt_cards<-renderUI({x<-backtest%>%filter(round==as.integer(input$bt_round));pick<-x%>%slice_min(predicted_finish_rank,n=1);div(class="metric-row",metric_card("Predicted winner",pick$driver_name,pick$owner_name,"gold"),metric_card("Actual winner",(x%>%filter(target_finish_position==1)%>%pull(driver_name)%>%first())%||%"—",first(x$race_name),"blue"),metric_card("Field",nrow(x),paste0(str_to_title(active_strategy_name)," evaluation"),"green"))})
   output$bt_metrics<-renderTable(backtest_metrics,striped=TRUE,rownames=FALSE)
   output$bt_table<-renderTable({backtest%>%filter(round==as.integer(input$bt_round))%>%arrange(predicted_finish_rank)%>%transmute(Rank=predicted_finish_rank,Driver=driver_name,Owner=owner_name,Qualifying=predicted_qualifying_rank,`Pred finish`=fmt_num(predicted_finish_position,1),Win=fmt_pct(win_probability,1),`Top 3`=fmt_pct(top3_probability,1),Points=fmt_num(predicted_points,1),Actual=fmt_int(target_finish_position))},striped=TRUE,hover=TRUE,rownames=FALSE)

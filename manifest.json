@@ -1812,7 +1812,7 @@
   },
   "files": {
     "app.R": {
-      "checksum": "5ab0656b9d0733b037745b9d74eb6ecb"
+      "checksum": "ba6a6320141f5f5884f6767bc4ac4d5e"
     },
     "data/keep these files/DKSalaries_NAS.csv": {
       "checksum": "26c90356439387db744ac99cc307ed8e"
@@ -1998,16 +1998,16 @@
       "checksum": "276e842818591e8e64c9fb9d046c6205"
     },
     "data/nascar_stage19_draftkings_driver_projections_latest.csv": {
-      "checksum": "2f5380249a46c620c5124b2ada1a2c31"
+      "checksum": "925fd47752482eac5d926f0b9f5f4fbd"
     },
     "data/nascar_stage19_draftkings_salary_history.csv": {
       "checksum": "3e29fbae530cb3b633d19e20bbce5c36"
     },
     "data/nascar_stage19_draftkings_top_lineup_members_latest.csv": {
-      "checksum": "492ac865fc4408ad3288ca4c00b82e85"
+      "checksum": "16a15d0fc99fdca078abe97f41ec26e7"
     },
     "data/nascar_stage19_draftkings_top_lineups_latest.csv": {
-      "checksum": "29a2d06879ef859509c488300631ffd5"
+      "checksum": "866ea6d6af96501ce63d3e00d77c687e"
     },
     "data/nascar_stage2_driver_race_detailed_2018_2026.csv": {
       "checksum": "787d5a525e7235d473a5429ecf64fdec"
