@@ -10,6 +10,40 @@
     "has_parameters": false
   },
   "packages": {
+    "Matrix": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "Matrix",
+        "Version": "1.7-1",
+        "VersionNote": "do also bump src/version.h, inst/include/Matrix/version.h",
+        "Date": "2024-10-17",
+        "Priority": "recommended",
+        "Title": "Sparse and Dense Matrix Classes and Methods",
+        "Description": "A rich hierarchy of sparse and dense matrix classes,\n\tincluding general, symmetric, triangular, and diagonal matrices\n\twith numeric, logical, or pattern entries.  Efficient methods for\n\toperating on such matrices, often wrapping the 'BLAS', 'LAPACK',\n\tand 'SuiteSparse' libraries.",
+        "License": "GPL (>= 2) | file LICENCE",
+        "URL": "https://Matrix.R-forge.R-project.org",
+        "BugReports": "https://R-forge.R-project.org/tracker/?atid=294&group_id=61",
+        "Contact": "Matrix-authors@R-project.org",
+        "Authors@R": "\n\tc(person(\"Douglas\", \"Bates\", role = \"aut\",\n\t         comment = c(ORCID = \"0000-0001-8316-9503\")),\n\t  person(\"Martin\", \"Maechler\", role = c(\"aut\", \"cre\"),\n\t         email = \"mmaechler+Matrix@gmail.com\",\n\t         comment = c(ORCID = \"0000-0002-8685-9910\")),\n\t  person(\"Mikael\", \"Jagan\", role = \"aut\",\n\t         comment = c(ORCID = \"0000-0002-3542-2938\")),\n\t  person(\"Timothy A.\", \"Davis\", role = \"ctb\",\n\t         comment = c(ORCID = \"0000-0001-7614-6899\",\n\t                     \"SuiteSparse libraries\",\n\t                     \"collaborators listed in dir(system.file(\\\"doc\\\", \\\"SuiteSparse\\\", package=\\\"Matrix\\\"), pattern=\\\"License\\\", full.names=TRUE, recursive=TRUE)\")),\n\t  person(\"George\", \"Karypis\", role = \"ctb\",\n\t         comment = c(ORCID = \"0000-0003-2753-1437\",\n\t                     \"METIS library\",\n\t                     \"Copyright: Regents of the University of Minnesota\")),\n\t  person(\"Jason\", \"Riedy\", role = \"ctb\",\n\t         comment = c(ORCID = \"0000-0002-4345-4200\",\n\t                     \"GNU Octave's condest() and onenormest()\",\n\t                     \"Copyright: Regents of the University of California\")),\n\t  person(\"Jens\", \"Oehlschlägel\", role = \"ctb\",\n\t         comment = \"initial nearPD()\"),\n\t  person(\"R Core Team\", role = \"ctb\",\n\t         comment = \"base R's matrix implementation\"))",
+        "Depends": "R (>= 4.4.0), methods",
+        "Imports": "grDevices, graphics, grid, lattice, stats, utils",
+        "Suggests": "MASS, datasets, sfsmisc, tools",
+        "Enhances": "SparseM, graph",
+        "LazyData": "no",
+        "LazyDataNote": "not possible, since we use data/*.R and our S4 classes",
+        "BuildResaveData": "no",
+        "Encoding": "UTF-8",
+        "NeedsCompilation": "yes",
+        "Packaged": "2024-10-17 20:22:00 UTC; maechler",
+        "Author": "Douglas Bates [aut] (<https://orcid.org/0000-0001-8316-9503>),\n  Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>),\n  Mikael Jagan [aut] (<https://orcid.org/0000-0002-3542-2938>),\n  Timothy A. Davis [ctb] (<https://orcid.org/0000-0001-7614-6899>,\n    SuiteSparse libraries, collaborators listed in\n    dir(system.file(\"doc\", \"SuiteSparse\", package=\"Matrix\"),\n    pattern=\"License\", full.names=TRUE, recursive=TRUE)),\n  George Karypis [ctb] (<https://orcid.org/0000-0003-2753-1437>, METIS\n    library, Copyright: Regents of the University of Minnesota),\n  Jason Riedy [ctb] (<https://orcid.org/0000-0002-4345-4200>, GNU\n    Octave's condest() and onenormest(), Copyright: Regents of the\n    University of California),\n  Jens Oehlschlägel [ctb] (initial nearPD()),\n  R Core Team [ctb] (base R's matrix implementation)",
+        "Maintainer": "Martin Maechler <mmaechler+Matrix@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-10-18 18:10:02 UTC",
+        "Built": "R 4.4.2; x86_64-w64-mingw32; 2024-10-31 16:49:54 UTC; windows",
+        "Archs": "x64"
+      }
+    },
     "R6": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -83,6 +117,35 @@
         "Archs": "x64"
       }
     },
+    "RcppTOML": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "RcppTOML",
+        "Type": "Package",
+        "Title": "'Rcpp' Bindings to Parser for \"Tom's Obvious Markup Language\"",
+        "Version": "0.2.3",
+        "Date": "2025-03-08",
+        "Authors@R": "c(person(\"Dirk\", \"Eddelbuettel\", role = c(\"aut\", \"cre\"), email = \"edd@debian.org\",\n                    comment = c(ORCID = \"0000-0001-6419-907X\")),\n             person(\"Mark\", \"Gillard\", role = \"aut\",\n                    comment = \"Author of 'toml++' header library\"))",
+        "Description": "The configuration format defined by 'TOML' (which expands to\n \"Tom's Obvious Markup Language\") specifies an excellent format\n (described at <https://toml.io/en/>) suitable for both human editing\n as well as the common uses of a machine-readable format. This package\n uses 'Rcpp' to connect to the 'toml++' parser written by Mark Gillard\n to R.",
+        "SystemRequirements": "A C++17 compiler",
+        "BugReports": "https://github.com/eddelbuettel/rcpptoml/issues",
+        "URL": "http://dirk.eddelbuettel.com/code/rcpp.toml.html",
+        "Imports": "Rcpp (>= 1.0.8)",
+        "Depends": "R (>= 3.3.0)",
+        "LinkingTo": "Rcpp",
+        "Suggests": "tinytest",
+        "License": "GPL (>= 2)",
+        "NeedsCompilation": "yes",
+        "Packaged": "2025-03-08 13:54:57 UTC; edd",
+        "Author": "Dirk Eddelbuettel [aut, cre] (<https://orcid.org/0000-0001-6419-907X>),\n  Mark Gillard [aut] (Author of 'toml++' header library)",
+        "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
+        "Repository": "CRAN",
+        "Date/Publication": "2025-03-08 14:30:06 UTC",
+        "Built": "R 4.4.3; x86_64-w64-mingw32; 2026-02-13 02:26:59 UTC; windows",
+        "Archs": "x64"
+      }
+    },
     "S7": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -113,6 +176,34 @@
         "Repository": "CRAN",
         "Date/Publication": "2025-11-14 19:50:02 UTC",
         "Built": "R 4.4.3; x86_64-w64-mingw32; 2026-03-12 14:08:46 UTC; windows",
+        "Archs": "x64"
+      }
+    },
+    "askpass": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "askpass",
+        "Type": "Package",
+        "Title": "Password Entry Utilities for R, Git, and SSH",
+        "Version": "1.2.1",
+        "Authors@R": "person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), \n    email = \"jeroenooms@gmail.com\", comment = c(ORCID = \"0000-0002-4035-0289\"))",
+        "Description": "Cross-platform utilities for prompting the user for credentials or a \n    passphrase, for example to authenticate with a server or read a protected key.\n    Includes native programs for MacOS and Windows, hence no 'tcltk' is required. \n    Password entry can be invoked in two different ways: directly from R via the \n    askpass() function, or indirectly as password-entry back-end for 'ssh-agent' \n    or 'git-credential' via the SSH_ASKPASS and GIT_ASKPASS environment variables.\n    Thereby the user can be prompted for credentials or a passphrase if needed \n    when R calls out to git or ssh.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://r-lib.r-universe.dev/askpass",
+        "BugReports": "https://github.com/r-lib/askpass/issues",
+        "Encoding": "UTF-8",
+        "Imports": "sys (>= 2.1)",
+        "RoxygenNote": "7.2.3",
+        "Suggests": "testthat",
+        "Language": "en-US",
+        "NeedsCompilation": "yes",
+        "Packaged": "2024-10-03 14:12:09 UTC; jeroen",
+        "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>)",
+        "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-10-04 07:20:03 UTC",
+        "Built": "R 4.4.2; x86_64-w64-mingw32; 2024-12-06 02:27:58 UTC; windows",
         "Archs": "x64"
       }
     },
@@ -400,6 +491,36 @@
         "Built": "R 4.4.2; ; 2024-12-06 01:45:13 UTC; windows"
       }
     },
+    "curl": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "curl",
+        "Type": "Package",
+        "Title": "A Modern and Flexible Web Client for R",
+        "Version": "6.0.1",
+        "Authors@R": "c(\n    person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\",\n      comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Hadley\", \"Wickham\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = \"cph\"))",
+        "Description": "Bindings to 'libcurl' <https://curl.se/libcurl/> for performing fully\n    configurable HTTP/FTP requests where responses can be processed in memory, on\n    disk, or streaming via the callback or connection interfaces. Some knowledge\n    of 'libcurl' is recommended; for a more-user-friendly web client see the \n    'httr2' package which builds on this package with http specific tools and logic.",
+        "License": "MIT + file LICENSE",
+        "SystemRequirements": "libcurl (>= 7.62): libcurl-devel (rpm) or\nlibcurl4-openssl-dev (deb)",
+        "URL": "https://jeroen.r-universe.dev/curl",
+        "BugReports": "https://github.com/jeroen/curl/issues",
+        "Suggests": "spelling, testthat (>= 1.0.0), knitr, jsonlite, later,\nrmarkdown, httpuv (>= 1.4.4), webutils",
+        "VignetteBuilder": "knitr",
+        "Depends": "R (>= 3.0.0)",
+        "RoxygenNote": "7.3.2.9000",
+        "Encoding": "UTF-8",
+        "Language": "en-US",
+        "NeedsCompilation": "yes",
+        "Packaged": "2024-11-13 13:14:47 UTC; jeroen",
+        "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Hadley Wickham [ctb],\n  Posit Software, PBC [cph]",
+        "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-11-14 09:20:02 UTC",
+        "Built": "R 4.4.2; x86_64-w64-mingw32; 2025-01-04 01:25:48 UTC; windows",
+        "Archs": "x64"
+      }
+    },
     "digest": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -458,6 +579,35 @@
         "Date/Publication": "2023-11-17 16:50:02 UTC",
         "Built": "R 4.4.2; x86_64-w64-mingw32; 2024-12-06 03:21:17 UTC; windows",
         "Archs": "x64"
+      }
+    },
+    "f1dataR": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "f1dataR",
+        "Title": "Access Formula 1 Data",
+        "Version": "2.0.1",
+        "Authors@R": "c(\n    person(\"Santiago\", \"Casanova\", , \"santiago.casanova@yahoo.com\", role = c(\"aut\", \"cre\", \"cph\")),\n    person(\"Philip\", \"Bulsink\", , \"bulsinkp@gmail.com\", role = \"aut\",\n           comment = c(ORCID = \"0000-0001-9668-2429\"))\n  )",
+        "Description": "Obtain Formula 1 data via the 'Jolpica API' <https://jolpi.ca> and the unofficial API <https://www.formula1.com/en/timing/f1-live> via the 'fastf1' 'Python' library <https://docs.fastf1.dev/>.",
+        "Config/reticulate": "list( packages = list( list(package = \"fastf1\", pip\n= TRUE) ) )",
+        "License": "MIT + file LICENSE",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.2",
+        "Depends": "R (>= 3.5.0), reticulate (>= 1.14),",
+        "Imports": "glue, magrittr, tibble, jsonlite, httr2, memoise, janitor,\ndplyr, tidyr, rlang, lifecycle, cli, rappdirs, cachem, withr",
+        "Suggests": "ggplot2, httptest2, knitr, rmarkdown, testthat (>= 3.0.0),",
+        "VignetteBuilder": "knitr",
+        "URL": "https://scasanova.github.io/f1dataR/,\nhttps://github.com/SCasanova/f1dataR",
+        "BugReports": "https://github.com/SCasanova/f1dataR/issues",
+        "Config/testthat/edition": "3",
+        "NeedsCompilation": "no",
+        "Packaged": "2025-03-27 00:55:31 UTC; pbulsink",
+        "Author": "Santiago Casanova [aut, cre, cph],\n  Philip Bulsink [aut] (<https://orcid.org/0000-0001-9668-2429>)",
+        "Maintainer": "Santiago Casanova <santiago.casanova@yahoo.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2025-03-27 04:00:07 UTC",
+        "Built": "R 4.4.3; ; 2026-03-12 17:31:26 UTC; windows"
       }
     },
     "fansi": {
@@ -568,6 +718,36 @@
         "Repository": "CRAN",
         "Date/Publication": "2024-11-16 17:30:02 UTC",
         "Built": "R 4.4.2; ; 2024-12-06 02:41:09 UTC; windows"
+      }
+    },
+    "forcats": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "forcats",
+        "Title": "Tools for Working with Categorical Variables (Factors)",
+        "Version": "1.0.0",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = c(\"aut\", \"cre\")),\n    person(\"RStudio\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Description": "Helpers for reordering factor levels (including moving\n    specified levels to front, ordering by first appearance, reversing,\n    and randomly shuffling), and tools for modifying factor levels\n    (including collapsing rare levels into other, 'anonymising', and\n    manually 'recoding').",
+        "License": "MIT + file LICENSE",
+        "URL": "https://forcats.tidyverse.org/,\nhttps://github.com/tidyverse/forcats",
+        "BugReports": "https://github.com/tidyverse/forcats/issues",
+        "Depends": "R (>= 3.4)",
+        "Imports": "cli (>= 3.4.0), glue, lifecycle, magrittr, rlang (>= 1.0.0),\ntibble",
+        "Suggests": "covr, dplyr, ggplot2, knitr, readr, rmarkdown, testthat (>=\n3.0.0), withr",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "LazyData": "true",
+        "RoxygenNote": "7.2.3",
+        "NeedsCompilation": "no",
+        "Packaged": "2023-01-27 14:11:11 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre],\n  RStudio [cph, fnd]",
+        "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2023-01-29 22:20:02 UTC",
+        "Built": "R 4.4.2; ; 2024-12-06 03:21:26 UTC; windows"
       }
     },
     "fs": {
@@ -726,6 +906,35 @@
         "Built": "R 4.4.2; ; 2024-12-06 02:40:59 UTC; windows"
       }
     },
+    "here": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "here",
+        "Title": "A Simpler Way to Find Your Files",
+        "Version": "1.0.2",
+        "Date": "2025-09-06",
+        "Authors@R": "\n    c(person(given = \"Kirill\",\n             family = \"M\\u00fcller\",\n             role = c(\"aut\", \"cre\"),\n             email = \"kirill@cynkra.com\",\n             comment = c(ORCID = \"0000-0002-1416-3412\")),\n      person(given = \"Jennifer\",\n             family = \"Bryan\",\n             role = \"ctb\",\n             email = \"jenny@rstudio.com\",\n             comment = c(ORCID = \"0000-0002-6983-2759\")))",
+        "Description": "Constructs paths to your project's files.\n    Declare the relative path of a file within your project with 'i_am()'.\n    Use the 'here()' function as a drop-in replacement for 'file.path()',\n    it will always locate the files relative to your project root.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://here.r-lib.org/, https://github.com/r-lib/here",
+        "BugReports": "https://github.com/r-lib/here/issues",
+        "Imports": "rprojroot (>= 2.1.0)",
+        "Suggests": "conflicted, covr, fs, knitr, palmerpenguins, plyr, readr,\nrlang, rmarkdown, testthat, uuid, withr",
+        "VignetteBuilder": "knitr",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.3.9000",
+        "Config/testthat/edition": "3",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "NeedsCompilation": "no",
+        "Packaged": "2025-09-14 18:48:53 UTC; kirill",
+        "Author": "Kirill Müller [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-1416-3412>),\n  Jennifer Bryan [ctb] (ORCID: <https://orcid.org/0000-0002-6983-2759>)",
+        "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2025-09-15 05:10:09 UTC",
+        "Built": "R 4.4.3; ; 2026-02-13 02:26:59 UTC; windows"
+      }
+    },
     "hms": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -819,6 +1028,37 @@
         "Archs": "x64"
       }
     },
+    "httr2": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "httr2",
+        "Title": "Perform HTTP Requests and Process the Responses",
+        "Version": "1.0.7",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")),\n    person(\"Maximilian\", \"Girlich\", role = \"ctb\")\n  )",
+        "Description": "Tools for creating and modifying HTTP requests, then\n    performing them and processing the results. 'httr2' is a modern\n    re-imagining of 'httr' that uses a pipe-based interface and solves\n    more of the problems that API wrapping packages face.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://httr2.r-lib.org, https://github.com/r-lib/httr2",
+        "BugReports": "https://github.com/r-lib/httr2/issues",
+        "Depends": "R (>= 4.0)",
+        "Imports": "cli (>= 3.0.0), curl (>= 6.0.1), glue, lifecycle, magrittr,\nopenssl, R6, rappdirs, rlang (>= 1.1.0), vctrs (>= 0.6.3),\nwithr",
+        "Suggests": "askpass, bench, clipr, covr, docopt, httpuv, jose, jsonlite,\nknitr, later (>= 1.4.0), paws.common, promises, rmarkdown,\ntestthat (>= 3.1.8), tibble, webfakes, xml2",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Config/testthat/parallel": "true",
+        "Config/testthat/start-first": "resp-stream, req-perform",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.2",
+        "NeedsCompilation": "no",
+        "Packaged": "2024-11-26 13:45:28 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre],\n  Posit Software, PBC [cph, fnd],\n  Maximilian Girlich [ctb]",
+        "Maintainer": "Hadley Wickham <hadley@posit.co>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-11-26 23:00:07 UTC",
+        "Built": "R 4.4.2; ; 2024-12-06 02:59:51 UTC; windows"
+      }
+    },
     "isoband": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -847,6 +1087,34 @@
         "Date/Publication": "2022-12-20 10:00:13 UTC",
         "Built": "R 4.4.2; x86_64-w64-mingw32; 2024-12-06 01:45:15 UTC; windows",
         "Archs": "x64"
+      }
+    },
+    "janitor": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "janitor",
+        "Title": "Simple Tools for Examining and Cleaning Dirty Data",
+        "Version": "2.2.1",
+        "Authors@R": "c(person(\"Sam\", \"Firke\", email = \"samuel.firke@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Bill\", \"Denney\", email = \"wdenney@humanpredictions.com\", role = \"ctb\"),\n    person(\"Chris\", \"Haid\", email = \"chrishaid@gmail.com\", role = \"ctb\"),\n    person(\"Ryan\", \"Knight\", email = \"ryangknight@gmail.com\", role = \"ctb\"),\n    person(\"Malte\", \"Grosser\", email = \"malte.grosser@gmail.com\", role = \"ctb\"),\n    person(\"Jonathan\", \"Zadra\", email = \"jonathan.zadra@sorensonimpact.com\", role = \"ctb\"))",
+        "Description": "The main janitor functions can: perfectly format data.frame column\n    names; provide quick counts of variable combinations (i.e., frequency\n    tables and crosstabs); and explore duplicate records. Other janitor functions\n    nicely format the tabulation results. These tabulate-and-report functions\n    approximate popular features of SPSS and Microsoft Excel. This package\n    follows the principles of the \"tidyverse\" and works well with the pipe function\n    %>%. janitor was built with beginning-to-intermediate R users in mind and is\n    optimized for user-friendliness.",
+        "URL": "https://github.com/sfirke/janitor,\nhttps://sfirke.github.io/janitor/",
+        "BugReports": "https://github.com/sfirke/janitor/issues",
+        "Depends": "R (>= 3.1.2)",
+        "Imports": "dplyr (>= 1.0.0), hms, lifecycle, lubridate, magrittr, purrr,\nrlang, stringi, stringr, snakecase (>= 0.9.2), tidyselect (>=\n1.0.0), tidyr (>= 0.7.0)",
+        "License": "MIT + file LICENSE",
+        "RoxygenNote": "7.2.3",
+        "Suggests": "dbplyr, knitr, rmarkdown, RSQLite, sf, testthat (>= 3.0.0),\ntibble, tidygraph",
+        "VignetteBuilder": "knitr",
+        "Encoding": "UTF-8",
+        "Config/testthat/edition": "3",
+        "NeedsCompilation": "no",
+        "Packaged": "2024-12-22 15:53:13 UTC; sam",
+        "Author": "Sam Firke [aut, cre],\n  Bill Denney [ctb],\n  Chris Haid [ctb],\n  Ryan Knight [ctb],\n  Malte Grosser [ctb],\n  Jonathan Zadra [ctb]",
+        "Maintainer": "Sam Firke <samuel.firke@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-12-22 16:30:01 UTC",
+        "Built": "R 4.4.3; ; 2026-03-12 17:14:20 UTC; windows"
       }
     },
     "jquerylib": {
@@ -951,6 +1219,36 @@
         "Archs": "x64"
       }
     },
+    "lattice": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "lattice",
+        "Version": "0.22-6",
+        "Date": "2024-03-20",
+        "Priority": "recommended",
+        "Title": "Trellis Graphics for R",
+        "Authors@R": "c(person(\"Deepayan\", \"Sarkar\", role = c(\"aut\", \"cre\"),\n\t            email = \"deepayan.sarkar@r-project.org\",\n\t\t    comment = c(ORCID = \"0000-0003-4107-1553\")),\n              person(\"Felix\", \"Andrews\", role = \"ctb\"),\n\t      person(\"Kevin\", \"Wright\", role = \"ctb\", comment = \"documentation\"),\n\t      person(\"Neil\", \"Klepeis\", role = \"ctb\"),\n\t      person(\"Johan\", \"Larsson\", role = \"ctb\", comment = \"miscellaneous improvements\"),\n              person(\"Zhijian (Jason)\", \"Wen\", role = \"cph\", comment = \"filled contour code\"),\n              person(\"Paul\", \"Murrell\", role = \"ctb\", email = \"paul@stat.auckland.ac.nz\"),\n\t      person(\"Stefan\", \"Eng\", role = \"ctb\", comment = \"violin plot improvements\"),\n\t      person(\"Achim\", \"Zeileis\", role = \"ctb\", comment = \"modern colors\"),\n              person(\"Alexandre\", \"Courtiol\", role = \"ctb\", comment = \"generics for larrows, lpolygon, lrect and lsegments\")\n\t      )",
+        "Description": "A powerful and elegant high-level data visualization\n  system inspired by Trellis graphics, with an emphasis on\n  multivariate data. Lattice is sufficient for typical graphics needs,\n  and is also flexible enough to handle most nonstandard requirements.\n  See ?Lattice for an introduction.",
+        "Depends": "R (>= 4.0.0)",
+        "Suggests": "KernSmooth, MASS, latticeExtra, colorspace",
+        "Imports": "grid, grDevices, graphics, stats, utils",
+        "Enhances": "chron, zoo",
+        "LazyLoad": "yes",
+        "LazyData": "yes",
+        "License": "GPL (>= 2)",
+        "URL": "https://lattice.r-forge.r-project.org/",
+        "BugReports": "https://github.com/deepayan/lattice/issues",
+        "NeedsCompilation": "yes",
+        "Packaged": "2024-03-20 03:08:45 UTC; deepayan",
+        "Author": "Deepayan Sarkar [aut, cre] (<https://orcid.org/0000-0003-4107-1553>),\n  Felix Andrews [ctb],\n  Kevin Wright [ctb] (documentation),\n  Neil Klepeis [ctb],\n  Johan Larsson [ctb] (miscellaneous improvements),\n  Zhijian (Jason) Wen [cph] (filled contour code),\n  Paul Murrell [ctb],\n  Stefan Eng [ctb] (violin plot improvements),\n  Achim Zeileis [ctb] (modern colors),\n  Alexandre Courtiol [ctb] (generics for larrows, lpolygon, lrect and\n    lsegments)",
+        "Maintainer": "Deepayan Sarkar <deepayan.sarkar@r-project.org>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-03-20 06:10:02 UTC",
+        "Built": "R 4.4.2; x86_64-w64-mingw32; 2024-10-31 16:49:37 UTC; windows",
+        "Archs": "x64"
+      }
+    },
     "lifecycle": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -978,6 +1276,41 @@
         "Repository": "CRAN",
         "Date/Publication": "2023-11-07 10:10:10 UTC",
         "Built": "R 4.4.2; ; 2024-12-06 02:27:59 UTC; windows"
+      }
+    },
+    "lubridate": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Type": "Package",
+        "Package": "lubridate",
+        "Title": "Make Dealing with Dates a Little Easier",
+        "Version": "1.9.5",
+        "Authors@R": "c(\n    person(\"Vitalie\", \"Spinu\", , \"spinuvit@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Garrett\", \"Grolemund\", role = \"aut\"),\n    person(\"Hadley\", \"Wickham\", role = \"aut\"),\n    person(\"Davis\", \"Vaughan\", role = \"ctb\"),\n    person(\"Ian\", \"Lyttle\", role = \"ctb\"),\n    person(\"Imanuel\", \"Costigan\", role = \"ctb\"),\n    person(\"Jason\", \"Law\", role = \"ctb\"),\n    person(\"Doug\", \"Mitarotonda\", role = \"ctb\"),\n    person(\"Joseph\", \"Larmarange\", role = \"ctb\"),\n    person(\"Jonathan\", \"Boiser\", role = \"ctb\"),\n    person(\"Chel Hee\", \"Lee\", role = \"ctb\")\n  )",
+        "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
+        "Description": "Functions to work with date-times and time-spans: fast and\n    user friendly parsing of date-time data, extraction and updating of\n    components of a date-time (years, months, days, hours, minutes, and\n    seconds), algebraic manipulation on date-time and time-span objects.\n    The 'lubridate' package has a consistent and memorable syntax that\n    makes working with dates easy and fun.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://lubridate.tidyverse.org,\nhttps://github.com/tidyverse/lubridate",
+        "BugReports": "https://github.com/tidyverse/lubridate/issues",
+        "Depends": "methods, R (>= 3.2)",
+        "Imports": "generics, timechange (>= 0.4.0)",
+        "Suggests": "covr, knitr, rmarkdown, testthat (>= 2.1.0), vctrs (>= 0.6.5)",
+        "Enhances": "chron, data.table, timeDate, tis, zoo",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "LazyData": "true",
+        "RoxygenNote": "7.3.3",
+        "SystemRequirements": "A system with zoneinfo data (e.g.\n/usr/share/zoneinfo). On Windows the zoneinfo included with R\nis used.",
+        "Collate": "'Dates.r' 'POSIXt.r' 'util.r' 'parse.r' 'timespans.r'\n'intervals.r' 'difftimes.r' 'durations.r' 'periods.r'\n'accessors-date.R' 'accessors-day.r' 'accessors-dst.r'\n'accessors-hour.r' 'accessors-minute.r' 'accessors-month.r'\n'accessors-quarter.r' 'accessors-second.r' 'accessors-tz.r'\n'accessors-week.r' 'accessors-year.r' 'am-pm.r' 'time-zones.r'\n'numeric.r' 'coercion.r' 'constants.r' 'cyclic_encoding.r'\n'data.r' 'decimal-dates.r' 'deprecated.r' 'format_ISO8601.r'\n'guess.r' 'hidden.r' 'instants.r' 'leap-years.r'\n'ops-addition.r' 'ops-compare.r' 'ops-division.r'\n'ops-integer-division.r' 'ops-m+.r' 'ops-modulo.r'\n'ops-multiplication.r' 'ops-subtraction.r' 'package.r'\n'pretty.r' 'round.r' 'stamp.r' 'tzdir.R' 'update.r' 'vctrs.R'\n'zzz.R'",
+        "NeedsCompilation": "yes",
+        "Packaged": "2026-02-03 09:30:08 UTC; vitalie",
+        "Author": "Vitalie Spinu [aut, cre],\n  Garrett Grolemund [aut],\n  Hadley Wickham [aut],\n  Davis Vaughan [ctb],\n  Ian Lyttle [ctb],\n  Imanuel Costigan [ctb],\n  Jason Law [ctb],\n  Doug Mitarotonda [ctb],\n  Joseph Larmarange [ctb],\n  Jonathan Boiser [ctb],\n  Chel Hee Lee [ctb]",
+        "Repository": "CRAN",
+        "Date/Publication": "2026-02-04 09:00:02 UTC",
+        "Built": "R 4.4.3; x86_64-w64-mingw32; 2026-03-12 15:17:30 UTC; windows",
+        "Archs": "x64"
       }
     },
     "magrittr": {
@@ -1061,6 +1394,35 @@
         "Archs": "x64"
       }
     },
+    "openssl": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "openssl",
+        "Type": "Package",
+        "Title": "Toolkit for Encryption, Signatures and Certificates Based on\nOpenSSL",
+        "Version": "2.3.1",
+        "Authors@R": "c(person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\",\n    comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Oliver\", \"Keyes\", role = \"ctb\"))",
+        "Description": "Bindings to OpenSSL libssl and libcrypto, plus custom SSH key parsers.\n    Supports RSA, DSA and EC curves P-256, P-384, P-521, and curve25519. Cryptographic\n    signatures can either be created and verified manually or via x509 certificates. \n    AES can be used in cbc, ctr or gcm mode for symmetric encryption; RSA for asymmetric\n    (public key) encryption or EC for Diffie Hellman. High-level envelope functions \n    combine RSA and AES for encrypting arbitrary sized data. Other utilities include key\n    generators, hash functions (md5, sha1, sha256, etc), base64 encoder, a secure random\n    number generator, and 'bignum' math methods for manually performing crypto \n    calculations on large multibyte integers.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://jeroen.r-universe.dev/openssl",
+        "BugReports": "https://github.com/jeroen/openssl/issues",
+        "SystemRequirements": "OpenSSL >= 1.0.2",
+        "VignetteBuilder": "knitr",
+        "Imports": "askpass",
+        "Suggests": "curl, testthat (>= 2.1.0), digest, knitr, rmarkdown,\njsonlite, jose, sodium",
+        "RoxygenNote": "7.3.2",
+        "Encoding": "UTF-8",
+        "NeedsCompilation": "yes",
+        "Packaged": "2025-01-08 21:40:58 UTC; jeroen",
+        "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Oliver Keyes [ctb]",
+        "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2025-01-09 12:50:02 UTC",
+        "Built": "R 4.4.2; x86_64-w64-mingw32; 2025-01-11 00:38:52 UTC; windows",
+        "Archs": "x64"
+      }
+    },
     "pillar": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -1116,6 +1478,28 @@
         "Repository": "CRAN",
         "Date/Publication": "2019-09-22 09:20:02 UTC",
         "Built": "R 4.4.2; ; 2024-12-06 01:45:14 UTC; windows"
+      }
+    },
+    "png": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "png",
+        "Version": "0.1-8",
+        "Title": "Read and write PNG images",
+        "Author": "Simon Urbanek <Simon.Urbanek@r-project.org>",
+        "Maintainer": "Simon Urbanek <Simon.Urbanek@r-project.org>",
+        "Depends": "R (>= 2.9.0)",
+        "Description": "This package provides an easy and simple way to read, write and display bitmap images stored in the PNG format. It can read and write both files and in-memory raw vectors.",
+        "License": "GPL-2 | GPL-3",
+        "SystemRequirements": "libpng",
+        "URL": "http://www.rforge.net/png/",
+        "NeedsCompilation": "yes",
+        "Packaged": "2022-11-29 09:42:31 UTC; rforge",
+        "Repository": "CRAN",
+        "Date/Publication": "2022-11-29 11:12:53 UTC",
+        "Built": "R 4.4.0; x86_64-w64-mingw32; 2024-04-23 00:24:52 UTC; windows",
+        "Archs": "x64"
       }
     },
     "prettyunits": {
@@ -1298,6 +1682,38 @@
         "Archs": "x64"
       }
     },
+    "reticulate": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "reticulate",
+        "Type": "Package",
+        "Title": "Interface to 'Python'",
+        "Version": "1.45.0",
+        "Authors@R": "c(\n  person(\"Tomasz\", \"Kalinowski\", role = c(\"ctb\", \"cre\"),\n         email = \"tomasz@posit.co\"),\n  person(\"Kevin\", \"Ushey\", role = c(\"aut\"),\n         email = \"kevin@posit.co\"),\n  person(\"JJ\", \"Allaire\", role = c(\"aut\"), email = \"jj@posit.co\"),\n  person(\"RStudio\", role = c(\"cph\", \"fnd\")),\n  person(\"Yuan\", \"Tang\", role = c(\"aut\", \"cph\"),\n         email = \"terrytangyuan@gmail.com\",\n         comment = c(ORCID = \"0000-0001-5243-233X\")),\n  person(\"Dirk\", \"Eddelbuettel\", role = c(\"ctb\", \"cph\"),\n         email = \"edd@debian.org\"),\n  person(\"Bryan\", \"Lewis\", role = c(\"ctb\", \"cph\"),\n         email = \"blewis@illposed.net\"),\n  person(\"Sigrid\", \"Keydana\", role = c(\"ctb\"),\n         email = \"sigrid@posit.co\"),\n  person(\"Ryan\", \"Hafen\", role = c(\"ctb\", \"cph\"),\n         email = \"rhafen@gmail.com\"),\n  person(\"Marcus\", \"Geelnard\", role = c(\"ctb\", \"cph\"),\n         comment = \"TinyThread library, http://tinythreadpp.bitsnbites.eu/\")\n  )",
+        "Description": "Interface to 'Python' modules, classes, and functions. When calling\n    into 'Python', R data types are automatically converted to their equivalent 'Python'\n    types. When values are returned from 'Python' to R they are converted back to R\n    types. Compatible with all versions of 'Python' >= 2.7.",
+        "License": "Apache License 2.0",
+        "URL": "https://rstudio.github.io/reticulate/,\nhttps://github.com/rstudio/reticulate",
+        "BugReports": "https://github.com/rstudio/reticulate/issues",
+        "SystemRequirements": "Python (>= 2.7.0)",
+        "Encoding": "UTF-8",
+        "Depends": "R (>= 3.5)",
+        "Imports": "Matrix, Rcpp (>= 1.0.7), RcppTOML, graphics, here, jsonlite,\nmethods, png, rappdirs, utils, rlang, withr",
+        "Suggests": "callr, knitr, glue, cli, rmarkdown, pillar, testthat",
+        "LinkingTo": "Rcpp",
+        "RoxygenNote": "7.3.3",
+        "VignetteBuilder": "knitr",
+        "Config/build/compilation-database": "true",
+        "NeedsCompilation": "yes",
+        "Packaged": "2026-02-13 13:12:14 UTC; tomasz",
+        "Author": "Tomasz Kalinowski [ctb, cre],\n  Kevin Ushey [aut],\n  JJ Allaire [aut],\n  RStudio [cph, fnd],\n  Yuan Tang [aut, cph] (ORCID: <https://orcid.org/0000-0001-5243-233X>),\n  Dirk Eddelbuettel [ctb, cph],\n  Bryan Lewis [ctb, cph],\n  Sigrid Keydana [ctb],\n  Ryan Hafen [ctb, cph],\n  Marcus Geelnard [ctb, cph] (TinyThread library,\n    http://tinythreadpp.bitsnbites.eu/)",
+        "Maintainer": "Tomasz Kalinowski <tomasz@posit.co>",
+        "Repository": "CRAN",
+        "Date/Publication": "2026-02-13 14:50:02 UTC",
+        "Built": "R 4.4.3; x86_64-w64-mingw32; 2026-02-16 00:51:27 UTC; windows",
+        "Archs": "x64"
+      }
+    },
     "rlang": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -1329,6 +1745,36 @@
         "Date/Publication": "2026-01-09 12:10:02 UTC",
         "Built": "R 4.4.3; x86_64-w64-mingw32; 2026-03-12 14:08:45 UTC; windows",
         "Archs": "x64"
+      }
+    },
+    "rprojroot": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "rprojroot",
+        "Title": "Finding Files in Project Subdirectories",
+        "Version": "2.1.1",
+        "Authors@R": "\n    person(given = \"Kirill\",\n           family = \"M\\u00fcller\",\n           role = c(\"aut\", \"cre\"),\n           email = \"kirill@cynkra.com\",\n           comment = c(ORCID = \"0000-0002-1416-3412\"))",
+        "Description": "Robust, reliable and flexible paths to files below\n    a project root. The 'root' of a project is defined as a directory that\n    matches a certain criterion, e.g., it contains a certain regular file.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://rprojroot.r-lib.org/, https://github.com/r-lib/rprojroot",
+        "BugReports": "https://github.com/r-lib/rprojroot/issues",
+        "Depends": "R (>= 3.0.0)",
+        "Suggests": "covr, knitr, lifecycle, rlang, rmarkdown, testthat (>=\n3.2.0), withr",
+        "VignetteBuilder": "knitr",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.2.9000",
+        "Config/autostyle/scope": "line_breaks",
+        "Config/autostyle/strict": "true",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "NeedsCompilation": "no",
+        "Packaged": "2025-08-26 15:22:42 UTC; kirill",
+        "Author": "Kirill Müller [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-1416-3412>)",
+        "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2025-08-26 16:20:02 UTC",
+        "Built": "R 4.4.3; ; 2025-12-24 02:19:00 UTC; windows"
       }
     },
     "sass": {
@@ -1422,6 +1868,34 @@
         "Built": "R 4.4.2; ; 2025-01-09 03:16:34 UTC; windows"
       }
     },
+    "snakecase": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "snakecase",
+        "Version": "0.11.1",
+        "Date": "2023-08-27",
+        "Title": "Convert Strings into any Case",
+        "Description": "A consistent, flexible and easy to use tool to parse and convert strings into cases like snake or camel among others.",
+        "Authors@R": "c(\n    person(\"Malte\", \"Grosser\", , \"malte.grosser@gmail.com\", role = c(\"aut\", \"cre\")))",
+        "Maintainer": "Malte Grosser <malte.grosser@gmail.com>",
+        "Depends": "R (>= 3.2)",
+        "Imports": "stringr, stringi",
+        "Suggests": "testthat, covr, tibble, purrrlyr, knitr, rmarkdown, magrittr",
+        "URL": "https://github.com/Tazinho/snakecase",
+        "BugReports": "https://github.com/Tazinho/snakecase/issues",
+        "Encoding": "UTF-8",
+        "License": "GPL-3",
+        "RoxygenNote": "6.1.1",
+        "VignetteBuilder": "knitr",
+        "NeedsCompilation": "no",
+        "Packaged": "2023-08-27 20:30:20 UTC; malte",
+        "Author": "Malte Grosser [aut, cre]",
+        "Repository": "CRAN",
+        "Date/Publication": "2023-08-27 22:50:09 UTC",
+        "Built": "R 4.4.2; ; 2024-12-06 02:59:51 UTC; windows"
+      }
+    },
     "sourcetools": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -1505,6 +1979,33 @@
         "Repository": "CRAN",
         "Date/Publication": "2023-11-14 23:10:02 UTC",
         "Built": "R 4.4.2; ; 2024-12-06 02:59:40 UTC; windows"
+      }
+    },
+    "sys": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "sys",
+        "Type": "Package",
+        "Title": "Powerful and Reliable Tools for Running System Commands in R",
+        "Version": "3.4.3",
+        "Authors@R": "c(person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), \n      email = \"jeroenooms@gmail.com\", comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = \"ctb\"))",
+        "Description": "Drop-in replacements for the base system2() function with fine control\n    and consistent behavior across platforms. Supports clean interruption, timeout, \n    background tasks, and streaming STDIN / STDOUT / STDERR over binary or text \n    connections. Arguments on Windows automatically get encoded and quoted to work \n    on different locales.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://jeroen.r-universe.dev/sys",
+        "BugReports": "https://github.com/jeroen/sys/issues",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.1.1",
+        "Suggests": "unix (>= 1.4), spelling, testthat",
+        "Language": "en-US",
+        "NeedsCompilation": "yes",
+        "Packaged": "2024-10-03 14:13:17 UTC; jeroen",
+        "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Gábor Csárdi [ctb]",
+        "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-10-04 09:40:02 UTC",
+        "Built": "R 4.4.2; x86_64-w64-mingw32; 2024-12-06 01:45:14 UTC; windows",
+        "Archs": "x64"
       }
     },
     "tibble": {
@@ -1602,6 +2103,34 @@
         "Repository": "CRAN",
         "Date/Publication": "2024-03-11 14:10:02 UTC",
         "Built": "R 4.4.2; ; 2024-12-06 02:59:40 UTC; windows"
+      }
+    },
+    "timechange": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "timechange",
+        "Title": "Efficient Manipulation of Date-Times",
+        "Version": "0.4.0",
+        "Authors@R": "c(person(\"Vitalie\", \"Spinu\", email = \"spinuvit@gmail.com\", role = c(\"aut\", \"cre\")),\n             person(\"Google Inc.\", role = c(\"ctb\", \"cph\")))",
+        "Description": "Efficient routines for manipulation of date-time objects while\n   accounting for time-zones and daylight saving times. The package includes\n   utilities for updating of date-time components (year, month, day etc.),\n   modification of time-zones, rounding of date-times, period addition and\n   subtraction etc. Parts of the 'CCTZ' source code, released under the Apache\n   2.0 License, are included in this package. See\n   <https://github.com/google/cctz> for more details.",
+        "Depends": "R (>= 3.3)",
+        "License": "GPL (>= 3)",
+        "Encoding": "UTF-8",
+        "LinkingTo": "cpp11 (>= 0.2.7)",
+        "Suggests": "testthat (>= 0.7.1.99), knitr",
+        "SystemRequirements": "A system with zoneinfo data (e.g.\n/usr/share/zoneinfo). On Windows the zoneinfo included with R\nis used.",
+        "BugReports": "https://github.com/vspinu/timechange/issues",
+        "URL": "https://github.com/vspinu/timechange/",
+        "RoxygenNote": "7.2.1",
+        "NeedsCompilation": "yes",
+        "Packaged": "2026-01-29 08:59:34 UTC; vitalie",
+        "Author": "Vitalie Spinu [aut, cre],\n  Google Inc. [ctb, cph]",
+        "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2026-01-29 22:20:08 UTC",
+        "Built": "R 4.4.3; x86_64-w64-mingw32; 2026-03-12 14:55:31 UTC; windows",
+        "Archs": "x64"
       }
     },
     "tzdb": {
@@ -1811,11 +2340,1499 @@
     }
   },
   "files": {
+    "_old/app_darkmode/app.R": {
+      "checksum": "0e9f19f1b5df993417ffdca96cc52bc5"
+    },
+    "_old/app_darkmode/data/f1_current_sprint_facts_2018_2026.csv": {
+      "checksum": "86d7b537a17250900e485309d4028dbd"
+    },
+    "_old/app_darkmode/data/f1_draftkings_salaries_current_2026.csv": {
+      "checksum": "4552c2e0118e37ebb85baae5e1bba207"
+    },
+    "_old/app_darkmode/data/f1_dry_training_wet_race_exclusions_2018_2026.csv": {
+      "checksum": "47bc3472233e4d424b6585dc3ea3bc32"
+    },
+    "_old/app_darkmode/data/f1_fastest_lap_odds_current_2025_2026.csv": {
+      "checksum": "601b7856bbc45dcac4210959de80b755"
+    },
+    "_old/app_darkmode/data/f1_market_odds_driver_summary_2025_2026.csv": {
+      "checksum": "d73cdb99e2d9447e940b05a27c14d86b"
+    },
+    "_old/app_darkmode/data/f1_prerace_grid_quali_overrides_2018_2026.csv": {
+      "checksum": "38dc8658dd9d8c3cf8637c90c4c3d8e9"
+    },
+    "_old/app_darkmode/data/f1_schedule_2018_2026.csv": {
+      "checksum": "153701e2e6fcc5f5b13c957beec23315"
+    },
+    "_old/app_darkmode/data/f1_stage1_driver_race_backbone_2018_2026.csv": {
+      "checksum": "cb678eb555400aa25495f81694509ae2"
+    },
+    "_old/app_darkmode/data/f1_stage11_xgb_finish_app_predictions_2018_2026.csv": {
+      "checksum": "ffa0ec048d4d6d814ed6995f7f7f7ea3"
+    },
+    "_old/app_darkmode/data/f1_stage12_xgb_probability_app_predictions_2018_2026.csv": {
+      "checksum": "26eb0d951c087805d5e32911f815f998"
+    },
+    "_old/app_darkmode/data/f1_stage13_xgb_points_app_predictions_2018_2026.csv": {
+      "checksum": "445db4b60eab4f7f9d1ead742668a706"
+    },
+    "_old/app_darkmode/data/f1_stage17_xgb_winner_without_app_predictions_2018_2026.csv": {
+      "checksum": "5b711c0ba08ffbaf7ce6b077b7c90e74"
+    },
+    "_old/app_darkmode/data/f1_stage18_chatter_overlay_coefficients_2018_2026.csv": {
+      "checksum": "3eaf75ee7efe8705ea3c1fb2e3ea9c99"
+    },
+    "_old/app_darkmode/data/f1_stage18_chatter_team_features_2018_2026.csv": {
+      "checksum": "780a0bf9215d243853fc8e3293852248"
+    },
+    "_old/app_darkmode/data/f1_stage18_qualifying_chatter_overlay_2018_2026.csv": {
+      "checksum": "615d7b73463257078ec11adb80702048"
+    },
+    "_old/app_darkmode/data/f1_stage18_xgb_finish_chatter_overlay_2018_2026.csv": {
+      "checksum": "c849b2c2a260c6de35122b13ce092f94"
+    },
+    "_old/app_darkmode/data/f1_stage18_xgb_points_chatter_overlay_2018_2026.csv": {
+      "checksum": "e2e06a30725d6d20d402395de581204d"
+    },
+    "_old/app_darkmode/data/f1_stage18_xgb_probability_chatter_overlay_2018_2026.csv": {
+      "checksum": "4fa943e599f6b7c7ab2725ffd9711722"
+    },
+    "_old/app_darkmode/data/f1_stage18_xgb_winner_without_chatter_overlay_2018_2026.csv": {
+      "checksum": "a56f696ba197e37c58be10cb8d4e1515"
+    },
+    "_old/app_darkmode/data/f1_stage19_fastest_lap_app_predictions_2018_2026.csv": {
+      "checksum": "aa7a1d0a170e429a5ef9f4c091f6969b"
+    },
+    "_old/app_darkmode/data/f1_stage5_track_profile_inventory_2018_2026.csv": {
+      "checksum": "3d59b95a692891e7a55ad8a0c1b10a7f"
+    },
+    "_old/app_darkmode/data/f1_stage6_future_prerace_estimates_2018_2026.csv": {
+      "checksum": "a8bea8ff1e32575e8b0261bd505e4f2a"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_app_predictions_2018_2026.csv": {
+      "checksum": "069b4cd6a474d6be7450d454a4ea01a1"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2024_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r1_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r10_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r11_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r12_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r13_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r14_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r15_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r16_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r17_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r18_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r19_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r2_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r20_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r21_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r22_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r23_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r3_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r4_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r5_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r6_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r7_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r8_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r9_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r1_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r2_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r3_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r4_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r5_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r6_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r7_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r8_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r9_test2026.csv": {
+      "checksum": "1f5b27bb525fd36c0e7cebd8815b9f15"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2024_test2025.csv": {
+      "checksum": "a16bb263bee3704e3562bf79d50fe030"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r1_test2025.csv": {
+      "checksum": "a16bb263bee3704e3562bf79d50fe030"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r10_test2025.csv": {
+      "checksum": "38ab2d24958efc32708e99845e1e13db"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r11_test2025.csv": {
+      "checksum": "241728d074feb8a2e5639bda657a67d5"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r12_test2025.csv": {
+      "checksum": "241728d074feb8a2e5639bda657a67d5"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r13_test2025.csv": {
+      "checksum": "241728d074feb8a2e5639bda657a67d5"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r14_test2025.csv": {
+      "checksum": "ac460807b652a2b4cad0ed897a0e32cf"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r15_test2025.csv": {
+      "checksum": "8a24c205f56d0f7f725419c2954f1073"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r16_test2025.csv": {
+      "checksum": "8c71ac6448b112c3a8de86fadb5f88a3"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r17_test2025.csv": {
+      "checksum": "b7fbeed12addb7e74e78ca91baf47c3e"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r18_test2025.csv": {
+      "checksum": "6904593ab18d0ae47b2d1acf1ab832a1"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r19_test2025.csv": {
+      "checksum": "efcb78dd5f3269f18064f04aed9dee78"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r2_test2025.csv": {
+      "checksum": "fe0cd624c4a8623c590b4156bc2a1e67"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r20_test2025.csv": {
+      "checksum": "8a2d20ae036e708110e76b6ee031e59f"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r21_test2025.csv": {
+      "checksum": "2bd4ca6347d3a12116938e61b95dc50b"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r22_test2025.csv": {
+      "checksum": "3bb270d5bac772f3b9e6974a410cfcf1"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r23_test2025.csv": {
+      "checksum": "4f1c9a549de79820128c45c7ca75285b"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r3_test2025.csv": {
+      "checksum": "d1e762b4b0a8972de13406707856f7bb"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r4_test2025.csv": {
+      "checksum": "b4fa30bac29a75eedb8951a8b3cea461"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r5_test2025.csv": {
+      "checksum": "49743dc76766eb5cb11480e18256647b"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r6_test2025.csv": {
+      "checksum": "49743dc76766eb5cb11480e18256647b"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r7_test2025.csv": {
+      "checksum": "2d061c9414d1352a0947d449f37c355e"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r8_test2025.csv": {
+      "checksum": "71abd32d9821a8ad67ffc9e453a3d9b5"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r9_test2025.csv": {
+      "checksum": "9d10d614a72f0cce02001af036ef0d27"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_test2026.csv": {
+      "checksum": "b293233714c568bf61a73228a76aa5de"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r1_test2026.csv": {
+      "checksum": "560aa276c5e023aa4ff4fb476d417048"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r2_test2026.csv": {
+      "checksum": "dfc8f7c97b92ba41100ee97782de0d7a"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r3_test2026.csv": {
+      "checksum": "21dd24559a97725e3450ced48b3e7411"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r4_test2026.csv": {
+      "checksum": "d12c485f3dff5d10196b0452232c0fa2"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r5_test2026.csv": {
+      "checksum": "d12c485f3dff5d10196b0452232c0fa2"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r6_test2026.csv": {
+      "checksum": "e763b6f709958ee350ae3aa748bad361"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r7_test2026.csv": {
+      "checksum": "248402db46f7095569cbb0c3aa0817ce"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r8_test2026.csv": {
+      "checksum": "aef81d50c54ec78aa2629669e17bf798"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r9_test2026.csv": {
+      "checksum": "49527595921dcec115025412aebb7290"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2024_test2025.csv": {
+      "checksum": "bcf099d124f936293e79b212c509820f"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r1_test2025.csv": {
+      "checksum": "bcf099d124f936293e79b212c509820f"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r10_test2025.csv": {
+      "checksum": "e0db48a1ad0926eeab4bb7a826a39bea"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r11_test2025.csv": {
+      "checksum": "401bec049e616ea24429b934a3cde29f"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r12_test2025.csv": {
+      "checksum": "401bec049e616ea24429b934a3cde29f"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r13_test2025.csv": {
+      "checksum": "401bec049e616ea24429b934a3cde29f"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r14_test2025.csv": {
+      "checksum": "79b30cfea8048bdd682450fa44148c1d"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r15_test2025.csv": {
+      "checksum": "8043250ab1eea9e8dae26cdf4c4df1a4"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r16_test2025.csv": {
+      "checksum": "890d157e8fa4ce966528d376be9ac777"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r17_test2025.csv": {
+      "checksum": "a532b74ed2ed2cd616ce2c1377182fd9"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r18_test2025.csv": {
+      "checksum": "876cd184264188cbf9eda152fa2e7db5"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r19_test2025.csv": {
+      "checksum": "51bb6f9cccf51a5e5ecdf62ed3aa809f"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r2_test2025.csv": {
+      "checksum": "9562c0a8bf3a2eda7f06be6edd49876d"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r20_test2025.csv": {
+      "checksum": "b258b74d934ece5ab607d1812dd6e07a"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r21_test2025.csv": {
+      "checksum": "94c977a1c04312b3d9c53ae5e9adb732"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r22_test2025.csv": {
+      "checksum": "ea256aa274e062ffabe35c551903207c"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r23_test2025.csv": {
+      "checksum": "8a1087f1039ef8e585588b00d5616f91"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r3_test2025.csv": {
+      "checksum": "273a86ffffac52ca2f520a15096c5797"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r4_test2025.csv": {
+      "checksum": "c2a601bc320bfbc9a78b49b50fdcb610"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r5_test2025.csv": {
+      "checksum": "9cebd4a93ba7322f7993bc3e7f26a3c5"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r6_test2025.csv": {
+      "checksum": "9cebd4a93ba7322f7993bc3e7f26a3c5"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r7_test2025.csv": {
+      "checksum": "391f7bb8412c47c03ce748312bd42bc1"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r8_test2025.csv": {
+      "checksum": "80ff6c9409ad39b33a4167105ac540b3"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r9_test2025.csv": {
+      "checksum": "32277dc7b7b54f37bb6184615ee8528a"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_test2026.csv": {
+      "checksum": "77fcf77edc785493f9cff77b4c666db9"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r1_test2026.csv": {
+      "checksum": "bfdc7b537b7a62f12eadbf0120897ce8"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r2_test2026.csv": {
+      "checksum": "61c41515236adb8f351dfccea44789ca"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r3_test2026.csv": {
+      "checksum": "d3487dbff67e32a9b9d48e5948b758ab"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r4_test2026.csv": {
+      "checksum": "a7292afd74391afb48f9d17b8866f0e5"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r5_test2026.csv": {
+      "checksum": "a7292afd74391afb48f9d17b8866f0e5"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r6_test2026.csv": {
+      "checksum": "d76e4a4b07a947cc502c4f76b474f59a"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r7_test2026.csv": {
+      "checksum": "fbae110048811020f2b474d20aa801ea"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r8_test2026.csv": {
+      "checksum": "a617c9635b3ccb63b97940960b574c52"
+    },
+    "_old/app_darkmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r9_test2026.csv": {
+      "checksum": "ec6e089e19239c54f9137d1b976a768b"
+    },
+    "_old/app_darkmode/data/f1_stage9_consensus_bets_2018_2026.csv": {
+      "checksum": "88a14ee6bf2bef59921e795da3a45f7d"
+    },
+    "_old/app_darkmode/data/f1_stage9_consensus_betting_race_results_2018_2026.csv": {
+      "checksum": "bf7475b27d504d84c99f5da61f5f8b5a"
+    },
+    "_old/app_darkmode/data/f1_stage9_consensus_betting_season_summary_2018_2026.csv": {
+      "checksum": "e2b52591954e1d92c7d6593a9ac9c07e"
+    },
+    "_old/app_darkmode/data/f1_stage9_rf_app_predictions_with_market_odds_2018_2026.csv": {
+      "checksum": "11bca5ab989cd41aaf3e83345f0656c5"
+    },
+    "_old/app_darkmode/data/keep these files/f1_current_driver_weekend_signals_2018_2026.csv": {
+      "checksum": "ba7c7df8dcd861e634868cdcabde8a3c"
+    },
+    "_old/app_darkmode/data/keep these files/f1_current_sprint_facts_2018_2026.csv": {
+      "checksum": "309e88b8ebfdce48ebe66fe75652e0d0"
+    },
+    "_old/app_darkmode/data/keep these files/f1_market_odds_driver_summary_supplied_2025_2026.csv": {
+      "checksum": "86d64f6550c073423153a5cc779d7003"
+    },
+    "_old/app_darkmode/data/keep these files/f1_market_odds_driver_summary_supplied_2025_2026_backup_before_r10_opening_move_20260713_174405.csv": {
+      "checksum": "07ad072fa020d45ae5c26c05e87e2058"
+    },
+    "_old/app_darkmode/data/keep these files/f1_market_odds_grid_driver_summary_2025_2026.csv": {
+      "checksum": "e18675132c5ded238df348e25af4d946"
+    },
+    "_old/app_darkmode/data/keep these files/f1_market_odds_opening_driver_summary_2025_2026.csv": {
+      "checksum": "a8787c9b31800fd4ee030b17d1f35803"
+    },
+    "_old/app_darkmode/data/keep these files/f1_market_odds_opening_driver_summary_2025_2026_backup_before_r10_opening_move_20260713_174405.csv": {
+      "checksum": "ac0cbd9ccbcf4ad115a82803930f5988"
+    },
+    "_old/app_darkmode/data/keep these files/f1_prerace_chatter_team_race_signals_2018_2026.csv": {
+      "checksum": "db6225f04b4ecbc0099adb2b44aaf4a6"
+    },
+    "_old/app_darkmode/data/keep these files/f1_prerace_grid_quali_overrides_2018_2026.csv": {
+      "checksum": "ef4d6f8f7efca7dfbc860b9f6b7f0fef"
+    },
+    "_old/app_darkmode/data/keep these files/f1_qualifying_odds_current_2025_2026.csv": {
+      "checksum": "2d2f2bac201fc9e07f1a38847d6e54d8"
+    },
+    "_old/app_darkmode/data/keep these files/f1_winner_without_odds_current_2025_2026.csv": {
+      "checksum": "66bbce465f78a9771b4c7e9bab4e62e5"
+    },
+    "_old/app_darkmode/tools/build_speed_supplement.R": {
+      "checksum": "312800f612e7f4eb1f0f06c184049896"
+    },
+    "_old/app_darkmode/tools/pre_render_track_plots.R": {
+      "checksum": "6f70d2c3e69f80e639218a20f3e1215d"
+    },
+    "_old/app_darkmode/tools/run_local_app.R": {
+      "checksum": "1f70ad72735da657072e73f119a50c73"
+    },
+    "_old/app_darkmode/www/apple-touch-icon.png": {
+      "checksum": "48b1e84d934527c2c964850e0cd44081"
+    },
+    "_old/app_darkmode/www/dark-theme.css": {
+      "checksum": "7e2032faac039114de54a33ce7b50f73"
+    },
+    "_old/app_darkmode/www/f1-icon-1024.png": {
+      "checksum": "8702d8505efecd09777a3ba00c630ba7"
+    },
+    "_old/app_darkmode/www/f1-icon-256.png": {
+      "checksum": "51ee4c13be73cb12c6ea89f640fcf60a"
+    },
+    "_old/app_darkmode/www/f1-icon-512.png": {
+      "checksum": "ac93358ae913f4306d1ac0f04fbd8926"
+    },
+    "_old/app_darkmode/www/f1-logo.png": {
+      "checksum": "889e3e1ceaee8484cfaad647c464c280"
+    },
+    "_old/app_darkmode/www/favicon.ico": {
+      "checksum": "d495467ada7fff965a543bfda3b23e60"
+    },
+    "_old/app_darkmode/www/splash-vegas-bg.jpg": {
+      "checksum": "3994ac49c83b57012c828a7cc56c11bd"
+    },
+    "_old/app_darkmode/www/styles.css": {
+      "checksum": "859be61d08bba2f6357ba920b5b6c35a"
+    },
+    "_old/app_darkmode/www/track_plots/albert_park.png": {
+      "checksum": "0221342bc38fef5ac11db49d54a72dd3"
+    },
+    "_old/app_darkmode/www/track_plots/americas.png": {
+      "checksum": "d991eadcf19766fe2583aa43c2c59ffc"
+    },
+    "_old/app_darkmode/www/track_plots/bahrain.png": {
+      "checksum": "a7edcb313260f1ed83990027e7b542fc"
+    },
+    "_old/app_darkmode/www/track_plots/baku.png": {
+      "checksum": "1e2e119919c7250fd6dd6938a32c3943"
+    },
+    "_old/app_darkmode/www/track_plots/catalunya.png": {
+      "checksum": "38a251961593c0e6e49f5011549e86fd"
+    },
+    "_old/app_darkmode/www/track_plots/hockenheimring.png": {
+      "checksum": "1ba0943c3c73cf6c0246aaff52e90537"
+    },
+    "_old/app_darkmode/www/track_plots/hungaroring.png": {
+      "checksum": "7fc7ec2aab51dedd7b7445051c24aaf0"
+    },
+    "_old/app_darkmode/www/track_plots/imola.png": {
+      "checksum": "313a7e9cde412055500d527bac6fd707"
+    },
+    "_old/app_darkmode/www/track_plots/interlagos.png": {
+      "checksum": "4ad263e82e10435e09a486c33edd939c"
+    },
+    "_old/app_darkmode/www/track_plots/istanbul.png": {
+      "checksum": "b501cb69ae95e6136b9154572b58a999"
+    },
+    "_old/app_darkmode/www/track_plots/jeddah.png": {
+      "checksum": "ab23cf4ca319153a90fbe9de183168b0"
+    },
+    "_old/app_darkmode/www/track_plots/losail.png": {
+      "checksum": "9da978c2fb5196206976d4d6d5ee50ae"
+    },
+    "_old/app_darkmode/www/track_plots/marina_bay.png": {
+      "checksum": "6e38264e90895afd25b1e2e553521d7b"
+    },
+    "_old/app_darkmode/www/track_plots/miami.png": {
+      "checksum": "362127a2a249aaf8e40c062461e23d1c"
+    },
+    "_old/app_darkmode/www/track_plots/monaco.png": {
+      "checksum": "77b5729855ab38f4d088547917cf435c"
+    },
+    "_old/app_darkmode/www/track_plots/monza.png": {
+      "checksum": "fe8028e0a9c6b1df8e47bf27a730e335"
+    },
+    "_old/app_darkmode/www/track_plots/mugello.png": {
+      "checksum": "b0973a5d2a3437b1cfe0e4c5a8aba75f"
+    },
+    "_old/app_darkmode/www/track_plots/nurburgring.png": {
+      "checksum": "2845fbff93cedcd63ec73f27eed5fc1f"
+    },
+    "_old/app_darkmode/www/track_plots/portimao.png": {
+      "checksum": "c5235b1cbe0ea490214761bbd7eab26b"
+    },
+    "_old/app_darkmode/www/track_plots/red_bull_ring.png": {
+      "checksum": "8bf8cd9cc3404f7750d9e6cd723d4907"
+    },
+    "_old/app_darkmode/www/track_plots/ricard.png": {
+      "checksum": "f25fbf7013aa4c18a2ca98ad41b264ce"
+    },
+    "_old/app_darkmode/www/track_plots/rodriguez.png": {
+      "checksum": "5fce42bf54ddf1c2f552436d8648e1b2"
+    },
+    "_old/app_darkmode/www/track_plots/shanghai.png": {
+      "checksum": "15c2fef50a15973298445926730196d2"
+    },
+    "_old/app_darkmode/www/track_plots/silverstone.png": {
+      "checksum": "e029ff8fc7e3bd926fecc18bdc4adecd"
+    },
+    "_old/app_darkmode/www/track_plots/sochi.png": {
+      "checksum": "39c63d845461a8db71677d086549ad6a"
+    },
+    "_old/app_darkmode/www/track_plots/spa.png": {
+      "checksum": "9044b655cf6a0a7fb6906bea782d2fa3"
+    },
+    "_old/app_darkmode/www/track_plots/suzuka.png": {
+      "checksum": "4821da55b556b2578438f469e35efbc8"
+    },
+    "_old/app_darkmode/www/track_plots/vegas.png": {
+      "checksum": "05545760c6288459859a4a4c05af71ba"
+    },
+    "_old/app_darkmode/www/track_plots/villeneuve.png": {
+      "checksum": "732c3bd574714cc842e70d17c9686583"
+    },
+    "_old/app_darkmode/www/track_plots/yas_marina.png": {
+      "checksum": "d928c95c90c8625e1c771563340d821e"
+    },
+    "_old/app_darkmode/www/track_plots/zandvoort.png": {
+      "checksum": "3d88e0e10058100c55454a80683a252b"
+    },
+    "_old/app_lightmode/app.R": {
+      "checksum": "9e154775b3812a0bad125a147c401180"
+    },
+    "_old/app_lightmode/data/f1_current_sprint_facts_2018_2026.csv": {
+      "checksum": "86d7b537a17250900e485309d4028dbd"
+    },
+    "_old/app_lightmode/data/f1_draftkings_salaries_current_2026.csv": {
+      "checksum": "4552c2e0118e37ebb85baae5e1bba207"
+    },
+    "_old/app_lightmode/data/f1_dry_training_wet_race_exclusions_2018_2026.csv": {
+      "checksum": "47bc3472233e4d424b6585dc3ea3bc32"
+    },
+    "_old/app_lightmode/data/f1_fastest_lap_odds_current_2025_2026.csv": {
+      "checksum": "601b7856bbc45dcac4210959de80b755"
+    },
+    "_old/app_lightmode/data/f1_market_odds_driver_summary_2025_2026.csv": {
+      "checksum": "d73cdb99e2d9447e940b05a27c14d86b"
+    },
+    "_old/app_lightmode/data/f1_prerace_grid_quali_overrides_2018_2026.csv": {
+      "checksum": "38dc8658dd9d8c3cf8637c90c4c3d8e9"
+    },
+    "_old/app_lightmode/data/f1_schedule_2018_2026.csv": {
+      "checksum": "153701e2e6fcc5f5b13c957beec23315"
+    },
+    "_old/app_lightmode/data/f1_stage1_driver_race_backbone_2018_2026.csv": {
+      "checksum": "cb678eb555400aa25495f81694509ae2"
+    },
+    "_old/app_lightmode/data/f1_stage11_xgb_finish_app_predictions_2018_2026.csv": {
+      "checksum": "ffa0ec048d4d6d814ed6995f7f7f7ea3"
+    },
+    "_old/app_lightmode/data/f1_stage12_xgb_probability_app_predictions_2018_2026.csv": {
+      "checksum": "26eb0d951c087805d5e32911f815f998"
+    },
+    "_old/app_lightmode/data/f1_stage13_xgb_points_app_predictions_2018_2026.csv": {
+      "checksum": "445db4b60eab4f7f9d1ead742668a706"
+    },
+    "_old/app_lightmode/data/f1_stage17_xgb_winner_without_app_predictions_2018_2026.csv": {
+      "checksum": "5b711c0ba08ffbaf7ce6b077b7c90e74"
+    },
+    "_old/app_lightmode/data/f1_stage18_chatter_overlay_coefficients_2018_2026.csv": {
+      "checksum": "3eaf75ee7efe8705ea3c1fb2e3ea9c99"
+    },
+    "_old/app_lightmode/data/f1_stage18_chatter_team_features_2018_2026.csv": {
+      "checksum": "780a0bf9215d243853fc8e3293852248"
+    },
+    "_old/app_lightmode/data/f1_stage18_qualifying_chatter_overlay_2018_2026.csv": {
+      "checksum": "615d7b73463257078ec11adb80702048"
+    },
+    "_old/app_lightmode/data/f1_stage18_xgb_finish_chatter_overlay_2018_2026.csv": {
+      "checksum": "c849b2c2a260c6de35122b13ce092f94"
+    },
+    "_old/app_lightmode/data/f1_stage18_xgb_points_chatter_overlay_2018_2026.csv": {
+      "checksum": "e2e06a30725d6d20d402395de581204d"
+    },
+    "_old/app_lightmode/data/f1_stage18_xgb_probability_chatter_overlay_2018_2026.csv": {
+      "checksum": "4fa943e599f6b7c7ab2725ffd9711722"
+    },
+    "_old/app_lightmode/data/f1_stage18_xgb_winner_without_chatter_overlay_2018_2026.csv": {
+      "checksum": "a56f696ba197e37c58be10cb8d4e1515"
+    },
+    "_old/app_lightmode/data/f1_stage19_fastest_lap_app_predictions_2018_2026.csv": {
+      "checksum": "aa7a1d0a170e429a5ef9f4c091f6969b"
+    },
+    "_old/app_lightmode/data/f1_stage5_track_profile_inventory_2018_2026.csv": {
+      "checksum": "3d59b95a692891e7a55ad8a0c1b10a7f"
+    },
+    "_old/app_lightmode/data/f1_stage6_future_prerace_estimates_2018_2026.csv": {
+      "checksum": "a8bea8ff1e32575e8b0261bd505e4f2a"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_app_predictions_2018_2026.csv": {
+      "checksum": "069b4cd6a474d6be7450d454a4ea01a1"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2024_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r1_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r10_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r11_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r12_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r13_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r14_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r15_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r16_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r17_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r18_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r19_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r2_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r20_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r21_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r22_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r23_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r3_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r4_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r5_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r6_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r7_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r8_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r9_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r1_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r2_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r3_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r4_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r5_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r6_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r7_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r8_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r9_test2026.csv": {
+      "checksum": "1f5b27bb525fd36c0e7cebd8815b9f15"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2024_test2025.csv": {
+      "checksum": "a16bb263bee3704e3562bf79d50fe030"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r1_test2025.csv": {
+      "checksum": "a16bb263bee3704e3562bf79d50fe030"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r10_test2025.csv": {
+      "checksum": "38ab2d24958efc32708e99845e1e13db"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r11_test2025.csv": {
+      "checksum": "241728d074feb8a2e5639bda657a67d5"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r12_test2025.csv": {
+      "checksum": "241728d074feb8a2e5639bda657a67d5"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r13_test2025.csv": {
+      "checksum": "241728d074feb8a2e5639bda657a67d5"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r14_test2025.csv": {
+      "checksum": "ac460807b652a2b4cad0ed897a0e32cf"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r15_test2025.csv": {
+      "checksum": "8a24c205f56d0f7f725419c2954f1073"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r16_test2025.csv": {
+      "checksum": "8c71ac6448b112c3a8de86fadb5f88a3"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r17_test2025.csv": {
+      "checksum": "b7fbeed12addb7e74e78ca91baf47c3e"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r18_test2025.csv": {
+      "checksum": "6904593ab18d0ae47b2d1acf1ab832a1"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r19_test2025.csv": {
+      "checksum": "efcb78dd5f3269f18064f04aed9dee78"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r2_test2025.csv": {
+      "checksum": "fe0cd624c4a8623c590b4156bc2a1e67"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r20_test2025.csv": {
+      "checksum": "8a2d20ae036e708110e76b6ee031e59f"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r21_test2025.csv": {
+      "checksum": "2bd4ca6347d3a12116938e61b95dc50b"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r22_test2025.csv": {
+      "checksum": "3bb270d5bac772f3b9e6974a410cfcf1"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r23_test2025.csv": {
+      "checksum": "4f1c9a549de79820128c45c7ca75285b"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r3_test2025.csv": {
+      "checksum": "d1e762b4b0a8972de13406707856f7bb"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r4_test2025.csv": {
+      "checksum": "b4fa30bac29a75eedb8951a8b3cea461"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r5_test2025.csv": {
+      "checksum": "49743dc76766eb5cb11480e18256647b"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r6_test2025.csv": {
+      "checksum": "49743dc76766eb5cb11480e18256647b"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r7_test2025.csv": {
+      "checksum": "2d061c9414d1352a0947d449f37c355e"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r8_test2025.csv": {
+      "checksum": "71abd32d9821a8ad67ffc9e453a3d9b5"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r9_test2025.csv": {
+      "checksum": "9d10d614a72f0cce02001af036ef0d27"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_test2026.csv": {
+      "checksum": "b293233714c568bf61a73228a76aa5de"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r1_test2026.csv": {
+      "checksum": "560aa276c5e023aa4ff4fb476d417048"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r2_test2026.csv": {
+      "checksum": "dfc8f7c97b92ba41100ee97782de0d7a"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r3_test2026.csv": {
+      "checksum": "21dd24559a97725e3450ced48b3e7411"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r4_test2026.csv": {
+      "checksum": "d12c485f3dff5d10196b0452232c0fa2"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r5_test2026.csv": {
+      "checksum": "d12c485f3dff5d10196b0452232c0fa2"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r6_test2026.csv": {
+      "checksum": "e763b6f709958ee350ae3aa748bad361"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r7_test2026.csv": {
+      "checksum": "248402db46f7095569cbb0c3aa0817ce"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r8_test2026.csv": {
+      "checksum": "aef81d50c54ec78aa2629669e17bf798"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r9_test2026.csv": {
+      "checksum": "49527595921dcec115025412aebb7290"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2024_test2025.csv": {
+      "checksum": "bcf099d124f936293e79b212c509820f"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r1_test2025.csv": {
+      "checksum": "bcf099d124f936293e79b212c509820f"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r10_test2025.csv": {
+      "checksum": "e0db48a1ad0926eeab4bb7a826a39bea"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r11_test2025.csv": {
+      "checksum": "401bec049e616ea24429b934a3cde29f"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r12_test2025.csv": {
+      "checksum": "401bec049e616ea24429b934a3cde29f"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r13_test2025.csv": {
+      "checksum": "401bec049e616ea24429b934a3cde29f"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r14_test2025.csv": {
+      "checksum": "79b30cfea8048bdd682450fa44148c1d"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r15_test2025.csv": {
+      "checksum": "8043250ab1eea9e8dae26cdf4c4df1a4"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r16_test2025.csv": {
+      "checksum": "890d157e8fa4ce966528d376be9ac777"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r17_test2025.csv": {
+      "checksum": "a532b74ed2ed2cd616ce2c1377182fd9"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r18_test2025.csv": {
+      "checksum": "876cd184264188cbf9eda152fa2e7db5"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r19_test2025.csv": {
+      "checksum": "51bb6f9cccf51a5e5ecdf62ed3aa809f"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r2_test2025.csv": {
+      "checksum": "9562c0a8bf3a2eda7f06be6edd49876d"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r20_test2025.csv": {
+      "checksum": "b258b74d934ece5ab607d1812dd6e07a"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r21_test2025.csv": {
+      "checksum": "94c977a1c04312b3d9c53ae5e9adb732"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r22_test2025.csv": {
+      "checksum": "ea256aa274e062ffabe35c551903207c"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r23_test2025.csv": {
+      "checksum": "8a1087f1039ef8e585588b00d5616f91"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r3_test2025.csv": {
+      "checksum": "273a86ffffac52ca2f520a15096c5797"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r4_test2025.csv": {
+      "checksum": "c2a601bc320bfbc9a78b49b50fdcb610"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r5_test2025.csv": {
+      "checksum": "9cebd4a93ba7322f7993bc3e7f26a3c5"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r6_test2025.csv": {
+      "checksum": "9cebd4a93ba7322f7993bc3e7f26a3c5"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r7_test2025.csv": {
+      "checksum": "391f7bb8412c47c03ce748312bd42bc1"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r8_test2025.csv": {
+      "checksum": "80ff6c9409ad39b33a4167105ac540b3"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_r9_test2025.csv": {
+      "checksum": "32277dc7b7b54f37bb6184615ee8528a"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2025_test2026.csv": {
+      "checksum": "77fcf77edc785493f9cff77b4c666db9"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r1_test2026.csv": {
+      "checksum": "bfdc7b537b7a62f12eadbf0120897ce8"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r2_test2026.csv": {
+      "checksum": "61c41515236adb8f351dfccea44789ca"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r3_test2026.csv": {
+      "checksum": "d3487dbff67e32a9b9d48e5948b758ab"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r4_test2026.csv": {
+      "checksum": "a7292afd74391afb48f9d17b8866f0e5"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r5_test2026.csv": {
+      "checksum": "a7292afd74391afb48f9d17b8866f0e5"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r6_test2026.csv": {
+      "checksum": "d76e4a4b07a947cc502c4f76b474f59a"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r7_test2026.csv": {
+      "checksum": "fbae110048811020f2b474d20aa801ea"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r8_test2026.csv": {
+      "checksum": "a617c9635b3ccb63b97940960b574c52"
+    },
+    "_old/app_lightmode/data/f1_stage7_qualifying_metrics_2018_2026_train2026_r9_test2026.csv": {
+      "checksum": "ec6e089e19239c54f9137d1b976a768b"
+    },
+    "_old/app_lightmode/data/f1_stage9_consensus_bets_2018_2026.csv": {
+      "checksum": "88a14ee6bf2bef59921e795da3a45f7d"
+    },
+    "_old/app_lightmode/data/f1_stage9_consensus_betting_race_results_2018_2026.csv": {
+      "checksum": "bf7475b27d504d84c99f5da61f5f8b5a"
+    },
+    "_old/app_lightmode/data/f1_stage9_consensus_betting_season_summary_2018_2026.csv": {
+      "checksum": "e2b52591954e1d92c7d6593a9ac9c07e"
+    },
+    "_old/app_lightmode/data/f1_stage9_rf_app_predictions_with_market_odds_2018_2026.csv": {
+      "checksum": "11bca5ab989cd41aaf3e83345f0656c5"
+    },
+    "_old/app_lightmode/data/keep these files/f1_current_driver_weekend_signals_2018_2026.csv": {
+      "checksum": "ba7c7df8dcd861e634868cdcabde8a3c"
+    },
+    "_old/app_lightmode/data/keep these files/f1_current_sprint_facts_2018_2026.csv": {
+      "checksum": "309e88b8ebfdce48ebe66fe75652e0d0"
+    },
+    "_old/app_lightmode/data/keep these files/f1_market_odds_driver_summary_supplied_2025_2026.csv": {
+      "checksum": "86d64f6550c073423153a5cc779d7003"
+    },
+    "_old/app_lightmode/data/keep these files/f1_market_odds_driver_summary_supplied_2025_2026_backup_before_r10_opening_move_20260713_174405.csv": {
+      "checksum": "07ad072fa020d45ae5c26c05e87e2058"
+    },
+    "_old/app_lightmode/data/keep these files/f1_market_odds_grid_driver_summary_2025_2026.csv": {
+      "checksum": "e18675132c5ded238df348e25af4d946"
+    },
+    "_old/app_lightmode/data/keep these files/f1_market_odds_opening_driver_summary_2025_2026.csv": {
+      "checksum": "a8787c9b31800fd4ee030b17d1f35803"
+    },
+    "_old/app_lightmode/data/keep these files/f1_market_odds_opening_driver_summary_2025_2026_backup_before_r10_opening_move_20260713_174405.csv": {
+      "checksum": "ac0cbd9ccbcf4ad115a82803930f5988"
+    },
+    "_old/app_lightmode/data/keep these files/f1_prerace_chatter_team_race_signals_2018_2026.csv": {
+      "checksum": "db6225f04b4ecbc0099adb2b44aaf4a6"
+    },
+    "_old/app_lightmode/data/keep these files/f1_prerace_grid_quali_overrides_2018_2026.csv": {
+      "checksum": "ef4d6f8f7efca7dfbc860b9f6b7f0fef"
+    },
+    "_old/app_lightmode/data/keep these files/f1_qualifying_odds_current_2025_2026.csv": {
+      "checksum": "2d2f2bac201fc9e07f1a38847d6e54d8"
+    },
+    "_old/app_lightmode/data/keep these files/f1_winner_without_odds_current_2025_2026.csv": {
+      "checksum": "66bbce465f78a9771b4c7e9bab4e62e5"
+    },
+    "_old/app_lightmode/tools/build_speed_supplement.R": {
+      "checksum": "312800f612e7f4eb1f0f06c184049896"
+    },
+    "_old/app_lightmode/tools/pre_render_track_plots.R": {
+      "checksum": "6f70d2c3e69f80e639218a20f3e1215d"
+    },
+    "_old/app_lightmode/tools/run_local_app.R": {
+      "checksum": "1f70ad72735da657072e73f119a50c73"
+    },
+    "_old/app_lightmode/www/apple-touch-icon.png": {
+      "checksum": "48b1e84d934527c2c964850e0cd44081"
+    },
+    "_old/app_lightmode/www/f1-icon-1024.png": {
+      "checksum": "8702d8505efecd09777a3ba00c630ba7"
+    },
+    "_old/app_lightmode/www/f1-icon-256.png": {
+      "checksum": "51ee4c13be73cb12c6ea89f640fcf60a"
+    },
+    "_old/app_lightmode/www/f1-icon-512.png": {
+      "checksum": "ac93358ae913f4306d1ac0f04fbd8926"
+    },
+    "_old/app_lightmode/www/f1-logo.png": {
+      "checksum": "889e3e1ceaee8484cfaad647c464c280"
+    },
+    "_old/app_lightmode/www/favicon.ico": {
+      "checksum": "d495467ada7fff965a543bfda3b23e60"
+    },
+    "_old/app_lightmode/www/splash-vegas-bg.jpg": {
+      "checksum": "3994ac49c83b57012c828a7cc56c11bd"
+    },
+    "_old/app_lightmode/www/styles.css": {
+      "checksum": "859be61d08bba2f6357ba920b5b6c35a"
+    },
+    "_old/app_lightmode/www/track_plots/albert_park.png": {
+      "checksum": "0221342bc38fef5ac11db49d54a72dd3"
+    },
+    "_old/app_lightmode/www/track_plots/americas.png": {
+      "checksum": "d991eadcf19766fe2583aa43c2c59ffc"
+    },
+    "_old/app_lightmode/www/track_plots/bahrain.png": {
+      "checksum": "a7edcb313260f1ed83990027e7b542fc"
+    },
+    "_old/app_lightmode/www/track_plots/baku.png": {
+      "checksum": "1e2e119919c7250fd6dd6938a32c3943"
+    },
+    "_old/app_lightmode/www/track_plots/catalunya.png": {
+      "checksum": "38a251961593c0e6e49f5011549e86fd"
+    },
+    "_old/app_lightmode/www/track_plots/hockenheimring.png": {
+      "checksum": "1ba0943c3c73cf6c0246aaff52e90537"
+    },
+    "_old/app_lightmode/www/track_plots/hungaroring.png": {
+      "checksum": "7fc7ec2aab51dedd7b7445051c24aaf0"
+    },
+    "_old/app_lightmode/www/track_plots/imola.png": {
+      "checksum": "313a7e9cde412055500d527bac6fd707"
+    },
+    "_old/app_lightmode/www/track_plots/interlagos.png": {
+      "checksum": "4ad263e82e10435e09a486c33edd939c"
+    },
+    "_old/app_lightmode/www/track_plots/istanbul.png": {
+      "checksum": "b501cb69ae95e6136b9154572b58a999"
+    },
+    "_old/app_lightmode/www/track_plots/jeddah.png": {
+      "checksum": "ab23cf4ca319153a90fbe9de183168b0"
+    },
+    "_old/app_lightmode/www/track_plots/losail.png": {
+      "checksum": "9da978c2fb5196206976d4d6d5ee50ae"
+    },
+    "_old/app_lightmode/www/track_plots/marina_bay.png": {
+      "checksum": "6e38264e90895afd25b1e2e553521d7b"
+    },
+    "_old/app_lightmode/www/track_plots/miami.png": {
+      "checksum": "362127a2a249aaf8e40c062461e23d1c"
+    },
+    "_old/app_lightmode/www/track_plots/monaco.png": {
+      "checksum": "77b5729855ab38f4d088547917cf435c"
+    },
+    "_old/app_lightmode/www/track_plots/monza.png": {
+      "checksum": "fe8028e0a9c6b1df8e47bf27a730e335"
+    },
+    "_old/app_lightmode/www/track_plots/mugello.png": {
+      "checksum": "b0973a5d2a3437b1cfe0e4c5a8aba75f"
+    },
+    "_old/app_lightmode/www/track_plots/nurburgring.png": {
+      "checksum": "2845fbff93cedcd63ec73f27eed5fc1f"
+    },
+    "_old/app_lightmode/www/track_plots/portimao.png": {
+      "checksum": "c5235b1cbe0ea490214761bbd7eab26b"
+    },
+    "_old/app_lightmode/www/track_plots/red_bull_ring.png": {
+      "checksum": "8bf8cd9cc3404f7750d9e6cd723d4907"
+    },
+    "_old/app_lightmode/www/track_plots/ricard.png": {
+      "checksum": "f25fbf7013aa4c18a2ca98ad41b264ce"
+    },
+    "_old/app_lightmode/www/track_plots/rodriguez.png": {
+      "checksum": "5fce42bf54ddf1c2f552436d8648e1b2"
+    },
+    "_old/app_lightmode/www/track_plots/shanghai.png": {
+      "checksum": "15c2fef50a15973298445926730196d2"
+    },
+    "_old/app_lightmode/www/track_plots/silverstone.png": {
+      "checksum": "e029ff8fc7e3bd926fecc18bdc4adecd"
+    },
+    "_old/app_lightmode/www/track_plots/sochi.png": {
+      "checksum": "39c63d845461a8db71677d086549ad6a"
+    },
+    "_old/app_lightmode/www/track_plots/spa.png": {
+      "checksum": "9044b655cf6a0a7fb6906bea782d2fa3"
+    },
+    "_old/app_lightmode/www/track_plots/suzuka.png": {
+      "checksum": "4821da55b556b2578438f469e35efbc8"
+    },
+    "_old/app_lightmode/www/track_plots/vegas.png": {
+      "checksum": "05545760c6288459859a4a4c05af71ba"
+    },
+    "_old/app_lightmode/www/track_plots/villeneuve.png": {
+      "checksum": "732c3bd574714cc842e70d17c9686583"
+    },
+    "_old/app_lightmode/www/track_plots/yas_marina.png": {
+      "checksum": "d928c95c90c8625e1c771563340d821e"
+    },
+    "_old/app_lightmode/www/track_plots/zandvoort.png": {
+      "checksum": "3d88e0e10058100c55454a80683a252b"
+    },
     "app.R": {
-      "checksum": "19977c389b4a17efd80728b712b2b860"
+      "checksum": "58af730926d0dc96fe0d37c817509ac4"
+    },
+    "data/f1_current_sprint_facts_2018_2026.csv": {
+      "checksum": "86d7b537a17250900e485309d4028dbd"
+    },
+    "data/f1_draftkings_salaries_current_2026.csv": {
+      "checksum": "4552c2e0118e37ebb85baae5e1bba207"
+    },
+    "data/f1_dry_training_wet_race_exclusions_2018_2026.csv": {
+      "checksum": "f61122a65f279ee90b01cdee377b9a67"
+    },
+    "data/f1_fastest_lap_odds_current_2025_2026.csv": {
+      "checksum": "601b7856bbc45dcac4210959de80b755"
+    },
+    "data/f1_market_odds_driver_summary_2025_2026.csv": {
+      "checksum": "eddf1968dd143cc4f722faf6fcde141b"
+    },
+    "data/f1_prerace_grid_quali_overrides_2018_2026.csv": {
+      "checksum": "2c84c14be467dad21341c99317a20d2e"
+    },
+    "data/f1_schedule_2018_2026.csv": {
+      "checksum": "153701e2e6fcc5f5b13c957beec23315"
+    },
+    "data/f1_stage1_driver_race_backbone_2018_2026.csv": {
+      "checksum": "cb678eb555400aa25495f81694509ae2"
+    },
+    "data/f1_stage11_xgb_finish_app_predictions_2018_2026.csv": {
+      "checksum": "eb27f7b845c31da154687f990bf26469"
+    },
+    "data/f1_stage12_xgb_probability_app_predictions_2018_2026.csv": {
+      "checksum": "a5f91a2f91d1a2d2b63ff5705d69f77e"
+    },
+    "data/f1_stage13_xgb_points_app_predictions_2018_2026.csv": {
+      "checksum": "b1707131bf3b44aa39e403b246216762"
+    },
+    "data/f1_stage17_xgb_winner_without_app_predictions_2018_2026.csv": {
+      "checksum": "c9e81e23c52461f696f3daf340444ac4"
+    },
+    "data/f1_stage18_chatter_overlay_coefficients_2018_2026.csv": {
+      "checksum": "16172fe488af7ad493a74feeb706f4c8"
+    },
+    "data/f1_stage18_chatter_team_features_2018_2026.csv": {
+      "checksum": "780a0bf9215d243853fc8e3293852248"
+    },
+    "data/f1_stage18_qualifying_chatter_overlay_2018_2026.csv": {
+      "checksum": "825381b54cad3825b554f1b7a21f32fa"
+    },
+    "data/f1_stage18_xgb_finish_chatter_overlay_2018_2026.csv": {
+      "checksum": "55badd4bc7e88765938d9a5b14b1165a"
+    },
+    "data/f1_stage18_xgb_points_chatter_overlay_2018_2026.csv": {
+      "checksum": "50bca11de1ee26dd7e07b187e5017677"
+    },
+    "data/f1_stage18_xgb_probability_chatter_overlay_2018_2026.csv": {
+      "checksum": "0b03d80990acf9edc476d9b9283c4a27"
+    },
+    "data/f1_stage18_xgb_winner_without_chatter_overlay_2018_2026.csv": {
+      "checksum": "2455349231613b7b7bacf937afb44132"
+    },
+    "data/f1_stage19_fastest_lap_app_predictions_2018_2026.csv": {
+      "checksum": "8ba9096b754ac7f994d9cd0111e4c4a5"
+    },
+    "data/f1_stage5_track_profile_inventory_2018_2026.csv": {
+      "checksum": "3d59b95a692891e7a55ad8a0c1b10a7f"
+    },
+    "data/f1_stage6_future_prerace_estimates_2018_2026.csv": {
+      "checksum": "33992d8f09c7dd3eba659803e8f8f816"
+    },
+    "data/f1_stage7_qualifying_app_predictions_2018_2026.csv": {
+      "checksum": "d031c14ced553fc105f97c853ec8122b"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2024_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r1_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r10_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r11_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r12_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r13_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r14_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r15_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r16_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r17_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r18_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r19_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r2_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r20_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r21_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r22_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r23_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r3_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r4_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r5_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r6_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r7_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r8_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_r9_test2025.csv": {
+      "checksum": "1da271867d703b575c97389269d5cee6"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2025_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r1_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r2_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r3_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r4_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r5_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r6_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r7_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r8_test2026.csv": {
+      "checksum": "6d9d13b2b843c5148cee240013cf9b3c"
+    },
+    "data/f1_stage7_qualifying_hyperparameters_2018_2026_train2026_r9_test2026.csv": {
+      "checksum": "1f5b27bb525fd36c0e7cebd8815b9f15"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2024_test2025.csv": {
+      "checksum": "b1186ef544bf760e72d88a3ef782af6a"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r1_test2025.csv": {
+      "checksum": "b1186ef544bf760e72d88a3ef782af6a"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r10_test2025.csv": {
+      "checksum": "2e0a00e6f8fe5475b85acef1a91ca459"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r11_test2025.csv": {
+      "checksum": "a1518549993edb32f7e5b3348d8ab258"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r12_test2025.csv": {
+      "checksum": "a1518549993edb32f7e5b3348d8ab258"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r13_test2025.csv": {
+      "checksum": "a1518549993edb32f7e5b3348d8ab258"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r14_test2025.csv": {
+      "checksum": "85c6461a7cefafb035329141f854172d"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r15_test2025.csv": {
+      "checksum": "0f40f744f53d66693050f14759c45580"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r16_test2025.csv": {
+      "checksum": "431eaca38efd1b02864b246f42fbced3"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r17_test2025.csv": {
+      "checksum": "156b45cda1ea810e80ee437e7697180b"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r18_test2025.csv": {
+      "checksum": "78c0aff2417c0e613fc7c53954f069fd"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r19_test2025.csv": {
+      "checksum": "427b2e3e9dca6caed7200f11b6b03cfe"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r2_test2025.csv": {
+      "checksum": "08500749fad38f41614326602a074cf0"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r20_test2025.csv": {
+      "checksum": "a87832c223ba12091c145fc7e61735d0"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r21_test2025.csv": {
+      "checksum": "50cd40c482ff3328d7570715d8b8f91b"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r22_test2025.csv": {
+      "checksum": "e730449092d520be7493840267056e82"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r23_test2025.csv": {
+      "checksum": "b21c68189b9833375982d4355ae6d0a0"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r3_test2025.csv": {
+      "checksum": "02e65e02e6a6c547cfd3de4884650ab9"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r4_test2025.csv": {
+      "checksum": "be62321550006d19e0b7d8cef5c3a8fd"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r5_test2025.csv": {
+      "checksum": "4d9cab43dcb5711188195da775b1a339"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r6_test2025.csv": {
+      "checksum": "4d9cab43dcb5711188195da775b1a339"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r7_test2025.csv": {
+      "checksum": "fce8deab4bfa6aa5a3dcc8a7c03c7cca"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r8_test2025.csv": {
+      "checksum": "ac34f04b27925ce3d2451d63974eb925"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_r9_test2025.csv": {
+      "checksum": "fbc931b8b566ebeb8802467261bcd3fd"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2025_test2026.csv": {
+      "checksum": "ec453acbe9c8fbe6b1715345425d59c0"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r1_test2026.csv": {
+      "checksum": "3b647fdd204297b8249dff23ec55a08f"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r2_test2026.csv": {
+      "checksum": "e6cfe967b043c8715435cd3fbaeda044"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r3_test2026.csv": {
+      "checksum": "1202478bc6c05118d057abb462aca879"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r4_test2026.csv": {
+      "checksum": "8524f67ea44917f668c48ff23e1bdf18"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r5_test2026.csv": {
+      "checksum": "8524f67ea44917f668c48ff23e1bdf18"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r6_test2026.csv": {
+      "checksum": "317bd4736fb157609ed55e3b81456317"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r7_test2026.csv": {
+      "checksum": "2db035bf42e6bedccad344ed51f062b6"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r8_test2026.csv": {
+      "checksum": "4c3f21cae9990d3b0048cffe1d188bde"
+    },
+    "data/f1_stage7_qualifying_linear_coefficients_2018_2026_train2026_r9_test2026.csv": {
+      "checksum": "0f51381555bbf4fd61879fca0b5f5801"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2024_test2025.csv": {
+      "checksum": "6e816db377f8a988dc2f0299c50f1867"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r1_test2025.csv": {
+      "checksum": "6e816db377f8a988dc2f0299c50f1867"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r10_test2025.csv": {
+      "checksum": "87583ceac80661d53672f6f7643cca04"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r11_test2025.csv": {
+      "checksum": "f99d47360997c81ba2b6f880e9f6d18c"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r12_test2025.csv": {
+      "checksum": "f99d47360997c81ba2b6f880e9f6d18c"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r13_test2025.csv": {
+      "checksum": "f99d47360997c81ba2b6f880e9f6d18c"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r14_test2025.csv": {
+      "checksum": "60bfdf48ab6186da996b8c4d518bf5cf"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r15_test2025.csv": {
+      "checksum": "2d1424449695f66d2c6ae214e60e80a3"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r16_test2025.csv": {
+      "checksum": "6cea69b2b5bc2fb15e726e3e817a7e71"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r17_test2025.csv": {
+      "checksum": "23a575b4734bfe41e4d6b46a3bcbba05"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r18_test2025.csv": {
+      "checksum": "0ec6ed4d21524e41e86d0f07edadb1a9"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r19_test2025.csv": {
+      "checksum": "914d1654c0ab10d5e540883f9e2b0629"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r2_test2025.csv": {
+      "checksum": "964f2e2e744b6b44fa34dbce776eedf8"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r20_test2025.csv": {
+      "checksum": "d431ac394be5ddb7a4638665fc543690"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r21_test2025.csv": {
+      "checksum": "b992bb50778dd3335ec6a47e3119f472"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r22_test2025.csv": {
+      "checksum": "1c02effcd8870fbd8caa52048dceadc0"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r23_test2025.csv": {
+      "checksum": "f2d661e68783d44297ed5cf0293a749f"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r3_test2025.csv": {
+      "checksum": "934eb35a27ce924b05ffab6e606ac664"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r4_test2025.csv": {
+      "checksum": "3f782e321ddcbf9dd6e6fe5d9b4a348c"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r5_test2025.csv": {
+      "checksum": "9f8c2cb548ae148b64ba6e7fe7b5d274"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r6_test2025.csv": {
+      "checksum": "9f8c2cb548ae148b64ba6e7fe7b5d274"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r7_test2025.csv": {
+      "checksum": "4f57b43469bb29edb0f7ef320b5e02f2"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r8_test2025.csv": {
+      "checksum": "a01bddc04b33793c0c984e01f516d5c3"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_r9_test2025.csv": {
+      "checksum": "0d1ee9fd0dc0df01be6e8ee5680076c8"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2025_test2026.csv": {
+      "checksum": "7d587b4a2c63b5aae357941465124180"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2026_r1_test2026.csv": {
+      "checksum": "c2cda71da78c4b7f8dcc42a8ce15f1a3"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2026_r2_test2026.csv": {
+      "checksum": "4b86f880409b28c432d1b79e4fa58f7f"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2026_r3_test2026.csv": {
+      "checksum": "0e88af7d2756d13e36353f431fa3d8a2"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2026_r4_test2026.csv": {
+      "checksum": "12ebbf88b60c50e8386a7acd7d09969b"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2026_r5_test2026.csv": {
+      "checksum": "12ebbf88b60c50e8386a7acd7d09969b"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2026_r6_test2026.csv": {
+      "checksum": "d7eaa9d88b09eebe732cce7558c4acfd"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2026_r7_test2026.csv": {
+      "checksum": "bfcabce45cb6b2303ce6ec12596dd0a7"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2026_r8_test2026.csv": {
+      "checksum": "cd48be9c4ad8aedcc1eb9de58894a3f0"
+    },
+    "data/f1_stage7_qualifying_metrics_2018_2026_train2026_r9_test2026.csv": {
+      "checksum": "11286e2be7493b5dd6bec26a71c03d06"
+    },
+    "data/f1_stage9_consensus_bets_2018_2026.csv": {
+      "checksum": "88a14ee6bf2bef59921e795da3a45f7d"
+    },
+    "data/f1_stage9_consensus_betting_race_results_2018_2026.csv": {
+      "checksum": "bf7475b27d504d84c99f5da61f5f8b5a"
+    },
+    "data/f1_stage9_consensus_betting_season_summary_2018_2026.csv": {
+      "checksum": "e2b52591954e1d92c7d6593a9ac9c07e"
+    },
+    "data/f1_stage9_rf_app_predictions_with_market_odds_2018_2026.csv": {
+      "checksum": "11bca5ab989cd41aaf3e83345f0656c5"
     },
     "data/keep these files/f1_current_driver_weekend_signals_2018_2026.csv": {
-      "checksum": "ba7c7df8dcd861e634868cdcabde8a3c"
+      "checksum": "12b78f7cb518fc29e1c34e970c87653c"
     },
     "data/keep these files/f1_current_sprint_facts_2018_2026.csv": {
       "checksum": "309e88b8ebfdce48ebe66fe75652e0d0"
@@ -1827,7 +3844,7 @@
       "checksum": "07ad072fa020d45ae5c26c05e87e2058"
     },
     "data/keep these files/f1_market_odds_grid_driver_summary_2025_2026.csv": {
-      "checksum": "e18675132c5ded238df348e25af4d946"
+      "checksum": "01e54e2f5daa97420873ceaaa0f27c13"
     },
     "data/keep these files/f1_market_odds_opening_driver_summary_2025_2026.csv": {
       "checksum": "a8787c9b31800fd4ee030b17d1f35803"
@@ -1839,7 +3856,7 @@
       "checksum": "db6225f04b4ecbc0099adb2b44aaf4a6"
     },
     "data/keep these files/f1_prerace_grid_quali_overrides_2018_2026.csv": {
-      "checksum": "ef4d6f8f7efca7dfbc860b9f6b7f0fef"
+      "checksum": "2c84c14be467dad21341c99317a20d2e"
     },
     "data/keep these files/f1_qualifying_odds_current_2025_2026.csv": {
       "checksum": "2d2f2bac201fc9e07f1a38847d6e54d8"
@@ -1847,137 +3864,134 @@
     "data/keep these files/f1_winner_without_odds_current_2025_2026.csv": {
       "checksum": "66bbce465f78a9771b4c7e9bab4e62e5"
     },
-    "data/nascar_active_strategy.csv": {
-      "checksum": "f22832b3652aade134bad7e7e05f3dd6"
+    "tools/build_speed_supplement.R": {
+      "checksum": "312800f612e7f4eb1f0f06c184049896"
     },
-    "data/nascar_stage1_driver_race_backbone_2018_2026.csv": {
-      "checksum": "43d13214dafe45936b24685389018f5b"
+    "tools/pre_render_track_plots.R": {
+      "checksum": "6f70d2c3e69f80e639218a20f3e1215d"
     },
-    "data/nascar_stage1_stage2_driver_race_backbone_2018_2026.csv": {
-      "checksum": "e2a95be2ecd5a3c86b143ee5349a7a09"
+    "tools/run_local_app.R": {
+      "checksum": "1f70ad72735da657072e73f119a50c73"
     },
-    "data/nascar_stage1_stage2_stage3_driver_race_backbone_2018_2026.csv": {
-      "checksum": "d5cdcbbece83814edc147cf30fe50394"
+    "www/apple-touch-icon.png": {
+      "checksum": "48b1e84d934527c2c964850e0cd44081"
     },
-    "data/nascar_stage11_finish_metrics_2018_2026.csv": {
-      "checksum": "fa18a4cc3a2d8868ab0a6347919edb3e"
+    "www/dark-theme.css": {
+      "checksum": "3f83728a3f224b16b7d667e73b95d735"
     },
-    "data/nascar_stage11_finish_model_specs_2018_2026.csv": {
-      "checksum": "d2b5c7cf1761152c8fd3241372e61969"
+    "www/f1-icon-1024.png": {
+      "checksum": "8702d8505efecd09777a3ba00c630ba7"
     },
-    "data/nascar_stage11_finish_predictions_2018_2026.rds": {
-      "checksum": "93adf4f94eba243d06c44da0ebe0cda7"
+    "www/f1-icon-256.png": {
+      "checksum": "51ee4c13be73cb12c6ea89f640fcf60a"
     },
-    "data/nascar_stage12_probability_metrics_2018_2026.csv": {
-      "checksum": "312abb1cfc2ac183d4b09f85a2dcbf05"
+    "www/f1-icon-512.png": {
+      "checksum": "ac93358ae913f4306d1ac0f04fbd8926"
     },
-    "data/nascar_stage12_probability_model_specs_2018_2026.csv": {
-      "checksum": "27927647d48487a14475882a2d0c0be3"
+    "www/f1-logo.png": {
+      "checksum": "889e3e1ceaee8484cfaad647c464c280"
     },
-    "data/nascar_stage12_probability_predictions_2018_2026.rds": {
-      "checksum": "7e4edd4f2c8bca035cf73771641ea0f2"
+    "www/favicon.ico": {
+      "checksum": "d495467ada7fff965a543bfda3b23e60"
     },
-    "data/nascar_stage13_points_metrics_2018_2026.csv": {
-      "checksum": "05dd7554aa3c144f886e61cf38faacd5"
-    },
-    "data/nascar_stage13_points_model_specs_2018_2026.csv": {
-      "checksum": "f27298f934ed274212c66bd2ed4a0496"
-    },
-    "data/nascar_stage13_points_predictions_2018_2026.rds": {
-      "checksum": "e31a732b5b4fc25d281d39d58c71b9e1"
-    },
-    "data/nascar_stage14_upcoming_race_features_latest.csv": {
-      "checksum": "489348780ee582fb8890b951763d6c4b"
-    },
-    "data/nascar_stage15_current_finish_model_predictions_latest.csv": {
-      "checksum": "11077d6673c6ad1fa92c7aeffe800724"
-    },
-    "data/nascar_stage15_current_points_model_predictions_latest.csv": {
-      "checksum": "54e45c32d39d4a638c76bac2b73a401b"
-    },
-    "data/nascar_stage15_current_probability_model_predictions_latest.csv": {
-      "checksum": "b3a18ff8496383812328e67dac768fe1"
-    },
-    "data/nascar_stage15_current_qualifying_model_predictions_latest.csv": {
-      "checksum": "e28bf1a840bb28be201d2bad27674d66"
-    },
-    "data/nascar_stage15_upcoming_race_predictions_latest.csv": {
-      "checksum": "46bb8129e1380715d93ad341b5264361"
-    },
-    "data/nascar_stage16_active_backtest_2025_2026.csv": {
-      "checksum": "36eafdc22ecc8cc565f3d66571b44230"
-    },
-    "data/nascar_stage17_chatter_normalized_2025_2026.csv": {
-      "checksum": "d691925f5aed2a7f740b5d3534825d44"
-    },
-    "data/nascar_stage17_draftkings_current.csv": {
-      "checksum": "61140b14a0b1d71133871e3c596d61c3"
-    },
-    "data/nascar_stage17_draftkings_roster_audit_current.csv": {
-      "checksum": "9ae0cbc5987567d5ed48b603f2c6846e"
-    },
-    "data/nascar_stage17_external_inputs_audit.csv": {
-      "checksum": "78f8ef2f3705e5d37cebdab2ba056c7c"
-    },
-    "data/nascar_stage17_market_qualifying_partial_2025_2026.csv": {
-      "checksum": "09ed167bb0614fcafe4ac917c79a9402"
-    },
-    "data/nascar_stage17_market_top3_synthetic_2025_2026.csv": {
-      "checksum": "565a9050805683b4e70a2a3ebe0b93ce"
-    },
-    "data/nascar_stage17_market_top3_verified_partial_2025_2026.csv": {
-      "checksum": "ecc7ce551399ec4e2746d91082589df8"
-    },
-    "data/nascar_stage17_market_winner_evaluation_2025_2026.csv": {
-      "checksum": "a75a668b58abfac2fdff0743d09a90d7"
-    },
-    "data/nascar_stage17_market_winner_full_boards_2025_2026.csv": {
-      "checksum": "2778e8de92d7e043c80ce7d8e6ec3093"
-    },
-    "data/nascar_stage18_2025_backtest_safe_overlay.csv": {
-      "checksum": "9a702b7e8514e4251fabe5c275621035"
-    },
-    "data/nascar_stage18_2025_backtest_safe_overlay_metrics.csv": {
-      "checksum": "3f3e0e241aa518541abfa39a9ab195c6"
-    },
-    "data/nascar_stage18_current_forecast_with_safe_overlays_latest.csv": {
-      "checksum": "587a194ce6d210e7e0efb2830216e25d"
-    },
-    "data/nascar_stage19_draftkings_driver_projections_latest.csv": {
-      "checksum": "58b7c17ab86ead77823775def8164d27"
-    },
-    "data/nascar_stage19_draftkings_top_lineup_members_latest.csv": {
-      "checksum": "3cca4895362383319f3b1e8b5bed2f33"
-    },
-    "data/nascar_stage19_draftkings_top_lineups_latest.csv": {
-      "checksum": "83c346a7b1f82f077a63e8f86a416bc0"
-    },
-    "data/nascar_stage2_driver_race_detailed_2018_2026.csv": {
-      "checksum": "f982fc271b2ab4dc67276bc48af2a7df"
-    },
-    "data/nascar_stage4_track_profile_inventory_2018_2026.csv": {
-      "checksum": "55cdbf5896cdccfd1edff4d9b8e39805"
-    },
-    "data/nascar_stage7_qualifying_metrics_2018_2026.csv": {
-      "checksum": "6eb05521280a4becbe3248a2b403e84c"
-    },
-    "data/nascar_stage7_qualifying_model_specs_2018_2026.csv": {
-      "checksum": "28dcac8d5a0d9cf2404fd821275725e8"
-    },
-    "data/nascar_stage7_qualifying_predictions_2018_2026.rds": {
-      "checksum": "0bb12075c4e69eaa342cf41162b5f0d9"
-    },
-    "README.md": {
-      "checksum": "92b99fc868f5004db78966b4670515f3"
-    },
-    "www/app-icon-512.png": {
-      "checksum": "32b1599aa4b360cf8a7c4101131b9418"
-    },
-    "www/splash-track.webp": {
-      "checksum": "954b187bad07aa028b0e4b3be7433cdf"
+    "www/splash-vegas-bg.jpg": {
+      "checksum": "3994ac49c83b57012c828a7cc56c11bd"
     },
     "www/styles.css": {
-      "checksum": "f5795fc5856e3646f470c7efb810316e"
+      "checksum": "cfa66490752e4f2bb02e62472a0f1bf7"
+    },
+    "www/track_plots/albert_park.png": {
+      "checksum": "0221342bc38fef5ac11db49d54a72dd3"
+    },
+    "www/track_plots/americas.png": {
+      "checksum": "d991eadcf19766fe2583aa43c2c59ffc"
+    },
+    "www/track_plots/bahrain.png": {
+      "checksum": "a7edcb313260f1ed83990027e7b542fc"
+    },
+    "www/track_plots/baku.png": {
+      "checksum": "1e2e119919c7250fd6dd6938a32c3943"
+    },
+    "www/track_plots/catalunya.png": {
+      "checksum": "38a251961593c0e6e49f5011549e86fd"
+    },
+    "www/track_plots/hockenheimring.png": {
+      "checksum": "1ba0943c3c73cf6c0246aaff52e90537"
+    },
+    "www/track_plots/hungaroring.png": {
+      "checksum": "7fc7ec2aab51dedd7b7445051c24aaf0"
+    },
+    "www/track_plots/imola.png": {
+      "checksum": "313a7e9cde412055500d527bac6fd707"
+    },
+    "www/track_plots/interlagos.png": {
+      "checksum": "4ad263e82e10435e09a486c33edd939c"
+    },
+    "www/track_plots/istanbul.png": {
+      "checksum": "b501cb69ae95e6136b9154572b58a999"
+    },
+    "www/track_plots/jeddah.png": {
+      "checksum": "ab23cf4ca319153a90fbe9de183168b0"
+    },
+    "www/track_plots/losail.png": {
+      "checksum": "9da978c2fb5196206976d4d6d5ee50ae"
+    },
+    "www/track_plots/marina_bay.png": {
+      "checksum": "6e38264e90895afd25b1e2e553521d7b"
+    },
+    "www/track_plots/miami.png": {
+      "checksum": "362127a2a249aaf8e40c062461e23d1c"
+    },
+    "www/track_plots/monaco.png": {
+      "checksum": "77b5729855ab38f4d088547917cf435c"
+    },
+    "www/track_plots/monza.png": {
+      "checksum": "fe8028e0a9c6b1df8e47bf27a730e335"
+    },
+    "www/track_plots/mugello.png": {
+      "checksum": "b0973a5d2a3437b1cfe0e4c5a8aba75f"
+    },
+    "www/track_plots/nurburgring.png": {
+      "checksum": "2845fbff93cedcd63ec73f27eed5fc1f"
+    },
+    "www/track_plots/portimao.png": {
+      "checksum": "c5235b1cbe0ea490214761bbd7eab26b"
+    },
+    "www/track_plots/red_bull_ring.png": {
+      "checksum": "8bf8cd9cc3404f7750d9e6cd723d4907"
+    },
+    "www/track_plots/ricard.png": {
+      "checksum": "f25fbf7013aa4c18a2ca98ad41b264ce"
+    },
+    "www/track_plots/rodriguez.png": {
+      "checksum": "5fce42bf54ddf1c2f552436d8648e1b2"
+    },
+    "www/track_plots/shanghai.png": {
+      "checksum": "15c2fef50a15973298445926730196d2"
+    },
+    "www/track_plots/silverstone.png": {
+      "checksum": "e029ff8fc7e3bd926fecc18bdc4adecd"
+    },
+    "www/track_plots/sochi.png": {
+      "checksum": "39c63d845461a8db71677d086549ad6a"
+    },
+    "www/track_plots/spa.png": {
+      "checksum": "9044b655cf6a0a7fb6906bea782d2fa3"
+    },
+    "www/track_plots/suzuka.png": {
+      "checksum": "4821da55b556b2578438f469e35efbc8"
+    },
+    "www/track_plots/vegas.png": {
+      "checksum": "05545760c6288459859a4a4c05af71ba"
+    },
+    "www/track_plots/villeneuve.png": {
+      "checksum": "732c3bd574714cc842e70d17c9686583"
+    },
+    "www/track_plots/yas_marina.png": {
+      "checksum": "d928c95c90c8625e1c771563340d821e"
+    },
+    "www/track_plots/zandvoort.png": {
+      "checksum": "3d88e0e10058100c55454a80683a252b"
     }
   },
   "users": null
