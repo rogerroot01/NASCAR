@@ -1,8 +1,8 @@
 input,rows,usable_rows,note
-chatter,2337,1171,1685 direct source-verified historical rows; 1600 generated one-race 50% carryover rows; 1171 timestamped production rows. Production-only proxies never enter historical backtests.
+chatter,2337,1171,1690 direct source-verified historical rows; 1610 generated one-race 50% carryover rows; 1171 timestamped production rows. Production-only proxies never enter historical backtests.
 winner_market,56,0,"Eventual-winner-only prices are evaluation/payout data, never predictive features."
 verified_top3,13,13,Sparse individual quotes; not a full market board.
 synthetic_top3,56,0,Synthetic estimates remain evaluation-only.
 qualifying_market,38,38,Primarily one archived Daytona pole board.
-current_complete_market,37,37,Complete user-supplied winner and top-three board; top-five prices are intentionally not retained.
+current_complete_market,39,39,Complete user-supplied winner and top-three board; top-five prices are intentionally not retained.
 draftkings,37,37,Current-event salary slate; roster discrepancies are retained in a separate audit.

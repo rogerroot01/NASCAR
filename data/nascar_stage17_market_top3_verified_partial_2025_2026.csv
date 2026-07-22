@@ -12,40 +12,42 @@ season,round,race_date,race_name,driver_name,driver_id,odds_american,odds_decima
 2026,1,2026-02-15,Daytona 500,Ryan Blaney,ryan_blaney,330,4.3,0.23255813953488372,Caesars,2026-02-14,https://www.cbssports.com/betting/news/how-to-bet-on-nascar-2026-daytona-500-betting-guide/,verified_partial_top3_quote,TRUE
 2026,2,2026-02-22,Autotrader 400,Austin Cindric,austin_cindric,600,7,0.14285714285714285,theScore / bet365,2026-02-22,https://www.actionnetwork.com/nascar/nascar-odds-picks-predictions-echopark-expert-picks-autotrader-400-sun-feb-22,verified_partial_top3_quote,TRUE
 2026,2,2026-02-22,Autotrader 400,Chris Buescher,chris_buescher,750,8.5,0.11764705882352941,Caesars,2026-02-22,https://www.actionnetwork.com/nascar/nascar-odds-picks-predictions-echopark-expert-picks-autotrader-400-sun-feb-22,verified_partial_top3_quote,TRUE
-2026,21,2026-07-19,Window World 450,AJ Allmendinger,aj_allmendinger,5500,56,0.017857142857142856,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Alex Bowman,alex_bowman,2000,21,0.047619047619047616,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Austin Cindric,austin_cindric,1500,16,0.0625,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Austin Dillon,austin_dillon,2000,21,0.047619047619047616,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Austin Hill,austin_hill,5500,56,0.017857142857142856,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Brad Keselowski,brad_keselowski,1400,15,0.06666666666666667,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Bubba Wallace,bubba_wallace,1000,11,0.09090909090909091,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Carson Hocevar,carson_hocevar,600,7,0.14285714285714285,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Chad Finchum,chad_finchum,11000,111,0.009009009009009009,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Chase Briscoe,chase_briscoe,500,6,0.16666666666666666,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Chase Elliott,chase_elliott,350,4.5,0.2222222222222222,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Chris Buescher,chris_buescher,800,9,0.1111111111111111,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Christopher Bell,christopher_bell,180,2.8,0.35714285714285715,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Cody Ware,cody_ware,11000,111,0.009009009009009009,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Cole Custer,cole_custer,8000,81,0.012345679012345678,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Connor Zilisch,connor_zilisch,5000,51,0.0196078431372549,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Daniel Suarez,daniel_suarez,1800,19,0.05263157894736842,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Denny Hamlin,denny_hamlin,130,2.3,0.4347826086956522,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Erik Jones,erik_jones,2800,29,0.034482758620689655,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Joey Logano,joey_logano,300,4,0.25,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,John Hunter Nemechek,john_hunter_nemechek,5500,56,0.017857142857142856,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Josh Berry,josh_berry,1800,19,0.05263157894736842,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Kyle Larson,kyle_larson,150,2.5,0.4,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Michael McDowell,michael_mcdowell,2800,29,0.034482758620689655,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Noah Gragson,noah_gragson,5000,51,0.0196078431372549,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Ricky Stenhouse Jr.,ricky_stenhouse_jr,8000,81,0.012345679012345678,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Riley Herbst,riley_herbst,8000,81,0.012345679012345678,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Ross Chastain,ross_chastain,1000,11,0.09090909090909091,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Ryan Blaney,ryan_blaney,165,2.65,0.37735849056603776,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Ryan Preece,ryan_preece,1000,11,0.09090909090909091,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Shane Van Gisbergen,shane_van_gisbergen,2200,23,0.043478260869565216,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Todd Gilliland,todd_gilliland,5500,56,0.017857142857142856,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Ty Dillon,ty_dillon,8000,81,0.012345679012345678,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Ty Gibbs,ty_gibbs,450,5.5,0.18181818181818182,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Tyler Reddick,tyler_reddick,450,5.5,0.18181818181818182,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,William Byron,william_byron,320,4.2,0.23809523809523808,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
-2026,21,2026-07-19,Window World 450,Zane Smith,zane_smith,5000,51,0.0196078431372549,User supplied,2026-07-17,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,AJ Allmendinger,aj_allmendinger,5000,51,0.0196078431372549,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Alex Bowman,alex_bowman,2000,21,0.047619047619047616,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Austin Cindric,austin_cindric,1100,12,0.08333333333333333,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Austin Dillon,austin_dillon,5500,56,0.017857142857142856,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Austin Hill,austin_hill,5500,56,0.017857142857142856,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Brad Keselowski,brad_keselowski,1200,13,0.07692307692307693,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Bubba Wallace,bubba_wallace,425,5.25,0.19047619047619047,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Carson Hocevar,carson_hocevar,600,7,0.14285714285714285,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Casey Mears,casey_mears,13000,131,0.007633587786259542,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Chase Briscoe,chase_briscoe,300,4,0.25,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Chase Elliott,chase_elliott,350,4.5,0.2222222222222222,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Chris Buescher,chris_buescher,550,6.5,0.15384615384615385,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Christopher Bell,christopher_bell,300,4,0.25,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Cody Ware,cody_ware,11000,111,0.009009009009009009,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Cole Custer,cole_custer,11000,111,0.009009009009009009,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Connor Zilisch,connor_zilisch,3500,36,0.027777777777777776,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Corey Heim,corey_heim,1200,13,0.07692307692307693,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Daniel Dye,daniel_dye,13000,131,0.007633587786259542,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Daniel Suarez,daniel_suarez,2200,23,0.043478260869565216,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Denny Hamlin,denny_hamlin,135,2.35,0.425531914893617,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Erik Jones,erik_jones,1000,11,0.09090909090909091,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Joey Logano,joey_logano,450,5.5,0.18181818181818182,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,John Hunter Nemechek,john_hunter_nemechek,1800,19,0.05263157894736842,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Josh Berry,josh_berry,3500,36,0.027777777777777776,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Kyle Larson,kyle_larson,210,3.1,0.3225806451612903,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Michael McDowell,michael_mcdowell,4500,46,0.021739130434782608,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Noah Gragson,noah_gragson,7000,71,0.014084507042253521,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Ricky Stenhouse Jr.,ricky_stenhouse_jr,8000,81,0.012345679012345678,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Riley Herbst,riley_herbst,3000,31,0.03225806451612903,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Ross Chastain,ross_chastain,2000,21,0.047619047619047616,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Ryan Blaney,ryan_blaney,210,3.1,0.3225806451612903,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Ryan Preece,ryan_preece,2200,23,0.043478260869565216,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Shane Van Gisbergen,shane_van_gisbergen,1500,16,0.0625,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Todd Gilliland,todd_gilliland,5500,56,0.017857142857142856,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Ty Dillon,ty_dillon,11000,111,0.009009009009009009,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Ty Gibbs,ty_gibbs,550,6.5,0.15384615384615385,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Tyler Reddick,tyler_reddick,165,2.65,0.37735849056603776,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,William Byron,william_byron,265,3.65,0.273972602739726,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Zane Smith,zane_smith,5000,51,0.0196078431372549,User supplied,2026-07-21,,production_pre_race_complete_top3_board,TRUE
