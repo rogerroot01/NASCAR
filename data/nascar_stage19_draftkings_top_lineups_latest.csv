@@ -1,41 +1,41 @@
 projection_variant,lineup_rank,total_salary,salary_remaining,projected_points,drivers
-base,1,50000,0,249.02334860427726,Brad Keselowski | Christopher Bell | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick
-base,2,49800,200,248.64677094963974,Bubba Wallace | Chase Elliott | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick
-base,3,49500,500,248.5890741994011,Brad Keselowski | Chase Elliott | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick
-base,4,49900,100,246.17703749752462,Chase Elliott | Erik Jones | John Hunter Nemechek | Kyle Larson | Ty Gibbs | Tyler Reddick
-base,5,49600,400,245.71972900055388,Brad Keselowski | Bubba Wallace | Denny Hamlin | John Hunter Nemechek | Ty Gibbs | Tyler Reddick
-base,6,50000,0,245.06646219844933,Brad Keselowski | Bubba Wallace | Chase Elliott | Christopher Bell | John Hunter Nemechek | Tyler Reddick
-base,7,50000,0,244.2056873173697,Brad Keselowski | Erik Jones | John Hunter Nemechek | Kyle Larson | Ryan Blaney | Tyler Reddick
-base,8,49600,400,243.89550843532797,Chase Elliott | Christopher Bell | Erik Jones | John Hunter Nemechek | Ty Gibbs | Tyler Reddick
-base,9,49800,200,243.67278876639656,Bubba Wallace | Christopher Bell | Erik Jones | John Hunter Nemechek | Kyle Larson | Tyler Reddick
-base,10,49500,500,243.61509201615792,Brad Keselowski | Christopher Bell | Erik Jones | John Hunter Nemechek | Kyle Larson | Tyler Reddick
-base,11,49300,700,243.2385143615204,Bubba Wallace | Chase Elliott | Erik Jones | John Hunter Nemechek | Kyle Larson | Tyler Reddick
-base,12,50000,0,243.23240882576184,Bubba Wallace | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick | William Byron
-base,13,49000,1000,243.18081761128175,Brad Keselowski | Chase Elliott | Erik Jones | John Hunter Nemechek | Kyle Larson | Tyler Reddick
-base,14,49700,300,243.17471207552322,Brad Keselowski | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick | William Byron
-base,15,49900,100,242.3308294307492,Bubba Wallace | Denny Hamlin | Erik Jones | John Hunter Nemechek | Kyle Larson | Ty Gibbs
-base,16,49600,400,242.27313268051054,Brad Keselowski | Denny Hamlin | Erik Jones | John Hunter Nemechek | Kyle Larson | Ty Gibbs
-base,17,50000,0,241.9818550054117,Bubba Wallace | Christopher Bell | Erik Jones | John Hunter Nemechek | Ryan Blaney | Tyler Reddick
-base,18,49700,300,241.92415825517304,Brad Keselowski | Christopher Bell | Erik Jones | John Hunter Nemechek | Ryan Blaney | Tyler Reddick
-base,19,50000,0,241.619865878406,Brad Keselowski | Chase Elliott | Christopher Bell | Erik Jones | John Hunter Nemechek | Kyle Larson
-base,20,48600,1400,241.61025210142833,Bubba Wallace | Denny Hamlin | Erik Jones | John Hunter Nemechek | Ty Gibbs | Tyler Reddick
-chatter,1,50000,0,252.45134860427726,Brad Keselowski | Christopher Bell | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick
-chatter,2,49800,200,250.80077094963974,Bubba Wallace | Chase Elliott | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick
-chatter,3,49500,500,250.4670741994011,Brad Keselowski | Chase Elliott | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick
-chatter,4,50000,0,248.56046219844933,Brad Keselowski | Bubba Wallace | Chase Elliott | Christopher Bell | John Hunter Nemechek | Tyler Reddick
-chatter,5,49900,100,248.27103749752462,Chase Elliott | Erik Jones | John Hunter Nemechek | Kyle Larson | Ty Gibbs | Tyler Reddick
-chatter,6,49600,400,247.85572900055388,Brad Keselowski | Bubba Wallace | Denny Hamlin | John Hunter Nemechek | Ty Gibbs | Tyler Reddick
-chatter,7,50000,0,247.5256873173697,Brad Keselowski | Erik Jones | John Hunter Nemechek | Kyle Larson | Ryan Blaney | Tyler Reddick
-chatter,8,49600,400,247.38350843532797,Chase Elliott | Christopher Bell | Erik Jones | John Hunter Nemechek | Ty Gibbs | Tyler Reddick
-chatter,9,49800,200,247.26878876639654,Bubba Wallace | Christopher Bell | Erik Jones | John Hunter Nemechek | Kyle Larson | Tyler Reddick
-chatter,10,50000,0,246.97185500541167,Bubba Wallace | Christopher Bell | Erik Jones | John Hunter Nemechek | Ryan Blaney | Tyler Reddick
-chatter,11,49500,500,246.9350920161579,Brad Keselowski | Christopher Bell | Erik Jones | John Hunter Nemechek | Kyle Larson | Tyler Reddick
-chatter,12,49700,300,246.63815825517304,Brad Keselowski | Christopher Bell | Erik Jones | John Hunter Nemechek | Ryan Blaney | Tyler Reddick
-chatter,13,50000,0,245.54240882576184,Bubba Wallace | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick | William Byron
-chatter,14,49300,700,245.2845143615204,Bubba Wallace | Chase Elliott | Erik Jones | John Hunter Nemechek | Kyle Larson | Tyler Reddick
-chatter,15,49700,300,245.2087120755232,Brad Keselowski | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick | William Byron
-chatter,16,49500,500,244.98758060053552,Bubba Wallace | Chase Elliott | Erik Jones | John Hunter Nemechek | Ryan Blaney | Tyler Reddick
-chatter,17,49000,1000,244.95081761128176,Brad Keselowski | Chase Elliott | Erik Jones | John Hunter Nemechek | Kyle Larson | Tyler Reddick
-chatter,18,50000,0,244.675865878406,Brad Keselowski | Chase Elliott | Christopher Bell | Erik Jones | John Hunter Nemechek | Kyle Larson
-chatter,19,49200,800,244.6538838502969,Brad Keselowski | Chase Elliott | Erik Jones | John Hunter Nemechek | Ryan Blaney | Tyler Reddick
-chatter,20,50000,0,244.42311174327756,Brad Keselowski | Bubba Wallace | Christopher Bell | Erik Jones | Ty Gibbs | Tyler Reddick
+base,1,49500,500,252.33518137824282,Brad Keselowski | Bubba Wallace | Chase Elliott | Erik Jones | Ty Gibbs | Tyler Reddick
+base,2,49600,400,250.99730994031236,Brad Keselowski | Bubba Wallace | Denny Hamlin | John Hunter Nemechek | Ty Gibbs | Tyler Reddick
+base,3,49700,300,250.97203760522967,Brad Keselowski | Bubba Wallace | Erik Jones | Ty Gibbs | Tyler Reddick | William Byron
+base,4,50000,0,250.42714951253802,Brad Keselowski | Bubba Wallace | Christopher Bell | Erik Jones | Ty Gibbs | Tyler Reddick
+base,5,50000,0,249.09479565896697,Brad Keselowski | Bubba Wallace | Denny Hamlin | Riley Herbst | Ty Gibbs | Tyler Reddick
+base,6,49900,100,248.56491605192232,Alex Bowman | Brad Keselowski | Denny Hamlin | Erik Jones | Ty Gibbs | Tyler Reddick
+base,7,50000,0,247.05348679773923,Bubba Wallace | Denny Hamlin | Erik Jones | Shane van Gisbergen | Ty Gibbs | Tyler Reddick
+base,8,49900,100,246.59993632732397,Alex Bowman | Brad Keselowski | Bubba Wallace | Chase Elliott | Ty Gibbs | Tyler Reddick
+base,9,49800,200,246.3151186639494,Bubba Wallace | Chase Elliott | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick
+base,10,49900,100,246.18922164391174,Brad Keselowski | Bubba Wallace | Chris Buescher | Denny Hamlin | Erik Jones | Ty Gibbs
+base,11,49800,200,246.15821131004708,Brad Keselowski | Bubba Wallace | Denny Hamlin | Todd Gilliland | Ty Gibbs | Tyler Reddick
+base,12,49700,300,246.10235019296837,A.J. Allmendinger | Brad Keselowski | Bubba Wallace | Denny Hamlin | Ty Gibbs | Tyler Reddick
+base,13,49900,100,245.8017009749075,Bubba Wallace | Denny Hamlin | Erik Jones | John Hunter Nemechek | Kyle Larson | Ty Gibbs
+base,14,49300,700,245.38070333133055,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Erik Jones | Tyler Reddick
+base,15,49700,300,245.31998125869546,Brad Keselowski | Denny Hamlin | Erik Jones | Shane van Gisbergen | Ty Gibbs | Tyler Reddick
+base,16,50000,0,244.95197489093624,Bubba Wallace | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick | William Byron
+base,17,49100,900,244.72576376808271,Brad Keselowski | Bubba Wallace | John Hunter Nemechek | Kyle Larson | Ty Gibbs | Tyler Reddick
+base,18,49500,500,244.58161312490563,Brad Keselowski | Chase Elliott | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick
+base,19,49300,700,244.519433914227,Brad Keselowski | Bubba Wallace | John Hunter Nemechek | Ryan Blaney | Ty Gibbs | Tyler Reddick
+base,20,48600,1400,244.35317138991917,Bubba Wallace | Denny Hamlin | Erik Jones | John Hunter Nemechek | Ty Gibbs | Tyler Reddick
+chatter,1,49500,500,254.26118137824284,Brad Keselowski | Bubba Wallace | Chase Elliott | Erik Jones | Ty Gibbs | Tyler Reddick
+chatter,2,50000,0,253.90314951253802,Brad Keselowski | Bubba Wallace | Christopher Bell | Erik Jones | Ty Gibbs | Tyler Reddick
+chatter,3,49600,400,253.13330994031236,Brad Keselowski | Bubba Wallace | Denny Hamlin | John Hunter Nemechek | Ty Gibbs | Tyler Reddick
+chatter,4,49700,300,253.05403760522967,Brad Keselowski | Bubba Wallace | Erik Jones | Ty Gibbs | Tyler Reddick | William Byron
+chatter,5,50000,0,251.28479565896697,Brad Keselowski | Bubba Wallace | Denny Hamlin | Riley Herbst | Ty Gibbs | Tyler Reddick
+chatter,6,50000,0,250.98948679773923,Bubba Wallace | Denny Hamlin | Erik Jones | Shane van Gisbergen | Ty Gibbs | Tyler Reddick
+chatter,7,49900,100,250.75491605192232,Alex Bowman | Brad Keselowski | Denny Hamlin | Erik Jones | Ty Gibbs | Tyler Reddick
+chatter,8,49700,300,248.9799812586955,Brad Keselowski | Denny Hamlin | Erik Jones | Shane van Gisbergen | Ty Gibbs | Tyler Reddick
+chatter,9,49900,100,248.85593632732397,Alex Bowman | Brad Keselowski | Bubba Wallace | Chase Elliott | Ty Gibbs | Tyler Reddick
+chatter,10,49800,200,248.4691186639494,Bubba Wallace | Chase Elliott | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick
+chatter,11,49700,300,248.29235019296837,A.J. Allmendinger | Brad Keselowski | Bubba Wallace | Denny Hamlin | Ty Gibbs | Tyler Reddick
+chatter,12,49300,700,247.941433914227,Brad Keselowski | Bubba Wallace | John Hunter Nemechek | Ryan Blaney | Ty Gibbs | Tyler Reddick
+chatter,13,49900,100,247.93522164391175,Brad Keselowski | Bubba Wallace | Chris Buescher | Denny Hamlin | Erik Jones | Ty Gibbs
+chatter,14,49900,100,247.77570097490752,Bubba Wallace | Denny Hamlin | Erik Jones | John Hunter Nemechek | Kyle Larson | Ty Gibbs
+chatter,15,49900,100,247.5725455648807,Alex Bowman | Bubba Wallace | Erik Jones | Ryan Blaney | Ty Gibbs | Tyler Reddick
+chatter,16,49300,700,247.52270333133055,Alex Bowman | Brad Keselowski | Bubba Wallace | Denny Hamlin | Erik Jones | Tyler Reddick
+chatter,17,50000,0,247.26197489093624,Bubba Wallace | Denny Hamlin | Erik Jones | John Hunter Nemechek | Tyler Reddick | William Byron
+chatter,18,49700,300,247.08100153409714,Brad Keselowski | Bubba Wallace | Chase Elliott | Shane van Gisbergen | Ty Gibbs | Tyler Reddick
+chatter,19,49800,200,246.9882113100471,Brad Keselowski | Bubba Wallace | Denny Hamlin | Todd Gilliland | Ty Gibbs | Tyler Reddick
+chatter,20,49800,200,246.95386558200804,Brad Keselowski | Denny Hamlin | Erik Jones | John Hunter Nemechek | Ryan Blaney | Ty Gibbs

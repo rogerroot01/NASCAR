@@ -1,0 +1,41 @@
+driver_id,forecast_driver_name,market_driver_name,market_roster_status
+casey_mears,,Casey Mears,market_only_requires_roster_confirmation
+corey_heim,,Corey Heim,market_only_requires_roster_confirmation
+daniel_dye,,Daniel Dye,market_only_requires_roster_confirmation
+chad_finchum,Chad Finchum,,forecast_roster_only
+aj_allmendinger,A.J. Allmendinger,AJ Allmendinger,matched
+alex_bowman,Alex Bowman,Alex Bowman,matched
+austin_cindric,Austin Cindric,Austin Cindric,matched
+austin_dillon,Austin Dillon,Austin Dillon,matched
+austin_hill,Austin Hill,Austin Hill,matched
+brad_keselowski,Brad Keselowski,Brad Keselowski,matched
+bubba_wallace,Bubba Wallace,Bubba Wallace,matched
+carson_hocevar,Carson Hocevar,Carson Hocevar,matched
+chase_briscoe,Chase Briscoe,Chase Briscoe,matched
+chase_elliott,Chase Elliott,Chase Elliott,matched
+chris_buescher,Chris Buescher,Chris Buescher,matched
+christopher_bell,Christopher Bell,Christopher Bell,matched
+cody_ware,Cody Ware,Cody Ware,matched
+cole_custer,Cole Custer,Cole Custer,matched
+connor_zilisch,Connor Zilisch,Connor Zilisch,matched
+daniel_suarez,Daniel Suarez,Daniel Suarez,matched
+denny_hamlin,Denny Hamlin,Denny Hamlin,matched
+erik_jones,Erik Jones,Erik Jones,matched
+joey_logano,Joey Logano,Joey Logano,matched
+john_hunter_nemechek,John Hunter Nemechek,John Hunter Nemechek,matched
+josh_berry,Josh Berry,Josh Berry,matched
+kyle_larson,Kyle Larson,Kyle Larson,matched
+michael_mcdowell,Michael McDowell,Michael McDowell,matched
+noah_gragson,Noah Gragson,Noah Gragson,matched
+ricky_stenhouse_jr,Ricky Stenhouse Jr.,Ricky Stenhouse Jr.,matched
+riley_herbst,Riley Herbst,Riley Herbst,matched
+ross_chastain,Ross Chastain,Ross Chastain,matched
+ryan_blaney,Ryan Blaney,Ryan Blaney,matched
+ryan_preece,Ryan Preece,Ryan Preece,matched
+shane_van_gisbergen,Shane van Gisbergen,Shane Van Gisbergen,matched
+todd_gilliland,Todd Gilliland,Todd Gilliland,matched
+ty_dillon,Ty Dillon,Ty Dillon,matched
+ty_gibbs,Ty Gibbs,Ty Gibbs,matched
+tyler_reddick,Tyler Reddick,Tyler Reddick,matched
+william_byron,William Byron,William Byron,matched
+zane_smith,Zane Smith,Zane Smith,matched
