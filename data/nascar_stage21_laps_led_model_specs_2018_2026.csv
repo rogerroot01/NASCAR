@@ -2,7 +2,7 @@ model,route,matrix_type,evaluation_training_rows,production_training_rows,fallba
 xgb_owner_track,overall,owner,9574,10943,FALSE,3,0.07,5,0.75,0.6,120,rmse,0.06595033853649752,solved,laps_led_share,2024,337
 xgb_no_owner,overall,ownerless,9574,10943,FALSE,4,0.04,5,0.75,0.8,200,rmse,0.06574208470527554,solved,laps_led_share,2024,325
 route_drafting_owner_track,drafting,owner,1326,1565,FALSE,3,0.04,5,0.75,0.6,120,rmse,0.03971539727614577,solved,laps_led_share,2024,337
-route_drafting_no_owner,drafting,ownerless,1326,1565,FALSE,2,0.025,10,0.75,0.6,120,rmse,0.040012770787438354,solved,laps_led_share,2024,325
+route_drafting_no_owner,drafting,ownerless,1326,1565,FALSE,2,0.025,10,0.75,0.6,120,rmse,0.04001277078743835,solved,laps_led_share,2024,325
 route_road_owner_track,road,owner,1225,1452,FALSE,4,0.025,1,0.75,0.6,120,rmse,0.07510919490596908,solved,laps_led_share,2024,337
 route_road_no_owner,road,ownerless,1225,1452,FALSE,2,0.025,5,0.9,0.8,120,rmse,0.07697930587729777,solved,laps_led_share,2024,325
 route_short_steep_owner_track,short_steep,owner,1840,2105,FALSE,2,0.04,5,0.75,0.6,120,rmse,0.08263988090874719,solved,laps_led_share,2024,337
