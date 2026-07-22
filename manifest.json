@@ -1812,112 +1812,142 @@
   },
   "files": {
     "app.R": {
-      "checksum": "19977c389b4a17efd80728b712b2b860"
+      "checksum": "f2c3c94f85a6497a4bad567b97e20d35"
     },
-    "data/keep these files/f1_current_driver_weekend_signals_2018_2026.csv": {
-      "checksum": "ba7c7df8dcd861e634868cdcabde8a3c"
+    "data/keep these files/nascar_current_market_odds.csv": {
+      "checksum": "cef29b320134f1a90a42836ecbde1881"
     },
-    "data/keep these files/f1_current_sprint_facts_2018_2026.csv": {
-      "checksum": "309e88b8ebfdce48ebe66fe75652e0d0"
+    "data/keep these files/nascar_current_qualifying_override.csv": {
+      "checksum": "8de0a2452ffa780040664e1a312c688b"
     },
-    "data/keep these files/f1_market_odds_driver_summary_supplied_2025_2026.csv": {
-      "checksum": "86d64f6550c073423153a5cc779d7003"
-    },
-    "data/keep these files/f1_market_odds_driver_summary_supplied_2025_2026_backup_before_r10_opening_move_20260713_174405.csv": {
-      "checksum": "07ad072fa020d45ae5c26c05e87e2058"
-    },
-    "data/keep these files/f1_market_odds_grid_driver_summary_2025_2026.csv": {
-      "checksum": "e18675132c5ded238df348e25af4d946"
-    },
-    "data/keep these files/f1_market_odds_opening_driver_summary_2025_2026.csv": {
-      "checksum": "a8787c9b31800fd4ee030b17d1f35803"
-    },
-    "data/keep these files/f1_market_odds_opening_driver_summary_2025_2026_backup_before_r10_opening_move_20260713_174405.csv": {
-      "checksum": "ac0cbd9ccbcf4ad115a82803930f5988"
-    },
-    "data/keep these files/f1_prerace_chatter_team_race_signals_2018_2026.csv": {
-      "checksum": "db6225f04b4ecbc0099adb2b44aaf4a6"
-    },
-    "data/keep these files/f1_prerace_grid_quali_overrides_2018_2026.csv": {
-      "checksum": "ef4d6f8f7efca7dfbc860b9f6b7f0fef"
-    },
-    "data/keep these files/f1_qualifying_odds_current_2025_2026.csv": {
-      "checksum": "2d2f2bac201fc9e07f1a38847d6e54d8"
-    },
-    "data/keep these files/f1_winner_without_odds_current_2025_2026.csv": {
-      "checksum": "66bbce465f78a9771b4c7e9bab4e62e5"
+    "data/keep these files/nascar_next_race_roster_override.csv": {
+      "checksum": "a681728b91868700fe626cb079597dd1"
     },
     "data/nascar_active_strategy.csv": {
-      "checksum": "f22832b3652aade134bad7e7e05f3dd6"
+      "checksum": "737f9639acc8a6fd5370dfae4a03b0d7"
+    },
+    "data/nascar_component_annual_stage21_laps_led_current_latest.rds": {
+      "checksum": "f9660465ac0f5bb3a7c0f60175bc9af0"
+    },
+    "data/nascar_component_annual_stage21_laps_led_predictions_2018_2026.rds": {
+      "checksum": "72bbd8e379af24c306a814249a213a89"
+    },
+    "data/nascar_component_annual_stage22_fastest_laps_current_latest.rds": {
+      "checksum": "a62c50e17e3669e2467e3cf658298630"
+    },
+    "data/nascar_component_annual_stage22_fastest_laps_predictions_2018_2026.rds": {
+      "checksum": "c662e2c4d55fa9a0645b7f80423fc41b"
+    },
+    "data/nascar_component_rolling_stage21_laps_led_current_latest.rds": {
+      "checksum": "0fe800d971b2502b5b7e6838bc79bc6b"
+    },
+    "data/nascar_component_rolling_stage21_laps_led_predictions_2018_2026.rds": {
+      "checksum": "cfc78b2446860f545011ec06cea652b7"
+    },
+    "data/nascar_component_rolling_stage22_fastest_laps_current_latest.rds": {
+      "checksum": "4fd5f244a8dc410769fd791bab0b00f4"
+    },
+    "data/nascar_component_rolling_stage22_fastest_laps_predictions_2018_2026.rds": {
+      "checksum": "73b0efea12e920148ea01599eb1b9bec"
+    },
+    "data/nascar_hybrid_annual_current_finish_predictions_latest.rds": {
+      "checksum": "3b9865e44e6f5b3bdb10ad13170d0e2f"
+    },
+    "data/nascar_hybrid_annual_current_points_predictions_latest.rds": {
+      "checksum": "d77bb20c21407899e6e3eaef44f2aba6"
+    },
+    "data/nascar_hybrid_annual_current_probability_predictions_latest.rds": {
+      "checksum": "f6cd34254cca7649346724f42f202c57"
+    },
+    "data/nascar_hybrid_annual_current_qualifying_predictions_latest.rds": {
+      "checksum": "6d30100e8eb7d4b30e6c96f44037bbae"
+    },
+    "data/nascar_hybrid_annual_finish_predictions_2018_2026.rds": {
+      "checksum": "e196122bb92b4c40031b6ede6bf28663"
+    },
+    "data/nascar_hybrid_annual_points_predictions_2018_2026.rds": {
+      "checksum": "480c26a000f5c9cc2143d117044398c4"
+    },
+    "data/nascar_hybrid_annual_probability_predictions_2018_2026.rds": {
+      "checksum": "5d2764cfee8bd4caaaa6bb0b849394b4"
+    },
+    "data/nascar_hybrid_annual_qualifying_predictions_2018_2026.rds": {
+      "checksum": "81f0d7ff46523ec24beba636ca597608"
     },
     "data/nascar_stage1_driver_race_backbone_2018_2026.csv": {
-      "checksum": "43d13214dafe45936b24685389018f5b"
+      "checksum": "d9dcff30a1b0db622767264e02af56d7"
     },
     "data/nascar_stage1_stage2_driver_race_backbone_2018_2026.csv": {
-      "checksum": "e2a95be2ecd5a3c86b143ee5349a7a09"
+      "checksum": "3601a61147f59451fe0d079957787d2d"
     },
     "data/nascar_stage1_stage2_stage3_driver_race_backbone_2018_2026.csv": {
-      "checksum": "d5cdcbbece83814edc147cf30fe50394"
+      "checksum": "fb091a158ef0f3eb6bcf111aa5126d69"
     },
     "data/nascar_stage11_finish_metrics_2018_2026.csv": {
-      "checksum": "fa18a4cc3a2d8868ab0a6347919edb3e"
+      "checksum": "1e9f07f2f10269ef24fa96f999c5a3ab"
     },
     "data/nascar_stage11_finish_model_specs_2018_2026.csv": {
-      "checksum": "d2b5c7cf1761152c8fd3241372e61969"
+      "checksum": "4d143a53a36fd466bfea188b042705ab"
     },
     "data/nascar_stage11_finish_predictions_2018_2026.rds": {
-      "checksum": "93adf4f94eba243d06c44da0ebe0cda7"
+      "checksum": "290bf5207862c818ecb64c00430cfff4"
     },
     "data/nascar_stage12_probability_metrics_2018_2026.csv": {
-      "checksum": "312abb1cfc2ac183d4b09f85a2dcbf05"
+      "checksum": "ecc70bae9acfc4b63df9e24d9c8b4704"
     },
     "data/nascar_stage12_probability_model_specs_2018_2026.csv": {
-      "checksum": "27927647d48487a14475882a2d0c0be3"
+      "checksum": "e45995c3d7a7f071ba98398fa1f173c3"
     },
     "data/nascar_stage12_probability_predictions_2018_2026.rds": {
-      "checksum": "7e4edd4f2c8bca035cf73771641ea0f2"
+      "checksum": "f957ee286f7ea25d430b43321067515e"
     },
     "data/nascar_stage13_points_metrics_2018_2026.csv": {
-      "checksum": "05dd7554aa3c144f886e61cf38faacd5"
+      "checksum": "5b3f4fe0e1b33ab5dfb6a2d2b7ad576e"
     },
     "data/nascar_stage13_points_model_specs_2018_2026.csv": {
-      "checksum": "f27298f934ed274212c66bd2ed4a0496"
+      "checksum": "4463286d9973ba521ee5d5e40521789f"
     },
     "data/nascar_stage13_points_predictions_2018_2026.rds": {
-      "checksum": "e31a732b5b4fc25d281d39d58c71b9e1"
+      "checksum": "d3f7a040042cecb8493bc90ca83a9d4e"
     },
     "data/nascar_stage14_upcoming_race_features_latest.csv": {
-      "checksum": "489348780ee582fb8890b951763d6c4b"
+      "checksum": "f8674d962b00a1f303901d560648403a"
     },
     "data/nascar_stage15_current_finish_model_predictions_latest.csv": {
-      "checksum": "11077d6673c6ad1fa92c7aeffe800724"
+      "checksum": "3d0f782efb4dc9177f5ad65a85d5c178"
     },
     "data/nascar_stage15_current_points_model_predictions_latest.csv": {
-      "checksum": "54e45c32d39d4a638c76bac2b73a401b"
+      "checksum": "e8bfca47a89d259f1549af67760c7984"
     },
     "data/nascar_stage15_current_probability_model_predictions_latest.csv": {
-      "checksum": "b3a18ff8496383812328e67dac768fe1"
+      "checksum": "92bab6d5c16c89a2d86cf689d4d67458"
     },
     "data/nascar_stage15_current_qualifying_model_predictions_latest.csv": {
-      "checksum": "e28bf1a840bb28be201d2bad27674d66"
+      "checksum": "7b59547b1c9496e1a9d88b1ad095137b"
     },
     "data/nascar_stage15_upcoming_race_predictions_latest.csv": {
-      "checksum": "46bb8129e1380715d93ad341b5264361"
+      "checksum": "bc1d68df780112e5ff700d271641e139"
     },
     "data/nascar_stage16_active_backtest_2025_2026.csv": {
-      "checksum": "36eafdc22ecc8cc565f3d66571b44230"
+      "checksum": "ce38edb8c0325c4fee467b12bb54f85e"
+    },
+    "data/nascar_stage16_backtest_2025_2026.csv": {
+      "checksum": "03d9811dbbd78708966c7bfbce9ee2c3"
+    },
+    "data/nascar_stage16_backtest_2025_2026_metrics.csv": {
+      "checksum": "346e0aa9981e365d6e03c8d161030666"
     },
     "data/nascar_stage17_chatter_normalized_2025_2026.csv": {
-      "checksum": "d691925f5aed2a7f740b5d3534825d44"
+      "checksum": "577bb7851014f5895abb783b285e3ab8"
     },
     "data/nascar_stage17_draftkings_current.csv": {
       "checksum": "61140b14a0b1d71133871e3c596d61c3"
     },
     "data/nascar_stage17_draftkings_roster_audit_current.csv": {
-      "checksum": "9ae0cbc5987567d5ed48b603f2c6846e"
+      "checksum": "44bdaa570b52d46c9ca814e7c0b4706b"
     },
     "data/nascar_stage17_external_inputs_audit.csv": {
-      "checksum": "78f8ef2f3705e5d37cebdab2ba056c7c"
+      "checksum": "b62528812f8f43554f89caa76ab1b18e"
     },
     "data/nascar_stage17_market_qualifying_partial_2025_2026.csv": {
       "checksum": "09ed167bb0614fcafe4ac917c79a9402"
@@ -1926,49 +1956,82 @@
       "checksum": "565a9050805683b4e70a2a3ebe0b93ce"
     },
     "data/nascar_stage17_market_top3_verified_partial_2025_2026.csv": {
-      "checksum": "ecc7ce551399ec4e2746d91082589df8"
+      "checksum": "d02dff9906d6d5fe1ccc265a042a0542"
     },
     "data/nascar_stage17_market_winner_evaluation_2025_2026.csv": {
       "checksum": "a75a668b58abfac2fdff0743d09a90d7"
     },
     "data/nascar_stage17_market_winner_full_boards_2025_2026.csv": {
-      "checksum": "2778e8de92d7e043c80ce7d8e6ec3093"
+      "checksum": "f0e4d2706caaca6066bd9cf2399c10fc"
     },
     "data/nascar_stage18_2025_backtest_safe_overlay.csv": {
-      "checksum": "9a702b7e8514e4251fabe5c275621035"
+      "checksum": "37abca3f45127177bc37590f52df0749"
     },
     "data/nascar_stage18_2025_backtest_safe_overlay_metrics.csv": {
-      "checksum": "3f3e0e241aa518541abfa39a9ab195c6"
+      "checksum": "e17a96b4aea9eb33874059c332cfb00f"
     },
     "data/nascar_stage18_current_forecast_with_safe_overlays_latest.csv": {
-      "checksum": "587a194ce6d210e7e0efb2830216e25d"
+      "checksum": "2ff838384ef343de4b158f410fb7a002"
     },
     "data/nascar_stage19_draftkings_driver_projections_latest.csv": {
-      "checksum": "58b7c17ab86ead77823775def8164d27"
+      "checksum": "26848407e2be219f0f24adb8e21c6db0"
+    },
+    "data/nascar_stage19_draftkings_salary_history.csv": {
+      "checksum": "9c5cbc29c48bb9483dd89b944f704309"
     },
     "data/nascar_stage19_draftkings_top_lineup_members_latest.csv": {
-      "checksum": "3cca4895362383319f3b1e8b5bed2f33"
+      "checksum": "cd9231d276b7175398b4a68c261a55ef"
     },
     "data/nascar_stage19_draftkings_top_lineups_latest.csv": {
-      "checksum": "83c346a7b1f82f077a63e8f86a416bc0"
+      "checksum": "15dbf31640ab9c6bd77f05da5034060f"
     },
     "data/nascar_stage2_driver_race_detailed_2018_2026.csv": {
-      "checksum": "f982fc271b2ab4dc67276bc48af2a7df"
+      "checksum": "787d5a525e7235d473a5429ecf64fdec"
+    },
+    "data/nascar_stage20_2025_2026_draftkings_points_backtest.csv": {
+      "checksum": "012648554ee8f0eb7bf272f137beb4bf"
+    },
+    "data/nascar_stage20_2025_2026_draftkings_points_backtest_metrics.csv": {
+      "checksum": "5125da937b20ddc34f1ce9429c343cfa"
+    },
+    "data/nascar_stage21_laps_led_current_predictions_latest.rds": {
+      "checksum": "b0066464ab820e4afe551a366cb5ff03"
+    },
+    "data/nascar_stage21_laps_led_metrics_2018_2026.csv": {
+      "checksum": "e74e154db6dd8d0711dba36672c3e9fe"
+    },
+    "data/nascar_stage21_laps_led_model_specs_2018_2026.csv": {
+      "checksum": "e444c540e455a01c864570e4dac73867"
+    },
+    "data/nascar_stage21_laps_led_predictions_2018_2026.rds": {
+      "checksum": "287ee5667a0de35df607efafe9efc2d0"
+    },
+    "data/nascar_stage22_fastest_laps_current_predictions_latest.rds": {
+      "checksum": "e7599e1a926fe46a844db7cc92581778"
+    },
+    "data/nascar_stage22_fastest_laps_metrics_2018_2026.csv": {
+      "checksum": "e1509a6f61ff1006c549aecfcee942c4"
+    },
+    "data/nascar_stage22_fastest_laps_model_specs_2018_2026.csv": {
+      "checksum": "8aed80ad034a1e30742bb2ab043a984c"
+    },
+    "data/nascar_stage22_fastest_laps_predictions_2018_2026.rds": {
+      "checksum": "1ac681af6ae3bbd25881f6e60c438543"
     },
     "data/nascar_stage4_track_profile_inventory_2018_2026.csv": {
-      "checksum": "55cdbf5896cdccfd1edff4d9b8e39805"
+      "checksum": "2bedacb210c83b4cb20bff6510ea5922"
     },
     "data/nascar_stage7_qualifying_metrics_2018_2026.csv": {
-      "checksum": "6eb05521280a4becbe3248a2b403e84c"
+      "checksum": "f4ba625b339a5742439a7ab27ec5d04a"
     },
     "data/nascar_stage7_qualifying_model_specs_2018_2026.csv": {
-      "checksum": "28dcac8d5a0d9cf2404fd821275725e8"
+      "checksum": "403af90b3a91c5e4c547365cc83b3e54"
     },
     "data/nascar_stage7_qualifying_predictions_2018_2026.rds": {
-      "checksum": "0bb12075c4e69eaa342cf41162b5f0d9"
+      "checksum": "c1766372989ca3bbd8a8ab2753c06431"
     },
     "README.md": {
-      "checksum": "92b99fc868f5004db78966b4670515f3"
+      "checksum": "2287983162202a9da3d73f80205a9b76"
     },
     "www/app-icon-512.png": {
       "checksum": "32b1599aa4b360cf8a7c4101131b9418"
