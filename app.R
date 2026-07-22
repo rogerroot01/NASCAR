@@ -97,6 +97,7 @@ component_ensemble_rows <- function(rows, selected_models, full_race_pool = TRUE
     "component_route", "driver_name", "owner_name", "manufacturer",
     "scheduled_laps", "target_component_count", "target_component_share"
   ), names(x))
+  concentration_power <- if (isTRUE(full_race_pool)) 1.8 else 1.3
   x %>%
     group_by(season, round, driver_id) %>%
     summarise(
@@ -107,15 +108,13 @@ component_ensemble_rows <- function(rows, selected_models, full_race_pool = TRUE
     group_by(season, round) %>%
     mutate(
       component_pool = sum(predicted_component_share, na.rm = TRUE),
-      predicted_component_share = if_else(
-        isTRUE(full_race_pool) | .data$component_pool > 1,
-        predicted_component_share / .data$component_pool,
-        predicted_component_share
-      ),
+      calibrated_weight = pmax(predicted_component_share, 0)^concentration_power,
+      allocation_pool = if_else(isTRUE(full_race_pool) | .data$component_pool > 1, 1, .data$component_pool),
+      predicted_component_share = .data$allocation_pool * .data$calibrated_weight / sum(.data$calibrated_weight),
       predicted_component_count = predicted_component_share * first(scheduled_laps),
       predicted_component_rank = rank(-predicted_component_share, ties.method = "first")
     ) %>%
-    ungroup() %>%
+    ungroup() %>% select(-calibrated_weight, -allocation_pool) %>%
     mutate(
       data_split = if_else(is.na(target_component_count), "upcoming", "evaluation"),
       model = "selected_ensemble", model_group = "ensemble",
@@ -972,8 +971,8 @@ server <- function(input, output, session) {
     })
     ensemble_rows<-reactive(component_ensemble(race_rows(),selected_models(),full_race_pool=identical(prefix,"ll")))
     output[[paste0(prefix,"_context")]]<-renderUI({x<-race_rows()%>%slice(1);div(class="race-context",span(class="context-chip",paste0(first(x$season)," • Round ",first(x$round))),strong(first(x$track_name)),span(first(x$race_name)),span(str_to_title(str_replace_all(first(x$component_route),"_"," "))))})
-    output[[paste0(prefix,"_cards")]]<-renderUI({x<-ensemble_rows();validate(need(nrow(x),"No component ensemble rows."));leader<-x%>%slice_min(predicted_component_rank,n=1,with_ties=FALSE);div(class="metric-row",metric_card(paste("Projected",component_label,"leader"),leader$driver_name,leader$owner_name,"gold"),metric_card("Projected share",fmt_pct(leader$predicted_component_share,1),paste0(fmt_num(leader$predicted_component_count,1)," laps"),"blue"),metric_card("Blend sources",n_distinct(race_rows()$blend_source),paste(length(selected_models()),"choices selected"),"green"))})
-    output[[paste0(prefix,"_consensus")]]<-renderTable({ensemble_rows()%>%arrange(predicted_component_rank)%>%slice_head(n=15)%>%transmute(Rank=fmt_int(predicted_component_rank),Driver=driver_name,Owner=owner_name,Share=fmt_pct(predicted_component_share,1),`Projected laps`=fmt_num(predicted_component_count,1),`Actual laps`=fmt_num(target_component_count,0))},striped=TRUE,hover=TRUE,rownames=FALSE)
+    output[[paste0(prefix,"_cards")]]<-renderUI({x<-ensemble_rows();validate(need(nrow(x),"No component ensemble rows."));leader<-x%>%slice_min(predicted_component_rank,n=1,with_ties=FALSE);actual_coverage<-sum(is.finite(x$target_component_count));div(class="metric-row",metric_card(paste("Projected",component_label,"leader"),leader$driver_name,leader$owner_name,"gold"),metric_card("Projected share",fmt_pct(leader$predicted_component_share,1),paste0(fmt_num(leader$predicted_component_count,1)," laps"),"blue"),metric_card("Allocated pool",fmt_num(sum(x$predicted_component_count),1),paste0("of ",fmt_num(first(x$scheduled_laps),0)," scheduled laps"),"green"),metric_card("Actual coverage",paste0(actual_coverage," / ",nrow(x)),if(actual_coverage)ngettext(actual_coverage,"driver reported","drivers reported")else"Upstream actuals unavailable","blue"))})
+    output[[paste0(prefix,"_consensus")]]<-renderTable({ensemble_rows()%>%arrange(predicted_component_rank)%>%transmute(Rank=fmt_int(predicted_component_rank),Driver=driver_name,Owner=owner_name,Share=fmt_pct(predicted_component_share,1),`Projected laps`=fmt_num(predicted_component_count,1),`Actual laps`=fmt_num(target_component_count,0))},striped=TRUE,hover=TRUE,rownames=FALSE)
     output[[paste0(prefix,"_predictions")]]<-renderTable({bind_rows(race_rows(),ensemble_rows())%>%arrange(factor(model,levels=c("selected_ensemble",component_primary_models,component_routed_models)),predicted_component_rank)%>%transmute(Model=component_model_label(model),Rank=fmt_int(predicted_component_rank),Driver=driver_name,Owner=owner_name,Share=fmt_pct(predicted_component_share,1),`Projected laps`=fmt_num(predicted_component_count,1),`Actual laps`=fmt_num(target_component_count,0),Route=str_to_title(str_replace_all(route_scope,"_"," ")))},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
     output[[paste0(prefix,"_metrics")]]<-renderTable({
       view_rows<-component_data()
