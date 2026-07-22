@@ -1,23 +1,67 @@
-﻿"season","round","race_name","driver_code","driver_name","driver_momentum_score","practice_signal_score","sprint_signal_score","qualifying_signal_score","context_score","confidence","notes"
-"2026","9","British Grand Prix","HAM","Lewis Hamilton","3","3","2.4",,"2.5","1","Fastest FP1, sprint pole, P2 sprint; Ferrari/Hamilton weekend signal is strongly positive."
-"2026","9","British Grand Prix","ANT","Andrea Kimi Antonelli","2.5","2","3",,"2","1","P2 in sprint qualifying by 0.011s and won sprint; strong driver-specific positive."
-"2026","9","British Grand Prix","LEC","Charles Leclerc","1.2","1.4","1",,"1","0.9","Ferrari pace positive, but Hamilton carrying stronger driver-specific signal."
-"2026","9","British Grand Prix","RUS","George Russell","-0.4","-0.5","0",,"-0.6","0.9","Mercedes team positive mostly via Antonelli; Russell weekend signal neutral to mildly negative."
-"2026","9","British Grand Prix","NOR","Lando Norris","0","-1","1.2",,"-0.4","0.8","McLaren pace concern and brake duct issue, partly offset by P3 sprint recovery."
-"2026","9","British Grand Prix","PIA","Oscar Piastri","-0.5","-1","-0.4",,"-0.6","0.85","McLaren comments and P7 sprint suggest weaker than normal current-weekend signal."
-"2026","9","British Grand Prix","VER","Max Verstappen","0.4","0.2","0",,"0.3","0.85","Red Bull closer but not dominant; mild positive only."
-"2026","9","British Grand Prix","LAW","Liam Lawson","1.2","0.8","1.2",,"1","0.8","Racing Bulls punchy; Lawson scored final sprint point from P9 to P8."
-"2026","9","British Grand Prix","LIN","Arvid Lindblad","1","0.7","0.6",,"0.9","0.75","Racing Bulls SQ3 and P10 sprint is a positive midfield signal."
-"2026","9","British Grand Prix","HAD","Isack Hadjar","0.7","0.5","0.3",,"0.6","0.75","Racing Bulls pace positive, but lost one spot in sprint."
-"2026","9","British Grand Prix","GAS","Pierre Gasly","0.1","0","0",,"0","0.65","Neutral midfield weekend signal."
-"2026","9","British Grand Prix","COL","Franco Colapinto","0","0","0.4",,"0","0.6","Slight positive after gaining positions in sprint."
-"2026","9","British Grand Prix","HUL","Nico Hulkenberg","-0.1","0","0",,"0","0.6","Neutral to slight negative."
-"2026","9","British Grand Prix","BOR","Gabriel Bortoleto","-0.2","0","-0.3",,"0","0.6","Slight negative after slipping in sprint."
-"2026","9","British Grand Prix","BEA","Oliver Bearman","-0.6","-0.5","0.2",,"-0.8","0.75","Haas chatter negative despite a small sprint gain."
-"2026","9","British Grand Prix","OCO","Esteban Ocon","-0.8","-0.5","0.2",,"-0.8","0.75","Haas broader weekend signal negative."
-"2026","9","British Grand Prix","SAI","Carlos Sainz","-0.4","-0.2","-0.3",,"-0.2","0.65","Williams slight step but still outside top ten; sprint loss."
-"2026","9","British Grand Prix","ALB","Alexander Albon","-0.3","-0.2","-0.4",,"-0.1","0.65","Williams straight-line/setup concerns and sprint loss."
-"2026","9","British Grand Prix","BOT","Valtteri Bottas","-0.5","-0.3","0.1",,"-0.3","0.55","Backmarker-neutral to negative."
-"2026","9","British Grand Prix","ALO","Fernando Alonso","-0.4","-0.3","0.1",,"-0.3","0.55","Little positive evidence from sprint weekend so far."
-"2026","9","British Grand Prix","STR","Lance Stroll","-0.6","-0.4","0.1",,"-0.4","0.55","Little positive evidence from sprint weekend so far."
-"2026","9","British Grand Prix","PER","Sergio Perez","-0.8","-0.5","-1",,"-0.6","0.6","Dropped to last in sprint classification; negative current-weekend signal."
+season,round,race_name,driver_code,driver_name,driver_momentum_score,practice_signal_score,sprint_signal_score,qualifying_signal_score,context_score,confidence,notes
+2026,9,British Grand Prix,HAM,Lewis Hamilton,3,3,2.4,,2.5,1,"Fastest FP1, sprint pole, P2 sprint; Ferrari/Hamilton weekend signal is strongly positive."
+2026,9,British Grand Prix,ANT,Andrea Kimi Antonelli,2.5,2,3,,2,1,P2 in sprint qualifying by 0.011s and won sprint; strong driver-specific positive.
+2026,9,British Grand Prix,LEC,Charles Leclerc,1.2,1.4,1,,1,0.9,"Ferrari pace positive, but Hamilton carrying stronger driver-specific signal."
+2026,9,British Grand Prix,RUS,George Russell,-0.4,-0.5,0,,-0.6,0.9,Mercedes team positive mostly via Antonelli; Russell weekend signal neutral to mildly negative.
+2026,9,British Grand Prix,NOR,Lando Norris,0,-1,1.2,,-0.4,0.8,"McLaren pace concern and brake duct issue, partly offset by P3 sprint recovery."
+2026,9,British Grand Prix,PIA,Oscar Piastri,-0.5,-1,-0.4,,-0.6,0.85,McLaren comments and P7 sprint suggest weaker than normal current-weekend signal.
+2026,9,British Grand Prix,VER,Max Verstappen,0.4,0.2,0,,0.3,0.85,Red Bull closer but not dominant; mild positive only.
+2026,9,British Grand Prix,LAW,Liam Lawson,1.2,0.8,1.2,,1,0.8,Racing Bulls punchy; Lawson scored final sprint point from P9 to P8.
+2026,9,British Grand Prix,LIN,Arvid Lindblad,1,0.7,0.6,,0.9,0.75,Racing Bulls SQ3 and P10 sprint is a positive midfield signal.
+2026,9,British Grand Prix,HAD,Isack Hadjar,0.7,0.5,0.3,,0.6,0.75,"Racing Bulls pace positive, but lost one spot in sprint."
+2026,9,British Grand Prix,GAS,Pierre Gasly,0.1,0,0,,0,0.65,Neutral midfield weekend signal.
+2026,9,British Grand Prix,COL,Franco Colapinto,0,0,0.4,,0,0.6,Slight positive after gaining positions in sprint.
+2026,9,British Grand Prix,HUL,Nico Hulkenberg,-0.1,0,0,,0,0.6,Neutral to slight negative.
+2026,9,British Grand Prix,BOR,Gabriel Bortoleto,-0.2,0,-0.3,,0,0.6,Slight negative after slipping in sprint.
+2026,9,British Grand Prix,BEA,Oliver Bearman,-0.6,-0.5,0.2,,-0.8,0.75,Haas chatter negative despite a small sprint gain.
+2026,9,British Grand Prix,OCO,Esteban Ocon,-0.8,-0.5,0.2,,-0.8,0.75,Haas broader weekend signal negative.
+2026,9,British Grand Prix,SAI,Carlos Sainz,-0.4,-0.2,-0.3,,-0.2,0.65,Williams slight step but still outside top ten; sprint loss.
+2026,9,British Grand Prix,ALB,Alexander Albon,-0.3,-0.2,-0.4,,-0.1,0.65,Williams straight-line/setup concerns and sprint loss.
+2026,9,British Grand Prix,BOT,Valtteri Bottas,-0.5,-0.3,0.1,,-0.3,0.55,Backmarker-neutral to negative.
+2026,9,British Grand Prix,ALO,Fernando Alonso,-0.4,-0.3,0.1,,-0.3,0.55,Little positive evidence from sprint weekend so far.
+2026,9,British Grand Prix,STR,Lance Stroll,-0.6,-0.4,0.1,,-0.4,0.55,Little positive evidence from sprint weekend so far.
+2026,9,British Grand Prix,PER,Sergio Perez,-0.8,-0.5,-1,,-0.6,0.6,Dropped to last in sprint classification; negative current-weekend signal.
+2026,10,Belgian Grand Prix,ANT,Andrea Kimi Antonelli,2.5,3,,2.8,1.5,1,"Fastest in FP2 and FP3, then pole by 0.317s; FIA/F1 post-qualifying coverage describes a clean final lap and strong weekend momentum."
+2026,10,Belgian Grand Prix,VER,Max Verstappen,1,1.5,,1.8,0.8,0.95,Front-row qualifying performance confirmed Red Bull as a live race threat; P2 was achieved despite a near miss with Hadjar during the final tow attempt.
+2026,10,Belgian Grand Prix,NOR,Lando Norris,0.5,1.2,,1.6,0,0.9,"Qualified P3 with credible front-running pace; the separate explicit grid input already handles his 10-place power-unit penalty, so no duplicate context penalty is applied here."
+2026,10,Belgian Grand Prix,RUS,George Russell,-0.6,-1.5,,-1.8,-3,1,"F1.com and Toto Wolff report an unexplained, persistent straight-line-speed deficit since Silverstone; Mercedes had not identified the cause after qualifying and Russell called the losses astronomical."
+2026,10,Belgian Grand Prix,LEC,Charles Leclerc,1.5,0.4,,0.3,0.4,0.9,"Recent win momentum remains positive and P5 qualifying kept Leclerc near the front, although Spa one-lap pace was below Antonelli and Verstappen."
+2026,10,Belgian Grand Prix,HAM,Lewis Hamilton,1.2,-0.8,,0.2,0,0.9,"Ferrari rebuilt the suspension, floor and rear wing after Hamilton's FP3 crash and he recovered to P6; repairs were completed before qualifying, so no continuing mechanical penalty is assumed."
+2026,10,Belgian Grand Prix,PIA,Oscar Piastri,-0.3,0,,-0.5,0,0.8,"P7 qualifying was a modest negative relative to the leading group, with no separate unresolved mechanical issue reported."
+2026,10,Belgian Grand Prix,LIN,Arvid Lindblad,1,0.7,,1,0.4,0.85,"Reached Q3 and qualified P8, sustaining Racing Bulls' positive recent midfield signal."
+2026,10,Belgian Grand Prix,HAD,Isack Hadjar,1,1,,1.2,0,0.85,"Reached Q3 and contributed to Red Bull's tow plan; the explicit grid input already handles his 20-place penalty, so it is not duplicated in chatter."
+2026,10,Belgian Grand Prix,BOR,Gabriel Bortoleto,0.9,0.5,,1.2,0.3,0.85,Rapid Q2 lap and P9 qualifying added a positive driver-specific signal for Audi.
+2026,10,Belgian Grand Prix,LAW,Liam Lawson,1.2,0.7,,0.6,0.4,0.8,Missed Q3 by only 0.038s and continued a strong recent run for Racing Bulls.
+2026,10,Belgian Grand Prix,HUL,Nico Hulkenberg,0.3,0.4,,-0.3,-2,0.9,A sudden hydraulic leak ended qualifying in P14 and remains a material pre-race reliability concern.
+2026,10,Belgian Grand Prix,COL,Franco Colapinto,0.3,0.4,,0.4,0,0.7,Qualified P13 with a mildly positive midfield weekend and no unresolved issue reported.
+2026,10,Belgian Grand Prix,GAS,Pierre Gasly,0.4,0.5,,0.5,0,0.75,Qualified P12 with a mildly positive midfield signal and no unresolved issue reported.
+2026,10,Belgian Grand Prix,SAI,Carlos Sainz,-0.3,-0.3,,-0.2,-0.4,0.7,P15 qualifying left Williams outside the points-contending group despite its Spa updates.
+2026,10,Belgian Grand Prix,BEA,Oliver Bearman,-0.3,-0.2,,-0.4,0,0.7,"Q1 exit and P16 qualifying were a mild negative, with no separate unresolved mechanical problem reported."
+2026,10,Belgian Grand Prix,OCO,Esteban Ocon,-0.6,-0.3,,-0.6,0,0.75,Disappointing Q1 exit and P18 qualifying produced a negative current-weekend signal.
+2026,10,Belgian Grand Prix,ALB,Alexander Albon,-0.7,-0.5,,-0.8,0,0.75,"Missed Q2 by seven milliseconds and qualified P17, extending Williams' weak Spa weekend signal."
+2026,10,Belgian Grand Prix,PER,Sergio Perez,-0.8,-0.6,,-1,-2.5,1,Cadillac's post-qualifying report says an energy-deployment issue present since FP1 was not fixed before qualifying and cost Perez time on Spa's straights.
+2026,10,Belgian Grand Prix,BOT,Valtteri Bottas,-0.3,0,,-0.6,0.5,0.85,"P19 qualifying was slow, but Bottas reported a straightforward weekend, improved confidence and that the team extracted the available package."
+2026,10,Belgian Grand Prix,STR,Lance Stroll,-1,-0.8,,-1,-1,0.8,Back-row qualifying confirmed Aston Martin's difficult Spa pace; the explicit grid input separately handles the enforced penalty.
+2026,10,Belgian Grand Prix,ALO,Fernando Alonso,-0.8,-0.7,,-0.9,-1,0.8,Back-row qualifying confirmed Aston Martin's difficult Spa pace; the explicit grid input separately handles the enforced penalty.
+2026,11,Hungarian Grand Prix,ANT,Andrea Kimi Antonelli,2.5,,,,1.5,1,Belgium win from pole confirms elite pace and composure; the championship leader remains the Hungary benchmark.
+2026,11,Hungarian Grand Prix,RUS,George Russell,-1.2,,,,-3,1,"Persistent unexplained straight-line-speed deficit continued at Spa, followed by a separate severe opening-lap boost failure; Mercedes still identifies reliability as its clearest weakness."
+2026,11,Hungarian Grand Prix,LEC,Charles Leclerc,2,,,,0.8,0.95,Silverstone win followed by a Spa P2 and sustained race-leading pace; Ferrari's improving operating window appears repeatable.
+2026,11,Hungarian Grand Prix,HAM,Lewis Hamilton,1,,,,0.2,0.9,"Recovered to P4 despite contact damage and a five-second penalty, supporting positive Ferrari race pace without carrying the incident forward."
+2026,11,Hungarian Grand Prix,VER,Max Verstappen,1.5,,,,0.8,0.95,"Spa podium and a more straightforward car window confirm Red Bull's recent step, though Antonelli still held the pace advantage."
+2026,11,Hungarian Grand Prix,HAD,Isack Hadjar,1.8,,,,0.9,0.95,Charged from P21 to P6 with top-three-level pace according to Red Bull; strongest race yet for the team.
+2026,11,Hungarian Grand Prix,NOR,Lando Norris,0.9,,,,0.6,0.9,Underlying Spa pace was podium-capable and Hungary upgrades are due; track-specific braking/cornering weakness limits the positive.
+2026,11,Hungarian Grand Prix,PIA,Oscar Piastri,0.4,,,,0.2,0.85,Podium-capable early pace was obscured by floor damage; McLaren still needs another performance step for Hungary.
+2026,11,Hungarian Grand Prix,BOR,Gabriel Bortoleto,1.3,,,,0.7,0.95,Back-to-back P8 finishes and competitive race pace establish a strong current midfield signal.
+2026,11,Hungarian Grand Prix,HUL,Nico Hulkenberg,0.3,,,,0.2,0.8,Competitive race pace was masked by starting position and weak straight-line speed; Audi's broader trend is positive.
+2026,11,Hungarian Grand Prix,LIN,Arvid Lindblad,1.1,,,,0.7,0.9,Fifth consecutive points finish and strong upgrade performance suit the lower-straight Hungary layout.
+2026,11,Hungarian Grand Prix,LAW,Liam Lawson,0.1,,,,0.7,0.85,"Spa deployment issue hurt pace, but Lawson receives the full, strongly rated Racing Bulls upgrade package in Hungary."
+2026,11,Hungarian Grand Prix,COL,Franco Colapinto,0.7,,,,-0.2,0.85,"Belgium P10 adds driver momentum, but Alpine says Hungary will not produce a competitive-order turnaround."
+2026,11,Hungarian Grand Prix,GAS,Pierre Gasly,-0.3,,,,-0.8,0.9,"Missed the points and explicitly said Alpine is not quick enough, a trend he expects the team must reverse."
+2026,11,Hungarian Grand Prix,BEA,Oliver Bearman,0.3,,,,0.3,0.8,"Spa result was compromised, but Bearman reported a more connected car and stronger underlying pace."
+2026,11,Hungarian Grand Prix,OCO,Esteban Ocon,-0.4,,,,-0.4,0.8,"First-lap damage obscured the race, but Ocon still reported weak straight-line speed, rear grip, and overall pace."
+2026,11,Hungarian Grand Prix,SAI,Carlos Sainz,-0.6,,,,-0.9,0.9,Williams' midfield gap is increasing and Sainz says upcoming upgrades will not completely close it.
+2026,11,Hungarian Grand Prix,ALB,Alexander Albon,-0.8,,,,-1,0.9,Race pace fell away and Albon says rivals are progressing much faster than Williams.
+2026,11,Hungarian Grand Prix,ALO,Fernando Alonso,-0.8,,,,0.7,0.85,"Spa pace was extremely poor, but Alonso will receive a major new Aston Martin package in Hungary; upside remains uncertain."
+2026,11,Hungarian Grand Prix,STR,Lance Stroll,-1.1,,,,0.3,0.9,Spa pace remained poor and a suspected gearbox issue caused retirement; Hungary's new package only partly offsets the risk.
+2026,11,Hungarian Grand Prix,PER,Sergio Perez,-1.2,,,,-1.5,1,"Retired with a rear suspension failure after continued straight-line limitations, leaving a strong unresolved reliability signal."
+2026,11,Hungarian Grand Prix,BOT,Valtteri Bottas,-0.3,,,,-0.5,0.85,Completed the race ahead of Aston Martin but Cadillac still reports reliability and tyre-degradation work.
