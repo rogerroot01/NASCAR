@@ -1,8 +1,8 @@
 model,training_rows,fallback,train_end_season,numeric_features,target,max_depth,eta,min_child_weight,subsample,colsample_bytree,nrounds,eval_metric,eval_value,tuning_status,binary_class_weighting
-xgb_owner_track,11699,FALSE,2026,301,win,3,0.025,5,0.75,0.8,200,logloss,0.10965479083380426,solved,none
-xgb_owner_track,11699,FALSE,2026,301,top3,5,0.04,10,0.9,0.6,120,logloss,0.234556872816168,solved,none
-xgb_no_owner,11699,FALSE,2026,301,win,5,0.04,10,0.75,0.6,120,logloss,0.1107736109255286,solved,none
-xgb_no_owner,11699,FALSE,2026,301,top3,5,0.04,1,0.75,0.6,120,logloss,0.2336206438068565,solved,none
+xgb_owner_track,11736,FALSE,2026,301,win,3,0.025,5,0.75,0.8,200,logloss,0.10965479083380426,solved,none
+xgb_owner_track,11736,FALSE,2026,301,top3,5,0.04,10,0.9,0.6,120,logloss,0.234556872816168,solved,none
+xgb_no_owner,11736,FALSE,2026,301,win,5,0.04,10,0.75,0.6,120,logloss,0.1107736109255286,solved,none
+xgb_no_owner,11736,FALSE,2026,301,top3,5,0.04,1,0.75,0.6,120,logloss,0.2336206438068565,solved,none
 xgb_drafting_specialist,1722,FALSE,2026,301,win,3,0.025,5,0.75,0.6,200,logloss,0.11684837270569448,solved,none
 xgb_drafting_specialist,1722,FALSE,2026,301,top3,2,0.025,1,0.9,0.95,200,logloss,0.2598880790036336,solved,none
 xgb_road_specialist,1602,FALSE,2026,301,win,5,0.07,5,0.75,0.8,120,logloss,0.10290938012354718,solved,none
