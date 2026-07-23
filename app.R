@@ -684,6 +684,7 @@ summarise_qualifying_window <- function(rows,start_season,end_season) {
 
 chatter_contract <- function(data,adjusted=FALSE) {
   if(!nrow(data))return(tibble())
+  if(!"target_finish_position"%in%names(data))data<-data%>%mutate(target_finish_position=NA_real_)
   rank_col<-if(adjusted)"predicted_finish_rank_adjusted"else"predicted_finish_rank"
   finish_col<-if(adjusted)"predicted_finish_position_adjusted"else"predicted_finish_position"
   win_col<-if(adjusted)"win_probability_adjusted"else"win_probability"
@@ -863,7 +864,7 @@ app_shell <- navbarPage(
       div(class="page-hero",div(class="eyebrow","SIGNAL LAB"),h1("Chatter Overlay"),p("Base versus safely adjusted forecasts. Ineligible or missing chatter stays neutral.")),
       div(class="app-grid",
         aside(class="control-rail",h3("Display"),selectInput("chatter_roi_start","ROI start season",choices=c(2026,2025),selected=2025),selectInput("chatter_roi_end","ROI end season",choices=c(2026,2025),selected=2026),selectInput("chatter_view","View",choices=c("Current race"="current","2025 validation"="backtest")),div(class="rail-note","The ROI comparison shows the production consensus before and after the safety-gated chatter adjustment. No adjustment is applied unless the input passes the safety and timing rules.")),
-        main(class="content-stack",div(class="panel",h2("Base vs Chatter Season Betting ROI"),tableOutput("chatter_roi")),uiOutput("chatter_cards"),conditionalPanel(condition="input.chatter_view === 'current'",div(class="panel",h2("Chatter Projected Podium"),tableOutput("chatter_podium")),div(class="panel",h2("Full Chatter-Predicted Order"),p(class="panel-note","Ordered by the chatter-adjusted finish rank. The base rank and finish change show exactly where the overlay moved each driver."),div(class="table-scroll",tableOutput("chatter_order")))),div(class="panel",h2("Adjustment detail"),div(class="table-scroll",tableOutput("chatter_table"))),div(class="panel",h2("Overlay validation"),tableOutput("chatter_metrics")))
+        main(class="content-stack",div(class="panel",h2("Base vs Chatter Season Betting ROI"),tableOutput("chatter_roi")),uiOutput("chatter_cards"),conditionalPanel(condition="input.chatter_view === 'current'",div(class="panel",h2("Chatter-Adjusted Betting Value"),p(class="panel-note","DraftKings odds and market probabilities compared with the chatter-adjusted model probabilities for the selected winner and podium bets."),tableOutput("chatter_bets")),div(class="panel",h2("Chatter Projected Podium"),tableOutput("chatter_podium")),div(class="panel",h2("Full Chatter-Predicted Order"),p(class="panel-note","Ordered by the chatter-adjusted finish rank. The base rank and finish change show exactly where the overlay moved each driver."),div(class="table-scroll",tableOutput("chatter_order")))),div(class="panel",h2("Adjustment detail"),div(class="table-scroll",tableOutput("chatter_table"))),div(class="panel",h2("Overlay validation"),tableOutput("chatter_metrics")))
       )
     )
   ),
@@ -1278,7 +1279,12 @@ server <- function(input, output, session) {
 
   # F1-style consensus: inherit selections from the three race-model tabs and
   # Routed Specialists; this page only includes or excludes whole families.
-  observeEvent(input$cons_season,{x<-race_choices(finish,input$cons_season);updateSelectInput(session,"cons_round",choices=setNames(x$round,x$label),selected=if(nrow(x))max(x$round)else NULL)},ignoreInit=FALSE)
+  observeEvent(input$cons_season,{
+    x<-race_choices(finish,input$cons_season)
+    upcoming<-x%>%filter(data_split=="upcoming")%>%slice_min(round,n=1,with_ties=FALSE)
+    selected_round<-if(nrow(upcoming))upcoming$round[[1]]else if(nrow(x))max(x$round)else NULL
+    updateSelectInput(session,"cons_round",choices=setNames(x$round,x$label),selected=selected_round)
+  },ignoreInit=FALSE)
   consensus_flags<-reactive(c(Finish=isTRUE(input$cons_use_finish),Probability=isTRUE(input$cons_use_probability),Points=isTRUE(input$cons_use_points),`Routed Specialists`=isTRUE(input$cons_use_routed)))
   validate_consensus_selection<-function(){
     flags<-consensus_flags();validate(need(any(flags),"Include at least one model family."))
@@ -1386,6 +1392,17 @@ server <- function(input, output, session) {
     if(input$chatter_view=="current"&&nrow(x)&&nrow(dk_current_race))x<-x%>%filter(season==dk_current_race$season[[1]],round==dk_current_race$round[[1]])
     x
   })
+  chatter_bet_rows<-reactive({
+    validate(need(identical(input$chatter_view,"current"),"Switch to Current race to view live chatter betting value."))
+    x<-chatter_rows()
+    validate(need(nrow(x),"No current chatter forecast is available."))
+    rows_to_bets(chatter_contract(x,TRUE))
+  })
+  output$chatter_bets<-renderTable({
+    x<-chatter_bet_rows()
+    validate(need(nrow(x),"No current chatter betting rows are available."))
+    render_bets_table(x)
+  },striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
   output$chatter_cards<-renderUI({
     x<-chatter_rows();applied<-if("chatter_overlay_applied"%in%names(x))sum(x$chatter_overlay_applied%in%TRUE,na.rm=TRUE)else 0
     if(input$chatter_view=="current"&&nrow(x)){
