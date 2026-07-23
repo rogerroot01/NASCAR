@@ -1,0 +1,40 @@
+season,round,race_date,race_name,track_name,driver_name,driver_id,odds_american,odds_decimal,implied_probability,sportsbook,odds_as_of,source_url,market_role,safe_as_model_feature
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Denny Hamlin,denny_hamlin,-165,1.606060606060606,0.6226415094339623,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Tyler Reddick,tyler_reddick,-125,1.8,0.5555555555555556,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Ryan Blaney,ryan_blaney,-105,1.9523809523809523,0.5121951219512195,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Kyle Larson,kyle_larson,-105,1.9523809523809523,0.5121951219512195,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,William Byron,william_byron,120,2.2,0.45454545454545453,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Christopher Bell,christopher_bell,135,2.35,0.425531914893617,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Chase Briscoe,chase_briscoe,135,2.35,0.425531914893617,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Chase Elliott,chase_elliott,160,2.6,0.3846153846153846,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Bubba Wallace,bubba_wallace,200,3,0.3333333333333333,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Joey Logano,joey_logano,210,3.1,0.3225806451612903,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Ty Gibbs,ty_gibbs,260,3.6,0.2777777777777778,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Chris Buescher,chris_buescher,260,3.6,0.2777777777777778,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Carson Hocevar,carson_hocevar,285,3.85,0.2597402597402597,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Erik Jones,erik_jones,425,5.25,0.19047619047619047,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Corey Heim,corey_heim,550,6.5,0.15384615384615385,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Austin Cindric,austin_cindric,500,6,0.16666666666666666,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Brad Keselowski,brad_keselowski,550,6.5,0.15384615384615385,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Shane Van Gisbergen,shane_van_gisbergen,650,7.5,0.13333333333333333,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,John Hunter Nemechek,john_hunter_nemechek,800,9,0.1111111111111111,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Alex Bowman,alex_bowman,850,9.5,0.10526315789473684,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Ross Chastain,ross_chastain,850,9.5,0.10526315789473684,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Daniel Suarez,daniel_suarez,1000,11,0.09090909090909091,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Ryan Preece,ryan_preece,1000,11,0.09090909090909091,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Riley Herbst,riley_herbst,1300,14,0.07142857142857142,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Connor Zilisch,connor_zilisch,1600,17,0.058823529411764705,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Josh Berry,josh_berry,1600,17,0.058823529411764705,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Michael McDowell,michael_mcdowell,2000,21,0.047619047619047616,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,AJ Allmendinger,aj_allmendinger,2200,23,0.043478260869565216,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Zane Smith,zane_smith,2200,23,0.043478260869565216,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Todd Gilliland,todd_gilliland,2500,26,0.038461538461538464,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Austin Hill,austin_hill,2500,26,0.038461538461538464,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Austin Dillon,austin_dillon,2500,26,0.038461538461538464,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Noah Gragson,noah_gragson,3000,31,0.03225806451612903,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Ricky Stenhouse Jr.,ricky_stenhouse_jr,3500,36,0.027777777777777776,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Cole Custer,cole_custer,5000,51,0.0196078431372549,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Cody Ware,cody_ware,5000,51,0.0196078431372549,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Ty Dillon,ty_dillon,5000,51,0.0196078431372549,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Daniel Dye,daniel_dye,6000,61,0.01639344262295082,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
+2026,22,2026-07-26,Brickyard 400 presented by PPG,Indianapolis Motor Speedway,Casey Mears,casey_mears,6000,61,0.01639344262295082,DraftKings,2026-07-23,,production_pre_race_complete_top5_board,TRUE
