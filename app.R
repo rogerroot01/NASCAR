@@ -862,7 +862,7 @@ app_shell <- navbarPage(
       div(class="page-hero",div(class="eyebrow","SIGNAL LAB"),h1("Chatter Overlay"),p("Base versus safely adjusted forecasts. Ineligible or missing chatter stays neutral.")),
       div(class="app-grid",
         aside(class="control-rail",h3("Display"),selectInput("chatter_roi_start","ROI start season",choices=c(2026,2025),selected=2025),selectInput("chatter_roi_end","ROI end season",choices=c(2026,2025),selected=2026),selectInput("chatter_view","View",choices=c("Current race"="current","2025 validation"="backtest")),div(class="rail-note","The ROI comparison shows the production consensus before and after the safety-gated chatter adjustment. No adjustment is applied unless the input passes the safety and timing rules.")),
-        main(class="content-stack",div(class="panel",h2("Base vs Chatter Season Betting ROI"),tableOutput("chatter_roi")),uiOutput("chatter_cards"),div(class="panel",h2("Adjustment detail"),div(class="table-scroll",tableOutput("chatter_table"))),div(class="panel",h2("Overlay validation"),tableOutput("chatter_metrics")))
+        main(class="content-stack",div(class="panel",h2("Base vs Chatter Season Betting ROI"),tableOutput("chatter_roi")),uiOutput("chatter_cards"),conditionalPanel(condition="input.chatter_view === 'current'",div(class="panel",h2("Chatter Projected Podium"),tableOutput("chatter_podium")),div(class="panel",h2("Full Chatter-Predicted Order"),p(class="panel-note","Ordered by the chatter-adjusted finish rank. The base rank and finish change show exactly where the overlay moved each driver."),div(class="table-scroll",tableOutput("chatter_order")))),div(class="panel",h2("Adjustment detail"),div(class="table-scroll",tableOutput("chatter_table"))),div(class="panel",h2("Overlay validation"),tableOutput("chatter_metrics")))
       )
     )
   ),
@@ -1332,15 +1332,33 @@ server <- function(input, output, session) {
     validate(need(nrow(base)&&nrow(adjusted),"No completed chatter-validation bets in this season window."))
     bind_rows(render_roi_table(base)%>%mutate(Variant="Base consensus",.before=1),render_roi_table(adjusted)%>%mutate(Variant="With chatter",.before=1))
   },striped=TRUE,hover=TRUE,spacing="s",rownames=FALSE)
+  chatter_rows<-reactive({
+    x<-if(input$chatter_view=="current")forecast else overlay_backtest
+    if(input$chatter_view=="current"&&nrow(x)&&nrow(dk_current_race))x<-x%>%filter(season==dk_current_race$season[[1]],round==dk_current_race$round[[1]])
+    x
+  })
   output$chatter_cards<-renderUI({
-    x<-if(input$chatter_view=="current")forecast else overlay_backtest;applied<-if("chatter_overlay_applied"%in%names(x))sum(x$chatter_overlay_applied%in%TRUE,na.rm=TRUE)else 0
+    x<-chatter_rows();applied<-if("chatter_overlay_applied"%in%names(x))sum(x$chatter_overlay_applied%in%TRUE,na.rm=TRUE)else 0
     if(input$chatter_view=="current"&&nrow(x)){
       base_pick<-x%>%slice_min(predicted_finish_rank,n=1,with_ties=FALSE);adjusted_pick<-x%>%slice_min(predicted_finish_rank_adjusted,n=1,with_ties=FALSE)
       div(class="metric-row",metric_card("Base finish pick",base_pick$driver_name,fmt_num(base_pick$predicted_finish_position,2),"gold"),metric_card("Chatter finish pick",adjusted_pick$driver_name,fmt_num(adjusted_pick$predicted_finish_position_adjusted,2),"blue"),metric_card("Adjustments applied",applied,paste0(nrow(x)-applied," neutral rows"),"green"))
     }else div(class="metric-row",metric_card("Rows",nrow(x),"2025 fixed-season validation","gold"),metric_card("Adjustments applied",applied,"Historical proxies remain neutral","blue"),metric_card("Signal status",if(applied>0)"Active"else"Neutral","Safety-gated overlay","green"))
   })
+  output$chatter_podium<-renderTable({
+    x<-chatter_rows()
+    validate(need(nrow(x),"No current chatter forecast is available."),need(all(c("predicted_finish_rank_adjusted","win_probability_adjusted","top3_probability_adjusted")%in%names(x)),"Adjusted chatter columns are unavailable."))
+    x%>%arrange(predicted_finish_rank_adjusted,driver_name)%>%slice_head(n=3)%>%
+      transmute(Spot=fmt_int(predicted_finish_rank_adjusted),Driver=driver_name,Owner=owner_name,Manufacturer=manufacturer,`Base rank`=fmt_int(predicted_finish_rank),`Chatter finish`=fmt_num(predicted_finish_position_adjusted,2),Win=fmt_pct(win_probability_adjusted,1),`Top 3`=fmt_pct(top3_probability_adjusted,1))
+  },striped=TRUE,hover=TRUE,spacing="s",rownames=FALSE)
+  output$chatter_order<-renderTable({
+    x<-chatter_rows()
+    required<-c("predicted_finish_rank_adjusted","predicted_finish_position_adjusted","win_probability_adjusted","top3_probability_adjusted")
+    validate(need(nrow(x),"No current chatter forecast is available."),need(all(required%in%names(x)),"Adjusted chatter columns are unavailable."))
+    x%>%mutate(finish_change=predicted_finish_position_adjusted-predicted_finish_position)%>%arrange(predicted_finish_rank_adjusted,driver_name)%>%
+      transmute(`Chatter rank`=fmt_int(predicted_finish_rank_adjusted),`Base rank`=fmt_int(predicted_finish_rank),Driver=driver_name,Owner=owner_name,Manufacturer=manufacturer,`Base finish`=fmt_num(predicted_finish_position,2),`Chatter finish`=fmt_num(predicted_finish_position_adjusted,2),`Finish change`=fmt_num(finish_change,2),Win=fmt_pct(win_probability_adjusted,1),`Top 3`=fmt_pct(top3_probability_adjusted,1),Points=fmt_num(predicted_points_adjusted,1),Applied=ifelse(chatter_overlay_applied%in%TRUE,"Yes","No"))
+  },striped=TRUE,hover=TRUE,spacing="s",rownames=FALSE)
   output$chatter_table<-renderTable({
-    x<-if(input$chatter_view=="current")forecast else overlay_backtest
+    x<-chatter_rows()
     required<-c("predicted_finish_position_adjusted","predicted_points_adjusted","win_probability_adjusted","top3_probability_adjusted")
     validate(need(all(required%in%names(x)),"Adjusted chatter columns are unavailable."))
     x%>%mutate(finish_change=predicted_finish_position_adjusted-predicted_finish_position,points_change=predicted_points_adjusted-predicted_points,win_change=win_probability_adjusted-win_probability,top3_change=top3_probability_adjusted-top3_probability)%>%
