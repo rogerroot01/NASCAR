@@ -276,9 +276,101 @@ dk_members <- read_required("nascar_stage19_draftkings_top_lineup_members_latest
 dk_salary_history <- read_optional("nascar_stage19_draftkings_salary_history.csv")
 dk_historical_scenario_lineups <- read_optional("nascar_stage19_historical_scenario_lineups.csv")
 dk_historical_scenario_members <- read_optional("nascar_stage19_historical_scenario_lineup_members.csv")
+dk_entries_template_path <- file.path(bundled_data,"keep these files","DKEntries.csv")
+dk_entries_template <- tibble(); dk_entries_roster <- tibble()
+if(file.exists(dk_entries_template_path)) {
+  template_lines<-readLines(dk_entries_template_path,warn=FALSE,encoding="UTF-8")
+  template_entry_rows<-suppressWarnings(suppressMessages(read_csv(dk_entries_template_path,show_col_types=FALSE,col_types=cols(.default=col_character()))))
+  if(ncol(template_entry_rows)>=10L) {
+    entry_key<-names(template_entry_rows)[[1]]
+    dk_entries_template<-template_entry_rows%>%filter(!is.na(.data[[entry_key]]),nzchar(trimws(.data[[entry_key]])))%>%select(1:10)
+    names(dk_entries_template)<-c("Entry ID","Contest Name","Contest ID","Entry Fee",rep("D",6L))
+  }
+  roster_header_line<-grep("Position,Name + ID,Name,ID",template_lines,fixed=TRUE)
+  if(length(roster_header_line)) {
+    roster_text<-paste(sub("^([^,]*,){11}","",template_lines[min(roster_header_line):length(template_lines)],perl=TRUE),collapse="\n")
+    dk_entries_roster<-suppressMessages(read_csv(I(roster_text),show_col_types=FALSE,col_types=cols(.default=col_character())))%>%
+      filter(!is.na(.data$ID),nzchar(trimws(.data$ID)))%>%distinct(.data$ID,.keep_all=TRUE)
+  }
+}
+recommend_dk_portfolio <- function(lineups, members) {
+  if (!nrow(lineups)) return(lineups)
+  if("projection_variant"%in%names(lineups)&&n_distinct(lineups$projection_variant)>1L) {
+    variants<-unique(lineups$projection_variant)
+    return(bind_rows(lapply(variants,function(variant){
+      variant_members<-if("projection_variant"%in%names(members))members%>%filter(.data$projection_variant==variant)else members
+      recommend_dk_portfolio(lineups%>%filter(.data$projection_variant==variant),variant_members)
+    })))
+  }
+  required <- c("lineup_rank", "scenario_name", "scenario_role", "projected_points", "mean_projected_points")
+  if (!all(required %in% names(lineups))) {
+    return(lineups %>% arrange(.data$lineup_rank) %>%
+             mutate(recommendation_rank=row_number(),recommendation_reason="Projected-points order",
+                    recommendation_tier=case_when(.data$recommendation_rank<=5L~"Top 5 play consideration",
+                                                  .data$recommendation_rank<=8L~"Top 8 shortlist",
+                                                  TRUE~"Full scenario pool")))
+  }
+  x <- lineups %>% distinct(.data$lineup_rank,.keep_all=TRUE)
+  selected <- integer(); reasons <- character()
+  add_best <- function(pool, reason, metric="projected_points") {
+    pool <- pool %>% filter(!.data$lineup_rank %in% selected)
+    if (!nrow(pool)) return(invisible(NULL))
+    chosen <- pool %>% arrange(desc(.data[[metric]]),desc(.data$projected_points),.data$lineup_rank) %>% slice(1)
+    selected <<- c(selected,as.integer(chosen$lineup_rank[[1]]))
+    reasons[[as.character(chosen$lineup_rank[[1]])]] <<- reason
+    invisible(NULL)
+  }
+  add_best(x,"Best median projection","mean_projected_points")
+  add_best(x,"Best remaining tournament ceiling")
+  add_best(x%>%filter(.data$scenario_role=="Split dominators"),"Best split-dominator build")
+
+  contrarian <- x %>% filter(.data$scenario_role=="Contrarian dominator ceiling")
+  focus_scenario <- character()
+  if (nrow(contrarian)) {
+    anchor_strength <- if (nrow(members) && all(c("scenario_name","lineup_role","dk_projection") %in% names(members))) {
+      members %>% filter(.data$scenario_name%in%contrarian$scenario_name,.data$lineup_role=="Dominator") %>%
+        group_by(.data$scenario_name) %>% summarise(anchor_ceiling=max(.data$dk_projection,na.rm=TRUE),.groups="drop")
+    } else tibble()
+    focus_scenario <- if(nrow(anchor_strength)) anchor_strength%>%arrange(desc(.data$anchor_ceiling),.data$scenario_name)%>%slice(1)%>%pull(.data$scenario_name) else contrarian%>%group_by(.data$scenario_name)%>%summarise(anchor_ceiling=max(.data$projected_points),.groups="drop")%>%arrange(desc(.data$anchor_ceiling))%>%slice(1)%>%pull(.data$scenario_name)
+    add_best(contrarian%>%filter(.data$scenario_name==focus_scenario),"Strongest contrarian-anchor build")
+    add_best(contrarian%>%filter(.data$scenario_name==focus_scenario),"Alternate construction for strongest contrarian anchor")
+    add_best(contrarian%>%filter(.data$scenario_name!=focus_scenario),"Best other contrarian-anchor build")
+  }
+  add_best(x%>%filter(.data$scenario_role=="Caution / strategy disruption"),"Best disruption build")
+  selected_scenarios <- x$scenario_name[match(selected,x$lineup_rank)]
+  add_best(x%>%filter(grepl("^Primary dominator",.data$scenario_role),!.data$scenario_name%in%selected_scenarios),"Best uncovered primary-dominator build")
+
+  remaining <- x %>% filter(!.data$lineup_rank%in%selected) %>%
+    mutate(utility=0.55*percent_rank(.data$mean_projected_points)+0.45*percent_rank(.data$projected_points)) %>%
+    arrange(desc(.data$utility),desc(.data$projected_points),.data$lineup_rank)
+  if(nrow(remaining)) {
+    selected <- c(selected,as.integer(remaining$lineup_rank))
+    for(id in remaining$lineup_rank) reasons[[as.character(id)]] <- "Remaining scenario-pool depth"
+  }
+  rank_lookup <- setNames(seq_along(selected),selected)
+  reason_lookup <- unlist(reasons)
+  x %>% mutate(
+    recommendation_rank=as.integer(rank_lookup[as.character(.data$lineup_rank)]),
+    recommendation_reason=unname(reason_lookup[as.character(.data$lineup_rank)]),
+    recommendation_tier=case_when(.data$recommendation_rank<=5L~"Top 5 play consideration",
+                                  .data$recommendation_rank<=8L~"Top 8 shortlist",
+                                  TRUE~"Full scenario pool")
+  ) %>% arrange(.data$recommendation_rank)
+}
+dk_lineups <- recommend_dk_portfolio(dk_lineups,dk_members)
+if(nrow(dk_historical_scenario_lineups)) {
+  dk_historical_scenario_lineups <- recommend_dk_portfolio(dk_historical_scenario_lineups,dk_historical_scenario_members)
+}
 dk_initial_lineups <- if ("projection_variant" %in% names(dk_lineups)) {
-  dk_lineups %>% filter(.data$projection_variant == "base")
+  dk_lineups %>% filter(.data$projection_variant == "base") %>% arrange(.data$recommendation_rank)
 } else dk_lineups
+dk_lineup_choices <- function(x) {
+  if (!nrow(x)) return(character())
+  x <- if("recommendation_rank"%in%names(x))x%>%arrange(.data$recommendation_rank)else x%>%arrange(.data$lineup_rank)
+  script <- if ("scenario_role" %in% names(x)) x$scenario_role else "Historical projection"
+  recommendation <- if("recommendation_rank"%in%names(x))paste0("Recommended ",x$recommendation_rank," | ")else ""
+  setNames(x$lineup_rank, paste0(recommendation,"Pool entry ", x$lineup_rank, " | ", script, " | ", fmt_num(x$projected_points, 1), " pts"))
+}
 dk_backtest <- read_required("nascar_stage20_2025_2026_draftkings_points_backtest.csv")
 dk_backtest_metrics <- read_optional("nascar_stage20_2025_2026_draftkings_points_backtest_metrics.csv")
 dk_current_race <- dk %>% distinct(season, round, race_name) %>% slice(1)
@@ -782,8 +874,8 @@ app_shell <- navbarPage(
     div(class="page-shell",
       div(class="page-hero",div(class="eyebrow","DRAFTKINGS LAB"),h1("Fantasy Lineup"),p("Current and historical projections, optimized lineups, salary use, place differential, laps led, and fastest laps.")),
       div(class="app-grid",
-        aside(class="control-rail",h3("Lineup"),selectInput("dk_race","Race",choices=dk_export_choices,selected="current"),checkboxInput("dk_use_chatter","Include chatter overlay",value=FALSE),selectInput("dk_lineup","Optimized lineup",choices=if(nrow(dk_initial_lineups)) setNames(dk_initial_lineups$lineup_rank,paste0("#",dk_initial_lineups$lineup_rank," — ",fmt_num(dk_initial_lineups$projected_points,1)," pts")) else character()),div(class="rail-note","DraftKings NASCAR Classic uses six equal driver slots and a $50,000 salary cap. The optimizer now works in three stages: choose a race script and dominator anchor, apply the track-specific roster architecture, then solve the remaining slots. Portfolios cap driver exposure at 70%, allow no more than two top-three starters, and limit shared cores to four drivers. Archived salary slates use the same leakage-safe scenario process."),hr(),h3("Lineup download"),downloadButton("dk_lineup_download","Download optimized lineups (CSV)"),div(class="rail-note","Exports all 20 optimized lineups with race script, lineup architecture, mean and scenario totals, construction roles, six driver names, DraftKings IDs, salaries, and projections."),hr(),h3("Projection download"),downloadButton("dk_driver_download","Download driver projections (CSV)"),div(class="rail-note","The download follows the selected race. Current-slate downloads include construction roles, 25+/50+/75+/100+/150+/200+ dominator probabilities, and 75th/90th-percentile fantasy scores; completed races include projected versus actual scoring components.")),
-        main(class="content-stack",uiOutput("dk_cards"),div(class="panel",h2("Selected lineup"),tableOutput("dk_selected")),div(class="panel",h2("Full driver board"),div(class="table-scroll",tableOutput("dk_board"))),div(class="panel",h2("Top optimized lineups"),tableOutput("dk_top")))
+        aside(class="control-rail",h3("Portfolio"),selectInput("dk_race","Race",choices=dk_export_choices,selected="current"),conditionalPanel(condition="input.dk_race === 'current'",checkboxInput("dk_use_chatter","Include chatter overlay",value=FALSE)),conditionalPanel(condition="input.dk_race !== 'current'",div(class="rail-note","Historical fantasy archives are base-only. Chatter was not archived, so no duplicate chatter download is offered.")),selectInput("dk_lineup","Recommended lineup",choices=dk_lineup_choices(dk_initial_lineups)),div(class="rail-note","The first five are the primary playable set and the first eight are the extended shortlist. Recommendation order balances median projection, tournament ceiling, split control, contrarian anchors, and disruption coverage. Pool-entry numbers preserve the original 20-lineup scenario audit; they are not rankings. The generator itself, 70% exposure cap, two-front-starter limit, and four-driver overlap ceiling remain unchanged."),hr(),h3("Recommended shortlist"),downloadButton("dk_shortlist_download","Download Top 8 shortlist (CSV)"),div(class="rail-note","Exports the ordered eight-lineup shortlist. Recommendation ranks 1-5 are the primary playable set; ranks 6-8 extend scenario coverage."),hr(),h3("20-entry max portfolio"),downloadButton("dk_lineup_download","Download full 20-entry portfolio (CSV)"),div(class="rail-note","Exports every generated candidate in recommendation order, including Top 5 and Top 8 tiers, selection reasons, original pool-entry numbers, race scripts, roster architecture, DraftKings IDs, salaries, and projections."),hr(),h3("DraftKings-ready"),downloadButton("dk_copy_top8_download","Copy/paste Top 8 driver slots (CSV)"),downloadButton("dk_copy_20_download","Copy/paste 20-max driver slots (CSV)"),downloadButton("dk_entries_upload_download","Populate kept DKEntries upload (CSV)"),uiOutput("dk_upload_status"),div(class="rail-note","Copy/paste files contain six DraftKings D columns with exact Name (ID) values. The populated upload preserves Entry ID, contest metadata and fees from the kept DKEntries.csv; multi-entry contests receive recommendations 1 through N, while each single-entry contest receives recommendation 1."),hr(),h3("Projection download"),downloadButton("dk_driver_download","Download driver projections (CSV)"),div(class="rail-note","The download follows the selected race. Current-slate downloads include reconciled DraftKings components, an explicit chatter adjustment, construction roles, 25+/50+/75+/100+/150+/200+ dominator probabilities, and 75th/90th-percentile fantasy scores; completed races include projected versus actual scoring components.")),
+        main(class="content-stack",uiOutput("dk_cards"),div(class="panel",h2("Selected portfolio entry"),tableOutput("dk_selected")),div(class="panel",h2("Full driver board"),div(class="table-scroll",tableOutput("dk_board"))),div(class="panel",h2("Portfolio entries"),tableOutput("dk_top")))
       )
     )
   ),
@@ -1264,7 +1356,7 @@ server <- function(input, output, session) {
     suffix<-if(dk_variant()=="chatter")"chatter"else"base"
     projection_col<-paste0("dk_projection_",suffix);value_col<-paste0("dk_value_per_1000_",suffix);finish_col<-paste0("dk_projected_finish_rank_",suffix);finish_points_col<-paste0("dk_finish_position_points_",suffix);place_diff_col<-paste0("dk_place_differential_points_",suffix);model_points_col<-paste0("dk_projected_points_model_",suffix);p75_col<-paste0("dk_score_p75_",suffix);p90_col<-paste0("dk_score_p90_",suffix)
     variant_cols<-c(projection_col,value_col,finish_col,finish_points_col,place_diff_col,model_points_col,p75_col,p90_col)
-    if(all(variant_cols%in%names(x)))x<-x%>%mutate(dk_projection=.data[[projection_col]],dk_value_per_1000=.data[[value_col]],dk_projected_finish_rank=.data[[finish_col]],dk_finish_position_points=.data[[finish_points_col]],dk_place_differential_points=.data[[place_diff_col]],dk_projected_points_model=.data[[model_points_col]],dk_score_p75=.data[[p75_col]],dk_score_p90=.data[[p90_col]])
+    if(all(variant_cols%in%names(x)))x<-x%>%mutate(dk_projection=.data[[projection_col]],dk_value_per_1000=.data[[value_col]],dk_projected_finish_rank=.data[[finish_col]],dk_finish_position_points=.data[[finish_points_col]],dk_place_differential_points=.data[[place_diff_col]],dk_projected_points_model=.data[[model_points_col]],dk_score_p75=.data[[p75_col]],dk_score_p90=.data[[p90_col]],dk_chatter_adjustment_points=if(suffix=="chatter")coalesce(.data$dk_chatter_overlay_points,0)else 0,dk_standard_component_points=.data$dk_finish_position_points+.data$dk_place_differential_points+.data$dk_laps_led_points+.data$dk_fastest_lap_points,dk_projection_reconciliation_error=.data$dk_projection-(.data$dk_standard_component_points+.data$dk_chatter_adjustment_points))
     x
   })
   dk_historical_rows<-reactive({
@@ -1361,8 +1453,10 @@ server <- function(input, output, session) {
         projected_place_differential_points=dk_place_differential_points,
         projected_laps_led,projected_laps_led_points=dk_laps_led_points,
         projected_fastest_laps,projected_fastest_lap_points=dk_fastest_lap_points,
+        projected_standard_component_points=dk_standard_component_points,
+        projected_chatter_adjustment_points=dk_chatter_adjustment_points,
         projected_model_dk_points=dk_projected_points_model,
-        displayed_dk_projection=dk_projection,dk_value_per_1000,
+        displayed_dk_projection=dk_projection,projection_reconciliation_error=dk_projection_reconciliation_error,dk_value_per_1000,
         dk_score_p75,dk_score_p90,
         prob_lead_25_plus,prob_lead_50_plus,prob_lead_75_plus,prob_lead_100_plus,prob_lead_150_plus,prob_lead_200_plus,
         dominator_role,construction_role,punt_role,front_start_risk,dominator_scenario_source,
@@ -1391,7 +1485,10 @@ server <- function(input, output, session) {
       projected_finish_points,projected_place_differential_points=projected_place_diff_postqual,
       projected_laps_led,projected_laps_led_points=.25*projected_laps_led,
       projected_fastest_laps,projected_fastest_lap_points=.45*projected_fastest_laps,
+      projected_standard_component_points=projected_finish_points+projected_place_diff_postqual+.25*projected_laps_led+.45*projected_fastest_laps,
+      projected_chatter_adjustment_points=0,
       projected_model_dk_points=projected_dk_points_postqual,displayed_dk_projection=projected_dk_points_postqual,
+      projection_reconciliation_error=projected_dk_points_postqual-(projected_finish_points+projected_place_diff_postqual+.25*projected_laps_led+.45*projected_fastest_laps),
       dk_value_per_1000=if_else(!is.na(.data$salary)&.data$salary>0,1000*.data$projected_dk_points_postqual/.data$salary,NA_real_),
       dk_score_p75=NA_real_,dk_score_p90=NA_real_,
       prob_lead_25_plus=NA_real_,prob_lead_50_plus=NA_real_,prob_lead_75_plus=NA_real_,
@@ -1436,26 +1533,93 @@ server <- function(input, output, session) {
       left_join(member_wide,by=c("projection_variant","lineup_rank"),relationship="one-to-one")%>%
       mutate(source_type=if(dk_is_current())"current_slate"else"completed_backtest",
              season=first(meta$season),round=first(meta$round),race_name=first(meta$race_name),
-             track_name=first(meta$track_name),.before=1)%>%
+             track_name=first(meta$track_name),portfolio_entry=.data$lineup_rank,
+             display_order_note="Scenario-balanced portfolio slot; not a best-to-worst ranking",.before=1)%>%
       select(source_type,projection_variant,season,round,race_name,track_name,
-             lineup_rank,total_salary,salary_remaining,projected_points,
+             portfolio_entry,lineup_rank,display_order_note,total_salary,salary_remaining,projected_points,
              any_of(c("scenario_name","scenario_role","lineup_archetype","scenario_probability","mean_projected_points",
                       "front_start_count","top10_start_count","deep_start_count","premium_count","upper_mid_count",
                       "mid_tier_count","value_count","true_punt_count",
+                      "recommendation_rank","recommendation_tier","recommendation_reason",
                       "max_shared_drivers","max_driver_exposure_pct","portfolio_source")),
              any_of(slot_cols),drivers)%>%
-      arrange(.data$lineup_rank)
+      arrange(.data$recommendation_rank)
   })
+  output$dk_shortlist_download<-downloadHandler(
+    filename=function(){
+      x<-dk_lineup_export_rows()%>%slice(1)
+      race_slug<-str_to_lower(str_replace_all(x$race_name,"[^A-Za-z0-9]+","_"))%>%str_replace_all("^_|_$","")
+      paste0("nascar_fantasy_top_8_shortlist_",x$season,"_round_",x$round,"_",race_slug,"_",x$projection_variant,".csv")
+    },
+    content=function(file)write_csv(dk_lineup_export_rows()%>%filter(.data$recommendation_rank<=8L),file,na="")
+  )
   output$dk_lineup_download<-downloadHandler(
     filename=function(){
       x<-dk_lineup_export_rows()%>%slice(1)
       race_slug<-str_to_lower(str_replace_all(x$race_name,"[^A-Za-z0-9]+","_"))%>%str_replace_all("^_|_$","")
-      paste0("nascar_fantasy_optimized_lineups_",x$season,"_round_",x$round,"_",race_slug,"_",x$projection_variant,".csv")
+      paste0("nascar_fantasy_20_entry_max_portfolio_",x$season,"_round_",x$round,"_",race_slug,"_",x$projection_variant,".csv")
     },
     content=function(file)write_csv(dk_lineup_export_rows(),file,na="")
   )
+  dk_ready_slot_rows<-function(limit){
+    x<-dk_lineup_export_rows()%>%filter(.data$recommendation_rank<=as.integer(limit))%>%arrange(.data$recommendation_rank)
+    validate(need(nrow(x)>0,"No recommended DraftKings lineups are available."))
+    values<-matrix(NA_character_,nrow=nrow(x),ncol=6L)
+    for(slot in seq_len(6L)){
+      ids<-as.character(x[[paste0("driver_",slot,"_dk_id")]])
+      driver_names<-as.character(x[[paste0("driver_",slot,"_name")]])
+      exact<-if(nrow(dk_entries_roster))dk_entries_roster$`Name + ID`[match(ids,as.character(dk_entries_roster$ID))]else rep(NA_character_,length(ids))
+      values[,slot]<-ifelse(!is.na(exact)&nzchar(exact),exact,paste0(driver_names," (",ids,")"))
+    }
+    out<-as.data.frame(values,stringsAsFactors=FALSE,check.names=FALSE)
+    names(out)<-rep("D",6L)
+    out
+  }
+  dk_populated_entry_rows<-function(){
+    validate(need(dk_is_current(),"The kept DKEntries template can only populate the current slate."))
+    validate(need(nrow(dk_entries_template)>0,"No kept DKEntries.csv template is available."))
+    x<-dk_lineup_export_rows()%>%arrange(.data$recommendation_rank)
+    all_ids<-unlist(lapply(seq_len(6L),function(slot)as.character(x[[paste0("driver_",slot,"_dk_id")]])),use.names=FALSE)
+    validate(need(nrow(dk_entries_roster)>0&&all(all_ids%in%as.character(dk_entries_roster$ID)),"The kept DKEntries.csv does not match the active DraftKings driver pool."))
+    slots<-dk_ready_slot_rows(20L)
+    meta<-as.data.frame(dk_entries_template[,1:4],stringsAsFactors=FALSE,check.names=FALSE)
+    assignment<-integer(nrow(meta))
+    contest_groups<-split(seq_len(nrow(meta)),as.character(meta[[3]]))
+    for(indices in contest_groups){
+      single_entry<-grepl("Single Entry",as.character(meta[[2]][indices[[1]]]),ignore.case=TRUE)
+      assignment[indices]<-if(single_entry)1L else seq_along(indices)
+    }
+    validate(need(all(assignment>=1L&assignment<=nrow(slots)),"The kept entry template requests more lineups than the 20-entry portfolio supplies."))
+    out<-cbind(meta,slots[assignment,,drop=FALSE])
+    names(out)<-c("Entry ID","Contest Name","Contest ID","Entry Fee",rep("D",6L))
+    out
+  }
+  dk_ready_filename<-function(prefix){
+    x<-dk_lineup_export_rows()%>%slice(1)
+    race_slug<-str_to_lower(str_replace_all(x$race_name,"[^A-Za-z0-9]+","_"))%>%str_replace_all("^_|_$","")
+    paste0(prefix,"_",x$season,"_round_",x$round,"_",race_slug,"_",x$projection_variant,".csv")
+  }
+  output$dk_copy_top8_download<-downloadHandler(
+    filename=function()dk_ready_filename("nascar_draftkings_copy_paste_top_8"),
+    content=function(file)write_csv(dk_ready_slot_rows(8L),file,na="")
+  )
+  output$dk_copy_20_download<-downloadHandler(
+    filename=function()dk_ready_filename("nascar_draftkings_copy_paste_20_entry_max"),
+    content=function(file)write_csv(dk_ready_slot_rows(20L),file,na="")
+  )
+  output$dk_entries_upload_download<-downloadHandler(
+    filename=function()dk_ready_filename("nascar_draftkings_populated_entries"),
+    content=function(file)write_csv(dk_populated_entry_rows(),file,na="")
+  )
+  output$dk_upload_status<-renderUI({
+    if(!dk_is_current())return(div(class="rail-note","Select the current slate to populate the kept DKEntries template."))
+    x<-dk_lineup_export_rows()
+    ids<-unlist(lapply(seq_len(6L),function(slot)as.character(x[[paste0("driver_",slot,"_dk_id")]])),use.names=FALSE)
+    ready<-nrow(dk_entries_template)>0&&nrow(dk_entries_roster)>0&&all(ids%in%as.character(dk_entries_roster$ID))
+    if(ready)div(class="rail-note",paste0(nrow(dk_entries_template)," kept DraftKings entries match the active driver pool and are ready to populate."))else div(class="rail-note","The kept DKEntries.csv is missing or belongs to a different DraftKings driver pool.")
+  })
   observeEvent(list(dk_variant(),dk_race_choice()),{
-    x<-dk_lineups_view();choices<-if(nrow(x))setNames(x$lineup_rank,paste0("#",x$lineup_rank," — ",fmt_num(x$projected_points,1)," pts"))else character()
+    x<-dk_lineups_view();choices<-dk_lineup_choices(x)
     updateSelectInput(session,"dk_lineup",choices=choices,selected=if(length(choices))unname(choices[[1]])else character())
   },ignoreInit=TRUE)
   output$dk_cards<-renderUI({
@@ -1468,7 +1632,8 @@ server <- function(input, output, session) {
     proxies<-applied-verified
     changed<-if(all(c("dk_projection_base","dk_projection_chatter")%in%names(dk)))sum(abs(dk$dk_projection_base-dk$dk_projection_chatter)>1e-9,na.rm=TRUE)else 0
     overlay_note<-if(!dk_is_current())"Historical backtest; chatter variant was not archived"else if(dk_variant()=="chatter")paste0(applied," applied: ",verified," verified (",carryover," carryovers) + ",proxies," proxies; ",changed," driver projections changed")else"Excluded"
-    projection_note<-if(all(c("scenario_role","mean_projected_points")%in%names(r)))paste0(r$scenario_role,"; mean ",fmt_num(r$mean_projected_points,1))else paste0("Lineup #",r$lineup_rank)
+    recommendation_note<-if("recommendation_rank"%in%names(r))paste0("Recommended ",r$recommendation_rank,"; ")else""
+    projection_note<-if(all(c("scenario_role","mean_projected_points")%in%names(r)))paste0(recommendation_note,r$scenario_role,"; mean ",fmt_num(r$mean_projected_points,1))else paste0(recommendation_note,"Pool entry ",r$lineup_rank)
     div(class="metric-row",metric_card("Scenario points",fmt_num(r$projected_points,1),projection_note,"gold"),metric_card("Salary",paste0("$",fmt_int(r$total_salary)),paste0("$",fmt_int(r$salary_remaining)," remaining"),"blue"),metric_card("Chatter overlay",if(dk_is_current()&&dk_variant()=="chatter")"Included"else"Excluded",overlay_note,"green"))
   })
   output$dk_selected<-renderTable({
@@ -1486,9 +1651,9 @@ server <- function(input, output, session) {
   output$dk_top<-renderTable({
     x<-dk_lineups_view()
     if(!nrow(x))return(tibble(Status="No optimized lineups are available because this race does not have an archived DraftKings salary slate."))
-    x<-x%>%slice_head(n=10)
-    if(dk_is_current()||"portfolio_source"%in%names(x))x%>%transmute(Rank=fmt_int(lineup_rank),Script=scenario_role,Architecture=str_to_title(str_replace_all(lineup_archetype,"_"," ")),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),`Scenario projection`=fmt_num(projected_points,1),Mean=fmt_num(mean_projected_points,1),Front=fmt_int(front_start_count),Shared=fmt_int(max_shared_drivers),Drivers=drivers)
-    else x%>%transmute(Rank=fmt_int(lineup_rank),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),Projection=fmt_num(projected_points,1),Drivers=drivers)
+    x<-x%>%arrange(.data$recommendation_rank)%>%slice_head(n=8)
+    if(dk_is_current()||"portfolio_source"%in%names(x))x%>%transmute(Recommended=fmt_int(recommendation_rank),`Pool entry`=fmt_int(lineup_rank),Reason=recommendation_reason,Script=scenario_role,Architecture=str_to_title(str_replace_all(lineup_archetype,"_"," ")),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),`Scenario projection`=fmt_num(projected_points,1),Mean=fmt_num(mean_projected_points,1),Front=fmt_int(front_start_count),Shared=fmt_int(max_shared_drivers),Drivers=drivers)
+    else x%>%transmute(Entry=fmt_int(lineup_rank),Salary=paste0("$",fmt_int(total_salary)),Remaining=paste0("$",fmt_int(salary_remaining)),Projection=fmt_num(projected_points,1),Drivers=drivers)
   },striped=TRUE,rownames=FALSE)
   output$bt_cards<-renderUI({x<-backtest%>%filter(round==as.integer(input$bt_round));pick<-x%>%slice_min(predicted_finish_rank,n=1);div(class="metric-row",metric_card("Predicted winner",pick$driver_name,pick$owner_name,"gold"),metric_card("Actual winner",(x%>%filter(target_finish_position==1)%>%pull(driver_name)%>%first())%||%"—",first(x$race_name),"blue"),metric_card("Field",nrow(x),paste0(str_to_title(active_strategy_name)," evaluation"),"green"))})
   output$bt_metrics<-renderTable(backtest_metrics,striped=TRUE,rownames=FALSE)
