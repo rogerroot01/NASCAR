@@ -234,6 +234,7 @@ family_specs <- list(
 )
 
 forecast <- read_required("nascar_stage18_current_forecast_with_safe_overlays_latest.csv")
+matchup_value <- read_required("nascar_stage18_current_matchup_value_latest.csv")
 qualifying_chatter <- qualifying
 if (nrow(forecast) && all(c("predicted_qualifying_position","predicted_qualifying_position_adjusted") %in% names(forecast))) {
   qualifying_chatter_shift <- forecast %>%
@@ -835,6 +836,16 @@ app_shell <- navbarPage(
     family_tab("points","Points Model","Compare NASCAR race-points projections and the selected-model ensemble.",betting=TRUE)
   ),
 
+  tabPanel("Matchups",
+    div(class="page-shell",
+      div(class="page-hero",div(class="eyebrow","BETTING LAB"),h1("Driver Matchups"),p("DraftKings head-to-head finish prices compared with probabilities calibrated from the rolling finish model.")),
+      div(class="app-grid",
+        aside(class="control-rail",h3("Value settings"),checkboxInput("matchup_use_chatter","Use chatter-adjusted finish projections",value=TRUE),checkboxInput("matchup_positive_only","Show positive expected value only",value=TRUE),div(class="rail-note","Market probabilities remove the two-sided sportsbook vig. Model fair odds come from out-of-sample 2025-2026 pairwise finish calibration. Expected return is per $1 staked and is an estimate, not a guarantee.")),
+        main(class="content-stack",uiOutput("matchup_cards"),div(class="panel",h2("Ranked head-to-head value"),p(class="panel-note","Each row is one bet side. Positive expected return means the model probability exceeds the break-even probability at the quoted price."),div(class="table-scroll",tableOutput("matchup_table"))),div(class="panel",h2("How the matchup model is calibrated"),tableOutput("matchup_calibration")))
+      )
+    )
+  ),
+
   navbarMenu("Ensembles",
   tabPanel("Routed Specialists",
     div(class="page-shell",
@@ -904,6 +915,44 @@ ui <- tagList(
 )
 
 server <- function(input, output, session) {
+  matchup_variant_rows <- reactive({
+    variant <- if(isTRUE(input$matchup_use_chatter)) "chatter" else "base"
+    matchup_value %>% filter(.data$projection_variant == .env$variant) %>% arrange(desc(.data$expected_roi))
+  })
+  matchup_rows <- reactive({
+    x <- matchup_variant_rows()
+    if(isTRUE(input$matchup_positive_only)) x <- x %>% filter(.data$positive_ev %in% TRUE)
+    validate(need(nrow(x),"No matchup sides clear the selected positive-value filter."))
+    x
+  })
+  output$matchup_cards <- renderUI({
+    x <- matchup_variant_rows(); validate(need(nrow(x),"No current matchup valuation is available."))
+    best <- x %>% slice_max(.data$expected_roi,n=1,with_ties=FALSE)
+    div(class="metric-row",
+        metric_card("Best model value",best$offered_driver,paste0("vs ",best$opponent),"gold"),
+        metric_card("Expected return / $1",fmt_pct(best$expected_roi,1),paste0("DraftKings ",american_label(best$offered_odds_american)),"green"),
+        metric_card("Model edge",fmt_pct(best$model_edge,1),paste0(fmt_pct(best$model_probability,1)," model vs ",fmt_pct(best$market_no_vig_probability,1)," market"),"blue"))
+  })
+  output$matchup_table <- renderTable({
+    matchup_rows() %>% transmute(
+      Rank=fmt_int(.data$value_rank),Bet=.data$offered_driver,Opponent=.data$opponent,
+      `DraftKings odds`=american_label(.data$offered_odds_american),
+      `Model fair odds`=american_label(.data$model_fair_odds_american),
+      `Model probability`=fmt_pct(.data$model_probability,1),
+      `Market no-vig`=fmt_pct(.data$market_no_vig_probability,1),
+      Edge=fmt_pct(.data$model_edge,1),`Expected return`=fmt_pct(.data$expected_roi,1),
+      `Projected finish`=fmt_num(.data$projected_finish,2),
+      `Opponent finish`=fmt_num(.data$opponent_projected_finish,2)
+    )
+  },striped=TRUE,hover=TRUE,spacing="s",rownames=FALSE)
+  output$matchup_calibration <- renderTable({
+    x <- matchup_variant_rows(); validate(need(nrow(x),"No matchup calibration is available."))
+    tibble(
+      Metric=c("Historical race-driver pairs","Pairwise Brier score","Higher-probability side accuracy","Projection variant"),
+      Value=c(fmt_int(first(x$calibration_unique_pairs)),fmt_num(first(x$calibration_brier),4),fmt_pct(first(x$calibration_accuracy),1),if(isTRUE(input$matchup_use_chatter))"Chatter-adjusted current finish"else"Base current finish")
+    )
+  },striped=TRUE,rownames=FALSE)
+
   register_family <- function(prefix, data, family) {
     available_models <- if(family=="qualifying") qualifying_models else all_models
     default_models_for_race <- function() {
@@ -1677,7 +1726,7 @@ server <- function(input, output, session) {
   output$bt_metrics<-renderTable(backtest_metrics,striped=TRUE,rownames=FALSE)
   output$bt_table<-renderTable({backtest%>%filter(round==as.integer(input$bt_round))%>%arrange(predicted_finish_rank)%>%transmute(Rank=predicted_finish_rank,Driver=driver_name,Owner=owner_name,Qualifying=predicted_qualifying_rank,`Pred finish`=fmt_num(predicted_finish_position,1),Win=fmt_pct(win_probability,1),`Top 3`=fmt_pct(top3_probability,1),Points=fmt_num(predicted_points,1),Actual=fmt_int(target_finish_position))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$spec_table<-renderTable({x<-family_specs[[input$spec_family]];x%>%mutate(model=model_label(model))%>%select(any_of(c("model","route","train_end_season","position_rows","deficit_rows","training_rows","selected_numeric_features","target","max_depth","eta","min_child_weight","subsample","colsample_bytree","nrounds","eval_metric","eval_value","tuning_status")))},striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
-  output$file_table<-renderTable({files<-c("nascar_active_strategy.csv","nascar_stage15_upcoming_race_predictions_latest.csv",paste0("nascar_stage15_current_",c("qualifying","finish","probability","points"),"_model_predictions_latest.csv"),"nascar_stage16_active_backtest_2025_2026.csv","nascar_stage17_market_winner_full_boards_2025_2026.csv","nascar_stage18_current_forecast_with_safe_overlays_latest.csv","nascar_stage21_laps_led_current_predictions_latest.rds","nascar_stage22_fastest_laps_current_predictions_latest.rds","nascar_stage19_draftkings_driver_projections_latest.csv");tibble(File=files,Exists=vapply(files,function(x)file.exists(data_path(x)),logical(1)),Modified=vapply(files,function(x){p<-data_path(x);if(file.exists(p))format(file.info(p)$mtime,"%Y-%m-%d %H:%M")else"—"},character(1)))},striped=TRUE,hover=TRUE,rownames=FALSE)
+  output$file_table<-renderTable({files<-c("nascar_active_strategy.csv","nascar_stage15_upcoming_race_predictions_latest.csv",paste0("nascar_stage15_current_",c("qualifying","finish","probability","points"),"_model_predictions_latest.csv"),"nascar_stage16_active_backtest_2025_2026.csv","nascar_stage17_market_winner_full_boards_2025_2026.csv","nascar_stage17_current_matchups.csv","nascar_stage18_current_matchup_value_latest.csv","nascar_stage18_current_forecast_with_safe_overlays_latest.csv","nascar_stage21_laps_led_current_predictions_latest.rds","nascar_stage22_fastest_laps_current_predictions_latest.rds","nascar_stage19_draftkings_driver_projections_latest.csv");tibble(File=files,Exists=vapply(files,function(x)file.exists(data_path(x)),logical(1)),Modified=vapply(files,function(x){p<-data_path(x);if(file.exists(p))format(file.info(p)$mtime,"%Y-%m-%d %H:%M")else"—"},character(1)))},striped=TRUE,hover=TRUE,rownames=FALSE)
   output$audit_table<-renderTable(external_audit,striped=TRUE,hover=TRUE,spacing="xs",rownames=FALSE)
 }
 

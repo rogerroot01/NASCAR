@@ -1812,7 +1812,7 @@
   },
   "files": {
     "app.R": {
-      "checksum": "35ca5d0fc958006eda558b9dd446efa1"
+      "checksum": "e6875dcdb3309d6ec8cbd447ad92d9a2"
     },
     "data/keep these files/DKEntries.csv": {
       "checksum": "d23acb881369675901fca5223cfeae05"
@@ -1842,7 +1842,7 @@
       "checksum": "575235e177210ff39cbe8325eefad781"
     },
     "data/keep these files/nascar_current_market_odds.csv": {
-      "checksum": "cef29b320134f1a90a42836ecbde1881"
+      "checksum": "bc4a21f7dc1b6d0f1b37357302e0cf8b"
     },
     "data/keep these files/nascar_current_qualifying_override.csv": {
       "checksum": "8de0a2452ffa780040664e1a312c688b"
@@ -1992,7 +1992,7 @@
       "checksum": "cb79f36e575c9ef66b37062cc9d591af"
     },
     "data/nascar_stage17_external_inputs_audit.csv": {
-      "checksum": "43cbc192ffd4eb246afe63bbe2ab3cc5"
+      "checksum": "64a7cd906527ae6aa2215455b6c90a08"
     },
     "data/nascar_stage17_market_qualifying_partial_2025_2026.csv": {
       "checksum": "09ed167bb0614fcafe4ac917c79a9402"
@@ -2001,13 +2001,13 @@
       "checksum": "565a9050805683b4e70a2a3ebe0b93ce"
     },
     "data/nascar_stage17_market_top3_verified_partial_2025_2026.csv": {
-      "checksum": "d02dff9906d6d5fe1ccc265a042a0542"
+      "checksum": "8491dbebc2f43d6cd5d16cc7a3efe595"
     },
     "data/nascar_stage17_market_winner_evaluation_2025_2026.csv": {
       "checksum": "a75a668b58abfac2fdff0743d09a90d7"
     },
     "data/nascar_stage17_market_winner_full_boards_2025_2026.csv": {
-      "checksum": "f0e4d2706caaca6066bd9cf2399c10fc"
+      "checksum": "8175661819813ef4e818ec482d2b6208"
     },
     "data/nascar_stage18_2025_backtest_safe_overlay.csv": {
       "checksum": "37abca3f45127177bc37590f52df0749"
@@ -2082,7 +2082,7 @@
       "checksum": "dcf8466e408d99cdbeba693cc4474842"
     },
     "README.md": {
-      "checksum": "5fb72d0ba0ae5ffa9d0d08c910414b35"
+      "checksum": "c5da1dc7bb802334d4e9bb1155772f95"
     },
     "www/app-icon-512.png": {
       "checksum": "32b1599aa4b360cf8a7c4101131b9418"
@@ -2092,6 +2092,18 @@
     },
     "www/styles.css": {
       "checksum": "f5795fc5856e3646f470c7efb810316e"
+    },
+    "data/keep these files/nascar_current_matchup_odds.csv": {
+      "checksum": "a7b0a9777d2906788ea8a4053beefb14"
+    },
+    "data/nascar_stage17_current_matchups.csv": {
+      "checksum": "924e09781a55d29754a75d3a231cd973"
+    },
+    "data/nascar_stage17_market_top5_current.csv": {
+      "checksum": "2679aa27312da5378ae669e831cc914c"
+    },
+    "data/nascar_stage18_current_matchup_value_latest.csv": {
+      "checksum": "104c9b76543e2188cd2441b391ed9f2d"
     }
   },
   "users": null
