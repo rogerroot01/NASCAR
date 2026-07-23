@@ -836,16 +836,6 @@ app_shell <- navbarPage(
     family_tab("points","Points Model","Compare NASCAR race-points projections and the selected-model ensemble.",betting=TRUE)
   ),
 
-  tabPanel("Matchups",
-    div(class="page-shell",
-      div(class="page-hero",div(class="eyebrow","BETTING LAB"),h1("Driver Matchups"),p("DraftKings head-to-head finish prices compared with probabilities calibrated from the rolling finish model.")),
-      div(class="app-grid",
-        aside(class="control-rail",h3("Value settings"),checkboxInput("matchup_use_chatter","Use chatter-adjusted finish projections",value=TRUE),checkboxInput("matchup_positive_only","Show positive expected value only",value=TRUE),div(class="rail-note","Market probabilities remove the two-sided sportsbook vig. Model fair odds come from out-of-sample 2025-2026 pairwise finish calibration. Expected return is per $1 staked and is an estimate, not a guarantee.")),
-        main(class="content-stack",uiOutput("matchup_cards"),div(class="panel",h2("Ranked head-to-head value"),p(class="panel-note","Each row is one bet side. Positive expected return means the model probability exceeds the break-even probability at the quoted price."),div(class="table-scroll",tableOutput("matchup_table"))),div(class="panel",h2("How the matchup model is calibrated"),tableOutput("matchup_calibration")))
-      )
-    )
-  ),
-
   navbarMenu("Ensembles",
   tabPanel("Routed Specialists",
     div(class="page-shell",
@@ -880,6 +870,16 @@ app_shell <- navbarPage(
 
   component_tab("ll","Laps Led","Explicit XGBoost models allocate the share of scheduled laps each driver is expected to lead. These predictions feed DraftKings fantasy scoring.",laps_led_component_views),
   component_tab("fl","Fastest Laps","Explicit XGBoost models predict the share of race laps on which each driver is expected to receive a fastest-lap loop-data credit. Caution laps are not forced into the pool. These predictions feed DraftKings fantasy scoring.",fastest_lap_component_views),
+
+  tabPanel("Matchups",
+    div(class="page-shell",
+      div(class="page-hero",div(class="eyebrow","BETTING LAB"),h1("Driver Matchups"),p("DraftKings head-to-head finish prices compared with probabilities calibrated from the rolling finish model.")),
+      div(class="app-grid",
+        aside(class="control-rail",h3("Value settings"),checkboxInput("matchup_use_chatter","Use chatter-adjusted finish projections",value=TRUE),checkboxInput("matchup_positive_only","Show positive expected value only",value=TRUE),div(class="rail-note","Market probabilities remove the two-sided sportsbook vig. Model fair odds come from out-of-sample 2025-2026 pairwise finish calibration. Expected return is per $1 staked and is an estimate, not a guarantee.")),
+        main(class="content-stack",uiOutput("matchup_cards"),div(class="panel",h2("Ranked head-to-head value"),p(class="panel-note","Each row is one bet side. Positive expected return means the model probability exceeds the break-even probability at the quoted price."),div(class="table-scroll",tableOutput("matchup_table"))),div(class="panel",h2("How the matchup model is calibrated"),tableOutput("matchup_calibration")))
+      )
+    )
+  ),
 
   tabPanel("Fantasy Lineup",
     div(class="page-shell",
